@@ -1,0 +1,77 @@
+/* ==========================================================================
+   MENU (telas < 1180px) — sobreposição em Azul Profundo.
+   Itens entram em sequência, separados pela linha da marca.
+   ========================================================================== */
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-menu);
+  background: var(--c-azul);
+  color: var(--c-marfim);
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--dur-3) var(--ease-inout);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.menu.is-open { clip-path: inset(0); }
+.menu[hidden] { display: block; visibility: hidden; }
+.menu.is-open, .menu.is-closing { visibility: visible; }
+
+.menu__inner {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s-8);
+  padding: calc(var(--hd-h) + var(--s-4)) var(--margin) var(--s-6);
+}
+
+.menu__nav li {
+  border-top: 1px solid rgb(244 240 232 / 0.18);
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--dur-3) var(--ease-orient),
+    transform var(--dur-4) var(--ease-orient);
+}
+.menu__nav li:last-child { border-bottom: 1px solid rgb(244 240 232 / 0.18); }
+.menu.is-open .menu__nav li {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(120ms + var(--i) * 55ms);
+}
+.menu__nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  padding-block: var(--s-2);
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: clamp(2rem, 7vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-head);
+}
+.menu__nav .i--arrow {
+  width: 28px;
+  opacity: 0.6;
+  transition: transform var(--dur-3) var(--ease-orient), opacity var(--dur-2);
+}
+.menu__nav a:hover .i--arrow,
+.menu__nav a:focus-visible .i--arrow { transform: translateX(6px); opacity: 1; }
+
+.menu__foot {
+  display: grid;
+  gap: var(--s-3);
+  justify-items: start;
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease-orient) 380ms;
+}
+.menu.is-open .menu__foot { opacity: 1; }
+.menu__contact {
+  font-size: var(--fs-small);
+  color: var(--c-azul-20);
+}
+
+html.menu-open { overflow: hidden; }

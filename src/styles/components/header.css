@@ -1,0 +1,186 @@
+/* ==========================================================================
+   HEADER — transparente sobre o hero; ao rolar, compacta, ganha superfície
+   e reorganiza a assinatura (principal → horizontal). O tom (claro/escuro)
+   acompanha a seção que está sob ele (scripts/ui/header.js).
+   ========================================================================== */
+
+.hd {
+  --hd-fg: var(--c-azul);
+  --hd-surface: var(--c-marfim);
+  --hd-rule: rgb(43 43 43 / 0.14);
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-header);
+  height: var(--hd-h);
+  color: var(--hd-fg);
+  transition:
+    height var(--dur-3) var(--ease-orient),
+    color var(--dur-3) var(--ease-orient);
+}
+.hd[data-tone='dark'] {
+  --hd-fg: var(--c-marfim);
+  --hd-surface: var(--c-azul);
+  --hd-rule: rgb(244 240 232 / 0.16);
+}
+.hd.is-compact { height: var(--hd-h-compact); }
+
+/* Superfície: desce do topo ao compactar (não aparece "do nada") */
+.hd::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--hd-surface);
+  transform: translateY(-101%);
+  transition:
+    transform var(--dur-3) var(--ease-orient),
+    background-color var(--dur-3) var(--ease-orient);
+}
+.hd.is-compact::before { transform: none; }
+
+/* Linha inferior — separa, só quando há superfície */
+.hd::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: var(--hd-rule);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-4) var(--ease-orient) 80ms, background-color var(--dur-3);
+}
+.hd.is-compact::after { transform: none; }
+
+.hd__bar {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding-inline: var(--margin);
+}
+
+.hd__brand {
+  position: relative;
+  display: block;
+  padding-block: var(--s-1);
+  transition: opacity var(--dur-2);
+}
+.hd__brand:hover { opacity: 0.78; }
+.hd__wm { --wm-w: 150px; }
+
+@media (max-width: 1179px) {
+  .hd__wm { --wm-w: 116px; }
+}
+@media (max-width: 380px) {
+  .hd.is-compact .hd__wm { --wm-w: 100px; }
+}
+
+/* Capítulo atual — orientação contextual (telas largas) */
+.hd__chapter {
+  display: none;
+}
+@media (min-width: 1440px) {
+  .hd__chapter {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity var(--dur-2), transform var(--dur-3) var(--ease-orient);
+    pointer-events: none;
+  }
+  .hd.is-compact .hd__chapter.has-text {
+    opacity: 0.72;
+    transform: none;
+  }
+  .hd__chapter-line {
+    width: var(--s-3);
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .hd__chapter-text.is-swapping { opacity: 0; transform: translateY(-4px); }
+  .hd__chapter-text { display: inline-block; transition: opacity var(--dur-2), transform var(--dur-2) var(--ease-orient); }
+}
+
+/* Navegação */
+.hd__nav {
+  display: none;
+  margin-left: auto;
+}
+.hd__nav ul {
+  display: flex;
+  gap: clamp(1.25rem, 2vw, 2.25rem);
+}
+.hd__nav a {
+  position: relative;
+  display: block;
+  padding-block: var(--s-1);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+/* A linha sob o item: hover e capítulo ativo */
+.hd__nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.125rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur-3) var(--ease-orient);
+}
+.hd__nav a:hover::after,
+.hd__nav a.is-current::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.hd__nav a.is-current::after { opacity: 0.55; }
+.hd__nav a:hover::after { opacity: 1; }
+
+.hd__cta { display: none; }
+
+@media (min-width: 1180px) {
+  .hd__nav { display: block; }
+  .hd__cta { display: inline-flex; }
+  .hd__menu { display: none !important; }
+}
+
+/* Botão de menu: duas linhas → X */
+.hd__menu {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  padding-inline: var(--s-1) 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+.hd__menu-icon {
+  position: relative;
+  width: 24px;
+  height: 10px;
+}
+.hd__menu-icon i {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transition: transform var(--dur-3) var(--ease-orient), top var(--dur-3) var(--ease-orient);
+}
+.hd__menu-icon i:first-child { top: 0; }
+.hd__menu-icon i:last-child { top: 9px; transform-origin: right; transform: scaleX(0.6); }
+.hd__menu[aria-expanded='true'] .hd__menu-icon i:first-child { top: 4.5px; transform: rotate(45deg) scaleX(0.9); }
+.hd__menu[aria-expanded='true'] .hd__menu-icon i:last-child { top: 4.5px; transform-origin: center; transform: rotate(-45deg) scaleX(0.9); }

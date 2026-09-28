@@ -1,0 +1,86 @@
+/* ==========================================================================
+   PERGUNTAS — a voz do paciente. Superfície Cinza Quente (mudança de
+   perspectiva), com transição de luz, não de bloco.
+   ========================================================================== */
+
+.questions {
+  position: relative;
+  padding: var(--section) var(--margin);
+  background: linear-gradient(
+    180deg,
+    var(--c-marfim) 0,
+    var(--c-cinza-20) min(40vh, 22rem),
+    var(--c-cinza-20) calc(100% - min(40vh, 22rem)),
+    var(--c-marfim) 100%
+  );
+}
+.questions__title { margin-top: var(--s-4); }
+
+.questions__body {
+  position: relative;
+  margin-top: clamp(4rem, 14vh, 9rem);
+  padding-left: clamp(2rem, 6vw, 6rem);
+}
+.questions__rail {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  color: var(--c-azul);
+}
+.questions__rail-line { opacity: 0.2; }
+.questions__marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 4rem;
+  background: var(--c-azul);
+  opacity: 0;
+  transform: translateY(0);
+  transition: opacity var(--dur-3);
+}
+.questions__marker::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: clamp(1rem, 3vw, 3rem);
+  height: 1px;
+  background: currentColor;
+  color: var(--c-azul);
+  background: var(--c-azul);
+}
+.questions.has-active .questions__marker { opacity: 1; }
+
+.questions__list { display: grid; gap: clamp(3.5rem, 16vh, 10rem); }
+.question__text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 1rem + 3.2vw, 4.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  color: var(--c-azul);
+  text-wrap: balance;
+  transition: color var(--dur-4) var(--ease-orient), opacity var(--dur-4) var(--ease-orient);
+}
+.question__text .ln__i { transition: transform var(--dur-4) var(--ease-orient); }
+
+/* Foco progressivo: fora de foco, contraste reduzido (≥ 3:1 — texto grande) */
+.questions.has-active .question__text,
+.questions.has-active .questions__closing { color: var(--fg-quiet); }
+.questions.has-active [data-q].is-active .question__text,
+.questions.has-active .questions__closing.is-active { color: var(--c-azul); }
+
+.questions__closing {
+  margin-top: clamp(6rem, 22vh, 14rem);
+  font-style: normal;
+  transition: color var(--dur-4) var(--ease-orient);
+}
+
+@media (min-width: 1024px) {
+  .questions__body { margin-left: calc((100% + var(--gutter)) / 12 * 1); }
+  .question:nth-child(even) { padding-left: calc((100% + var(--gutter)) / 11 * 2); }
+}

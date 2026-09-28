@@ -1,0 +1,20 @@
+/* Dr. Vinicius Marques Rodrigues — folha única (o build concatena os @import). */
+@import './tokens.css';
+@import './base.css';
+@import './components/wordmark.css';
+@import './components/controls.css';
+@import './components/media-core.css';
+@import './components/media.css';
+@import './components/header.css';
+@import './components/menu.css';
+@import './components/footer.css';
+@import './sections/hero-authority.css';
+@import './sections/care.css';
+@import './sections/doctor.css';
+@import './sections/pause.css';
+@import './sections/areas.css';
+@import './sections/questions.css';
+@import './sections/articles.css';
+@import './sections/vivenza.css';
+@import './sections/closing.css';
+@import './sections/pages.css';

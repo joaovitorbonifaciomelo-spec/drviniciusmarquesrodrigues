@@ -1,0 +1,68 @@
+/* ==========================================================================
+   MÍDIA — núcleo (usado pelo site e pela /bio/). Variantes de cena do site
+   ficam em media.css.
+   Imagens/vídeos reais preenchem o recorte (object-fit: cover).
+   "Cenas" são placeholders com direção de arte: tom, direção de luz e
+   briefing de captação. Substituídas via content/media.mjs, sem tocar no CSS.
+   ========================================================================== */
+
+.media__pic,
+.media__pic img,
+.media__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* O vídeo só cobre o pôster quando está tocando — nunca um quadro preto */
+.media__video { opacity: 0; transition: opacity var(--dur-4) var(--ease-calm); }
+.media__video.is-playing { opacity: 1; }
+
+.scene {
+  --scene-bg: var(--c-azul);
+  --scene-note: rgb(244 240 232 / 0.62);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--scene-bg);
+  contain: paint;
+}
+.scene__light {
+  position: absolute;
+  inset: -12%;
+  background: var(--scene-light, none);
+}
+.scene__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.scene__note {
+  position: absolute;
+  left: clamp(0.75rem, 1.4vw, 1.25rem);
+  bottom: clamp(0.75rem, 1.4vw, 1.25rem);
+  max-width: min(34ch, calc(100% - 2rem));
+  padding-left: 0.75rem;
+  border-left: 1px solid currentColor;
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--scene-note);
+  text-wrap: pretty;
+}
+.scene__note b {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+@keyframes scene-drift {
+  from { transform: translate3d(-3%, 0, 0); }
+  to { transform: translate3d(3%, -1.5%, 0); }
+}

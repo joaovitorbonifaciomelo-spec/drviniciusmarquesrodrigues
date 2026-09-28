@@ -1,0 +1,155 @@
+/* ==========================================================================
+   CTA — derivado do MARCADOR (cápsula + seta). O preenchimento cresce da
+   esquerda para a direita: o gesto acompanha a direção da seta.
+   ========================================================================== */
+
+.cta {
+  --cta-fg: var(--c-marfim);
+  --cta-bg: var(--c-azul);
+  --cta-fg-hover: var(--c-azul);
+  --cta-fill: var(--c-marfim);
+  --cta-border: var(--c-azul);
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 48px;
+  padding: 0 var(--s-3) 0 1.625rem;
+  border: 1px solid var(--cta-border);
+  border-radius: 999px;
+  background: var(--cta-bg);
+  color: var(--cta-fg);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: color var(--dur-3) var(--ease-orient), border-color var(--dur-3);
+  -webkit-tap-highlight-color: transparent;
+}
+.cta__fill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--cta-fill);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-3) var(--ease-orient);
+}
+.cta__text, .cta__icon { position: relative; display: inline-flex; }
+.cta__icon .i { width: 11px; height: 11px; transition: transform var(--dur-3) var(--ease-orient); }
+
+@media (hover: hover) {
+  .cta:hover { color: var(--cta-fg-hover); }
+  .cta:hover .cta__fill { transform: scaleX(1); }
+  .cta:hover .cta__icon .i { transform: translate(2px, -2px); }
+}
+.cta:active .cta__fill { transform: scaleX(1); transition-duration: var(--dur-1); }
+.cta:active { color: var(--cta-fg-hover); }
+.cta:focus-visible { outline: 2px solid var(--cta-border); outline-offset: 5px; border-radius: 999px; }
+.cta--light:focus-visible { outline-color: var(--c-marfim); }
+
+/* Variantes */
+.cta--light {
+  --cta-fg: var(--c-azul);
+  --cta-bg: var(--c-marfim);
+  --cta-fill: var(--c-azul);
+  --cta-fg-hover: var(--c-marfim);
+  --cta-border: var(--c-marfim);
+}
+.cta--light:hover { --cta-border: var(--c-marfim); }
+.cta--ghost {
+  --cta-fg: currentColor;
+  --cta-bg: transparent;
+  --cta-border: currentColor;
+  --cta-fill: currentColor;
+  min-height: 40px;
+  padding: 0 var(--s-2) 0 var(--s-3);
+  font-size: 0.6875rem;
+}
+.hd .cta--ghost { --cta-fg-hover: var(--hd-surface); }
+.hd .cta--ghost .cta__text,
+.hd .cta--ghost .cta__icon { transition: color var(--dur-3) var(--ease-orient); }
+@media (hover: hover) {
+  .hd .cta--ghost:hover .cta__text,
+  .hd .cta--ghost:hover .cta__icon { color: var(--hd-surface); }
+}
+.cta--large {
+  min-height: 60px;
+  padding: 0 var(--s-4) 0 var(--s-5);
+  font-size: 0.8125rem;
+  gap: var(--s-3);
+}
+.cta--large .cta__icon .i { width: 13px; height: 13px; }
+
+/* ==========================================================================
+   LINK EDITORIAL COM SETA — a haste da seta cresce no hover (a linha conduz)
+   ========================================================================== */
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-strong);
+}
+.link-arrow__text {
+  background: linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat;
+  padding-bottom: 3px;
+  transition: background-size var(--dur-3) var(--ease-orient);
+}
+.link-arrow__icon { display: inline-flex; }
+.link-arrow .i--arrow { width: 24px; transition: transform var(--dur-3) var(--ease-orient); }
+.link-arrow .i--out { width: 11px; height: 11px; transition: transform var(--dur-3) var(--ease-orient); }
+@media (hover: hover) {
+  .link-arrow:hover .link-arrow__text { background-size: 0% 1px; background-position: right bottom; }
+  .link-arrow:hover .i--arrow { transform: translateX(6px); }
+  .link-arrow:hover .i--out { transform: translate(2px, -2px); }
+}
+.link-arrow.is-disabled { opacity: 0.45; cursor: not-allowed; }
+.link-arrow.is-disabled .link-arrow__text { background-size: 0 1px; }
+
+/* ==========================================================================
+   LINHA DE ORIENTAÇÃO — elemento base
+   ========================================================================== */
+
+.oline {
+  display: block;
+  background: currentColor;
+  opacity: 0.22;
+  pointer-events: none;
+}
+.oline--x { width: 100%; height: 1px; transform-origin: left center; }
+.oline--y { width: 1px; height: 100%; transform-origin: center top; }
+
+html.motion .oline--x[data-line='draw']:not(html.motion.stage [data-scene-desktop] *) { transform: scaleX(0); }
+html.motion .oline--y[data-line='draw']:not(html.motion.stage [data-scene-desktop] *) { transform: scaleY(0); }
+
+/* Ícones */
+.i { flex: none; }
+.i--arrow { width: 24px; height: 12px; }
+
+/* Meta editorial: categoria / tempo de leitura */
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.meta__cat { color: var(--c-mineral); }
+.surface-dark .meta__cat { color: var(--c-azul-20); }
+.meta__sep { width: var(--s-2); height: 1px; background: currentColor; opacity: 0.5; }
+
+.registry { white-space: normal; }
+.registry__item { white-space: nowrap; }
+.registry__spec { color: var(--fg-muted); }

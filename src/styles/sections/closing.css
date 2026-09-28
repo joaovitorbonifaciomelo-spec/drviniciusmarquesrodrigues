@@ -1,0 +1,87 @@
+/* ==========================================================================
+   ENCERRAMENTO — Azul Profundo, muito espaço. A linha desce e termina no CTA.
+   ========================================================================== */
+
+.closing { background: var(--c-marfim); }
+
+.closing__panel {
+  --fg: var(--c-marfim);
+  --fg-strong: var(--c-marfim);
+  --fg-muted: var(--c-azul-20);
+  --line: rgb(244 240 232 / 0.22);
+  position: relative;
+  overflow: hidden;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  background: var(--c-azul);
+  color: var(--c-marfim);
+  padding: calc(var(--section) * 1.1) var(--margin) var(--section);
+}
+.closing__panel ::selection { background: var(--c-marfim); color: var(--c-azul); }
+/* Textura, não fotografia: baixa opacidade + desfoque, para não competir
+   com o texto nem virar uma foto legível de um ambiente/objeto específico.
+   (Antes só a cena-placeholder tinha esse tratamento; a foto real herda
+   o mesmo princípio agora — ver content/media.mjs → closing.) */
+.closing__bg { position: absolute; inset: -2%; opacity: 0.16; filter: blur(3px) saturate(0.85); }
+.closing__bg .scene__note { display: none; }
+.closing__bg .scene__grain { display: none; } /* já não precisa: a foto real tem grão próprio */
+
+/* A Linha de Orientação desce do topo e dobra em direção ao CTA */
+.closing__line {
+  position: absolute;
+  top: 0;
+  left: calc(var(--margin) / 2);
+  width: 1px;
+  height: var(--closing-line-h, 18vh);
+  background: rgb(244 240 232 / 0.4);
+  transform-origin: top;
+}
+.closing__branch {
+  display: none;
+  position: absolute;
+  top: var(--closing-line-h, 18vh);
+  left: calc(var(--margin) / 2);
+  width: var(--closing-branch-w, 0px);
+  height: 1px;
+  background: rgb(244 240 232 / 0.4);
+  transform-origin: left;
+}
+
+.closing__inner { position: relative; width: 100%; }
+.closing__title { color: var(--c-marfim); }
+.closing__copy { margin-top: var(--s-5); max-width: 30rem; }
+.closing__cta { margin-top: var(--s-6); }
+.closing__channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-6);
+  margin-top: var(--s-8);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-small);
+  max-width: 34rem;
+}
+.closing__channels li { display: flex; gap: var(--s-2); align-items: baseline; }
+.closing__channel-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--c-azul-40);
+}
+.closing__channels a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+@media (min-width: 1024px) {
+  .closing__inner {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gutter);
+  }
+  .closing__title { grid-column: 2 / 11; }
+  .closing__copy,
+  .closing__cta,
+  .closing__channels { grid-column: 2 / 8; }
+  .closing__line, .closing__branch { left: var(--margin); }
+  .closing__branch { display: block; }
+}

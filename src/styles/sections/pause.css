@@ -1,0 +1,93 @@
+/* ==========================================================================
+   PAUSA EDITORIAL — respiro. A imagem se abre a partir de um recorte estreito;
+   as frases descem em diagonal, como a própria linha que orienta.
+   ========================================================================== */
+
+.pause {
+  position: relative;
+  background: var(--c-marfim);
+  padding: var(--s-8) 0 var(--section);
+}
+.pause__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--c-cinza-80);
+  margin-inline: var(--margin);
+}
+.pause__media-inner { position: absolute; inset: 0; }
+.pause__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgb(22 52 71 / 0.35) 100%);
+  opacity: 0;
+}
+.pause__phrases {
+  display: grid;
+  gap: var(--s-8);
+  padding: var(--s-12) var(--margin) 0;
+}
+.pause__phrase {
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+  letter-spacing: var(--tracking-head);
+  color: var(--c-azul);
+}
+.pause__phrase--2 { padding-left: 8%; }
+.pause__phrase--3 { padding-left: 16%; }
+
+@media (min-width: 768px) {
+  .pause__media { aspect-ratio: 16 / 9; }
+}
+@media (min-width: 1024px) {
+  .pause__phrases {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gutter);
+    row-gap: var(--s-10);
+  }
+  .pause__phrase--1 { grid-column: 1 / 8; }
+  .pause__phrase--2 { grid-column: 4 / 12; padding: 0; }
+  .pause__phrase--3 { grid-column: 6 / 13; padding: 0; }
+}
+
+/* ---------- PALCO (desktop + movimento) ---------- */
+
+html.motion.stage .pause { padding: 0; }
+.pause { --pause-dist: 230vh; }
+html.motion.stage .pause .pause__track { height: calc(100vh + var(--pause-dist)); }
+html.motion.stage .pause .pause__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+html.motion.stage .pause .pause__media {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  aspect-ratio: auto;
+  background: transparent;
+  will-change: clip-path;
+}
+html.motion.stage .pause .pause__media-inner { will-change: transform; }
+html.motion.stage .pause .pause__shade {
+  background:
+    linear-gradient(90deg, rgb(22 52 71 / 0.5) 0%, rgb(22 52 71 / 0.12) 60%, transparent 100%),
+    linear-gradient(180deg, rgb(22 52 71 / 0.25) 0%, transparent 30%, rgb(22 52 71 / 0.35) 100%);
+}
+html.motion.stage .pause .pause__phrases {
+  position: absolute;
+  inset: 0;
+  padding: calc(var(--hd-h-compact) + 10vh) var(--margin) 12vh;
+  grid-template-rows: repeat(3, auto);
+  align-content: space-between;
+  pointer-events: none;
+}
+html.motion.stage .pause .pause__phrase {
+  color: var(--c-marfim);
+  font-size: clamp(2.25rem, 1.2rem + 3.2vw, 4.75rem);
+}
+
+html.motion.stage:not(.motion-ready) .pause .pause__phrases { visibility: hidden; }

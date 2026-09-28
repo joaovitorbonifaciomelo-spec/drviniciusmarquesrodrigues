@@ -1,0 +1,7 @@
+/* /bio/ — bundle próprio, embutido inline no HTML (CSS crítico).
+   Só o essencial do sistema: tokens, base, assinatura, núcleo de mídia. */
+@import './tokens.css';
+@import './base.css';
+@import './components/wordmark.css';
+@import './components/media-core.css';
+@import './bio/bio.css';

@@ -1,0 +1,609 @@
+/* ==========================================================================
+   /bio/ — UMA TELA IMERSIVA
+   Home: scroll = descoberta. /bio/: toque = decisão.
+
+   O vídeo vertical é o ambiente inteiro (full-bleed, 100svh) — não um
+   recorte ao lado da interface. A UI é desenhada SOBRE o filme: nome e
+   especialidades no topo, a pergunta e três destinos embaixo, sob o
+   polegar. Um véu cinematográfico (não um painel opaco) garante contraste:
+   mais denso nas bordas onde há texto, quase ausente no centro, onde o
+   rosto precisa respirar. Se o vídeo falhar, o pôster sustenta tudo.
+   Reações à intenção (toque, foco, hover) vêm de [data-intent] — bio.js.
+   ========================================================================== */
+
+html[data-page='bio'] { background: var(--c-azul); }
+
+.bio {
+  --bm: clamp(1.25rem, 5.4vw, 2.5rem);   /* margem lateral */
+  --indent: 2rem;                         /* da linha ao texto */
+  --ink: var(--c-marfim);                 /* texto sobre o filme: sempre claro */
+  --muted: rgb(244 240 232 / 0.72);
+  --track: rgb(244 240 232 / 0.32);
+  --row-gap: 0.25rem;
+  --press: 80ms;                          /* resposta ao toque: imediata */
+  --release: 280ms;
+  --top: env(safe-area-inset-top, 0px);
+  --bottom: env(safe-area-inset-bottom, 0px);
+  /* Enquadramento do vídeo — token único, sobrescrito por breakpoint.
+     Mobile: Dr. Vinicius no quadrante superior direito (a metade inferior
+     fica limpa para a interface). */
+  --bio-focal: 74% 26%;
+  position: relative;
+  min-height: 100svh;
+  color: var(--ink);
+  overflow: hidden;
+  isolation: isolate;
+}
+.bio :is(a, button) { -webkit-tap-highlight-color: transparent; }
+.bio .skip { background: var(--c-marfim); color: var(--c-azul); }
+
+/* ---------------------------------------------------------------- PALCO */
+/* O filme É a atmosfera — não um elemento decorativo pequeno. Sangra sob
+   as safe areas de propósito (imersão); só o CONTEÚDO respeita a safe area. */
+
+.bio-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--c-azul);
+  overflow: hidden;
+}
+.bio-stage__inner { position: absolute; inset: -3%; }
+.bio-stage .media__pic img,
+.bio-stage .media__video { object-position: var(--bio-focal); }
+
+/* Véu: overlay Azul Profundo sutil no todo, mais denso no topo (wordmark)
+   e na base (ações) por um gradiente vertical; o centro — onde está o
+   rosto — permanece o mais transparente possível. */
+.bio-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgb(22 52 71 / 0.58) 0%,
+      rgb(22 52 71 / 0.16) 16%,
+      rgb(22 52 71 / 0.06) 34%,
+      rgb(22 52 71 / 0.1) 48%,
+      rgb(22 52 71 / 0.42) 66%,
+      rgb(22 52 71 / 0.82) 88%,
+      rgb(22 52 71 / 0.92) 100%
+    ),
+    linear-gradient(100deg, rgb(22 52 71 / 0.4) 0%, rgb(22 52 71 / 0) 42%);
+}
+
+/* Placeholder vertical: parede em penumbra, luz de janela, volume da
+   figura no quadrante indicado por --bio-focal. */
+.scene--bio {
+  --scene-bg:
+    radial-gradient(65% 42% at 74% 30%, #3a5566 0%, transparent 70%),
+    linear-gradient(170deg, #1d3a4c 0%, #163447 44%, #0f2533 100%);
+  --scene-light: linear-gradient(97deg, transparent 50%, rgb(244 240 232 / 0.16) 60%, transparent 72%);
+}
+.scene--bio .scene__light { filter: blur(14px); animation: scene-drift 30s var(--ease-inout) infinite alternate; }
+.scene--bio::after {
+  content: '';
+  position: absolute;
+  left: 42%;
+  top: 6%;
+  width: 56%;
+  height: 62%;
+  border-radius: 38% 38% 44% 44% / 30% 30% 36% 36%;
+  background: radial-gradient(60% 55% at 50% 38%, rgb(8 22 31 / 0.55), transparent 72%);
+  filter: blur(22px);
+}
+/* Nota de briefing (só a cena-placeholder, nunca conteúdo real): ancorada
+   logo abaixo do cabeçalho — previsível mesmo quando o bloco de decisão
+   cresce (ex.: título em 2 linhas). Em telas baixas, cede: o conteúdo real
+   tem prioridade e a nota some (permanece documentada em media.mjs). */
+.scene--bio .scene__note {
+  left: 50%;
+  right: auto;
+  top: calc(var(--top, 0px) + 7.25rem);
+  bottom: auto;
+  max-width: min(78vw, 24rem);
+  transform: translateX(-50%);
+}
+@media (max-height: 640px), (max-width: 340px) {
+  .scene--bio .scene__note { display: none; }
+}
+html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
+
+/* ---------------------------------------------------------------- COMPOSIÇÃO */
+
+.bio-main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding: calc(var(--top) + 1rem) var(--bm) calc(var(--bottom) + 0.75rem);
+}
+
+/* Topo — nome + especialidades, integrados ao filme (sem caixa) */
+.bio-top { flex: none; }
+.bio-brand { display: inline-block; color: var(--ink); }
+.bio-wm { --wm-w: clamp(6.5rem, 22vw, 8rem); }
+.bio-specialties {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em 0.6em;
+  margin-top: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bio-specialties__dot { opacity: 0.6; }
+
+/* Bloco de decisão + rodapé: ancorados diretamente à base da tela (não por
+   flex/margin-auto) — a posição não pode depender da altura do cabeçalho.
+   Isso importa de verdade: a troca de fonte (fallback → Newsreader/Inter)
+   muda a altura do topo por alguns pixels, e um ancoramento por auto-margin
+   arrastaria o bloco inteiro junto, gerando CLS. Fixo na base, imune a isso. */
+.bio-pin {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Rótulo contextual: aparece perto do topo-direito quando um destino é
+   sinalizado (toque/hover/foco) — a "legenda" da cena, não um crop. */
+.bio-context {
+  position: absolute;
+  z-index: 1;
+  right: var(--bm);
+  top: calc(var(--top) + 1.05rem);
+  height: 1rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-marfim);
+  pointer-events: none;
+  text-align: right;
+}
+.bio-context span {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  opacity: 0;
+  translate: 0 -0.375rem;
+  transition: opacity 180ms var(--ease-orient), translate var(--release) var(--ease-orient);
+}
+.bio-context span::after { content: ''; width: 0.875rem; height: 1px; background: currentColor; }
+
+.bio-toggle {
+  position: fixed;
+  z-index: 2;
+  right: max(var(--bm), calc(var(--bm) - 0.625rem));
+  bottom: calc(var(--bottom) + 1rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--c-marfim);
+  opacity: 0.7;
+}
+.bio-toggle .i { width: 10px; height: 10px; }
+.bio-toggle__icon { display: inline-flex; }
+.bio-toggle .bio-toggle__icon--play,
+.bio-toggle[aria-pressed='true'] .bio-toggle__icon--pause { display: none; }
+.bio-toggle[aria-pressed='true'] .bio-toggle__icon--play { display: inline-flex; }
+.bio-toggle:focus-visible { outline-color: var(--c-marfim); outline-offset: -6px; opacity: 1; }
+
+/* ---------------------------------------------------------------- DECISÃO */
+
+/* Tronco: um segmento por nó (pergunta + cada destino); o preenchimento
+   claro mostra para onde a linha aponta. Em repouso: a consulta. */
+.bseg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: calc(var(--row-gap) * -1);
+  width: 1px;
+  background: var(--track);
+  transform-origin: top;
+}
+.bseg__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 200ms var(--ease-orient);
+}
+
+.bio-q {
+  position: relative;
+  padding: 0 0 0.875rem var(--indent);
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: clamp(1.75rem, 7.6vw, 2.375rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-shadow: 0 1px 24px rgb(22 52 71 / 0.35);
+}
+.bio-q .bseg { top: -0.5rem; bottom: 0; }
+.bio-q .bseg__fill { clip-path: inset(0 0 0 0); }
+.bio-q__tick {
+  position: absolute;
+  left: 0;
+  top: 0.54em;
+  width: 1.25rem;
+  height: 1px;
+  background: var(--ink);
+}
+
+.bio-actions { display: grid; gap: var(--row-gap); }
+.bact { position: relative; --tick-y: 1.42rem; }
+.bact:last-child .bseg { bottom: auto; height: var(--tick-y); }
+
+.bact__link {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 0.75rem;
+  min-height: 3.625rem;
+  padding: 0.5rem 0 0.5rem var(--indent);
+  color: var(--ink);
+  transition: opacity 160ms var(--ease-orient), background-color var(--release) var(--ease-orient);
+}
+.bact__tick {
+  position: absolute;
+  left: 0;
+  top: var(--tick-y);
+  width: 1.25rem;
+  height: 1px;
+  background: var(--ink);
+  opacity: 0.55;
+  transform-origin: left;
+  transition: transform var(--release) var(--ease-orient), opacity var(--release);
+}
+.bact__text { display: block; min-width: 0; }
+.bact__title {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: 1.3125rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 16px rgb(22 52 71 / 0.3);
+  transition: transform var(--release) var(--ease-orient);
+}
+.bact__detail {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+.bact__go {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.6;
+  transition: transform var(--release) var(--ease-orient), opacity var(--release);
+}
+.bact__stem {
+  width: 0.875rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--release) var(--ease-orient);
+}
+.bact__go .i--arrow { width: 1.375rem; height: 0.75rem; }
+.bact__go .i--out { width: 0.75rem; height: 0.75rem; margin-left: 0.125rem; }
+
+/* Ação principal: BLOCO opaco (no Brandbook, o bloco "cria prioridade") —
+   o único elemento que não depende do véu para ter contraste. */
+.bact--primary { --tick-y: 2.4rem; }
+.bact--primary .bact__link {
+  min-height: 4.75rem;
+  margin-left: 1rem;
+  padding: 0.8125rem 1.125rem 0.8125rem 1rem;
+  background: var(--c-azul);
+  color: var(--c-marfim);
+  box-shadow: 0 8px 28px rgb(15 40 56 / 0.32);
+}
+.bact--primary .bact__tick { left: -1rem; width: 1rem; opacity: 1; }
+.bact--primary .bact__title { font-size: 1.4375rem; text-shadow: none; }
+.bact--primary .bact__detail {
+  margin-top: 0.3rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-azul-20);
+}
+.bact--primary .bact__detail .ph { color: var(--c-azul-40); text-transform: none; letter-spacing: 0.02em; }
+.bact--primary .bact__go { opacity: 1; }
+.bact--primary .bact__link:focus-visible { outline: 2px solid var(--c-marfim); outline-offset: 3px; }
+.bact__link:focus-visible { outline-color: var(--c-marfim); outline-offset: 2px; }
+
+/* ---------------------------------------------------------------- INTENÇÃO */
+/* Tudo reage junto e rápido; nada espera. */
+
+/* 1. a linha se redireciona para o destino escolhido */
+.bact[data-row='1'] .bseg__fill { clip-path: inset(0 0 calc(100% - var(--tick-y)) 0); }
+.bio[data-intent-row='2'] .bact[data-row='1'] .bseg__fill,
+.bio[data-intent-row='3'] .bact:is([data-row='1'], [data-row='2']) .bseg__fill { clip-path: inset(0 0 0 0); }
+.bio[data-intent-row='2'] .bact[data-row='2'] .bseg__fill,
+.bio[data-intent-row='3'] .bact[data-row='3'] .bseg__fill { clip-path: inset(0 0 calc(100% - var(--tick-y)) 0); }
+
+/* 2. o destino responde; os outros cedem contraste */
+.bio[data-intent] .bact:not(.is-intent):not(.bact--primary) .bact__link { opacity: 0.55; }
+.bio[data-intent] .bact--primary:not(.is-intent) .bact__link { background-color: var(--c-azul-80); }
+.bact.is-intent .bact__tick { transform: scaleX(1.3); opacity: 1; transition-duration: var(--press); }
+.bact--primary.is-intent .bact__tick { transform: none; }
+.bact.is-intent .bact__title { transform: translateX(3px); transition-duration: var(--press); }
+.bact.is-intent .bact__go { transform: translateX(3px); opacity: 1; transition-duration: var(--press); }
+.bact.is-intent .bact__stem { transform: scaleX(1); transition-duration: var(--press); }
+.bact:not(.bact--primary).is-intent .bact__link {
+  background-color: rgb(244 240 232 / 0.08);
+  transition-duration: var(--press);
+}
+.bact--primary.is-intent .bact__link { background-color: #0f2838; transition-duration: var(--press); }
+
+/* 3. o filme responde: enquadramento muda discretamente, a legenda aparece */
+.bio[data-intent='consultation'] .bio-stage__inner { transform: scale(1.035); }
+.bio[data-intent='location'] .bio-stage__inner { transform: translate3d(-1.5%, 0, 0) scale(1.05); }
+.bio[data-intent='website'] .bio-stage__inner { transform: translate3d(0, -1.5%, 0) scale(1.02); }
+.bio-stage__inner { transition: transform 560ms var(--ease-orient); }
+.bio[data-intent='consultation'] .bio-context [data-for='consultation'],
+.bio[data-intent='location'] .bio-context [data-for='location'],
+.bio[data-intent='website'] .bio-context [data-for='website'] {
+  opacity: 1;
+  translate: 0 0;
+  transition-duration: var(--press), var(--press);
+}
+
+/* Sem JS: o próprio destino ainda responde ao toque */
+.bact__link:active .bact__title { transform: translateX(3px); transition-duration: var(--press); }
+.bact__link:active .bact__stem { transform: scaleX(1); transition-duration: var(--press); }
+
+/* ---------------------------------------------------------------- RODAPÉ */
+/* Mínimo: registro profissional (quando houver) + direitos reservados. */
+
+.bio-foot {
+  flex: none;
+  margin-top: 0.875rem;
+  padding-left: var(--indent);
+}
+.bio-registry {
+  font-size: 0.625rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.bio-registry .registry__item { white-space: nowrap; }
+.bio-registry .registry__spec { color: var(--muted); }
+.bio-copy {
+  margin-top: 0.125rem;
+  font-size: 0.625rem;
+  line-height: 1.5;
+  color: rgb(244 240 232 / 0.52);
+}
+
+/* ---------------------------------------------------------------- CHEGADA */
+/* Sem esconder nada: o filme assenta e a linha desce até a ação principal
+   (≈ 1 s). O conteúdo está legível e clicável desde o 1º quadro. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .scene--bio,
+  .bio-stage__inner > .media__pic { animation: bio-arrive 1.6s var(--ease-calm) both; }
+  .bio-q .bseg { animation: bio-draw 320ms var(--ease-orient) 360ms both; }
+  .bact .bseg { animation: bio-draw 300ms var(--ease-orient) both; }
+  .bact[data-row='1'] .bseg { animation-delay: 620ms; }
+  .bact[data-row='2'] .bseg { animation-delay: 700ms; }
+  .bact[data-row='3'] .bseg { animation-delay: 780ms; }
+  .bact__tick { animation: bio-tick 260ms var(--ease-orient) both; }
+  .bact[data-row='1'] .bact__tick { animation-delay: 700ms; }
+  .bact[data-row='2'] .bact__tick { animation-delay: 780ms; }
+  .bact[data-row='3'] .bact__tick { animation-delay: 860ms; }
+}
+@keyframes bio-arrive { from { transform: scale(1.05); } to { transform: none; } }
+@keyframes bio-draw { from { scale: 1 0; } to { scale: 1 1; } }
+@keyframes bio-tick { from { scale: 0 1; } to { scale: 1 1; } }
+
+/* ---------------------------------------------------------------- TABLET */
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .bio { --bio-focal: 70% 24%; }
+  .bio-decide,
+  .bio-foot { max-width: 30rem; }
+}
+
+/* ---------------------------------------------------------------- DESKTOP */
+/* Ainda uma tela cinematográfica única — não duas colunas. O enquadramento
+   do filme desloca a figura mais ao centro-direita; texto ancora à
+   esquerda, sempre dentro do mesmo campo visual. */
+
+@media (min-width: 900px) {
+  .bio {
+    --bm: clamp(3rem, 6vw, 6.5rem);
+    --bio-focal: 64% 32%;
+  }
+  .bio-main { padding-top: calc(var(--top) + 2rem); padding-bottom: calc(var(--bottom) + 1.5rem); }
+  .bio-wm { --wm-w: clamp(8rem, 8.5vw, 10rem); }
+  .bio-specialties { font-size: 0.75rem; letter-spacing: 0.16em; margin-top: 1rem; }
+  .bio-context { top: calc(var(--top) + 2.15rem); }
+  /* Cabeçalho maior no desktop (wordmark + especialidades em fonte maior)
+     empurra a base segura da nota mais para baixo. */
+  .scene--bio .scene__note { top: calc(var(--top) + 9.5rem); }
+  .bio-decide { max-width: 30rem; }
+  .bio-q { font-size: clamp(2.25rem, 3.4vw, 3.25rem); padding-bottom: 1.375rem; }
+  .bact { --tick-y: 1.6rem; }
+  .bact__link { min-height: 4.25rem; }
+  .bact__title { font-size: 1.5rem; }
+  .bact__detail { font-size: 0.875rem; }
+  .bact--primary { --tick-y: 2.7rem; }
+  .bact--primary .bact__link { min-height: 5.5rem; padding: 1.0625rem 1.375rem 1.0625rem 1.25rem; }
+  .bact--primary .bact__title { font-size: 1.75rem; }
+  .bio-foot { max-width: 30rem; }
+}
+
+@media (min-width: 1440px) {
+  .bio { --bio-focal: 60% 34%; }
+}
+
+/* ==========================================================================
+   BOTTOM SHEET — "Como chegar"
+   Não é navegação: é uma resposta local, imediata, à mesma pergunta que a
+   /bio/ já organiza. Sobe do rodapé (mobile) ou flutua como um painel
+   elevado próximo dele (desktop) — nunca uma segunda página.
+   ========================================================================== */
+
+.bsheet {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+}
+.bsheet[hidden] { display: block; visibility: hidden; }
+.bsheet.is-open, .bsheet.is-closing { visibility: visible; }
+
+.bsheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(15 32 43 / 0.55);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity var(--release) var(--ease-orient);
+}
+.bsheet.is-open .bsheet__backdrop { opacity: 1; }
+
+.bsheet__panel {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(100%, 30rem);
+  max-height: min(86svh, 42rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--c-marfim);
+  color: var(--c-grafite);
+  border-radius: 1.375rem 1.375rem 0 0;
+  box-shadow: 0 -12px 48px rgb(15 32 43 / 0.28);
+  padding: 0.75rem 1.5rem calc(var(--bottom) + 1.5rem);
+  transform: translate(-50%, 100%);
+  transition: transform 420ms var(--ease-orient);
+  outline: none;
+}
+.bsheet.is-open .bsheet__panel { transform: translate(-50%, 0); }
+
+.bsheet__handle {
+  display: block;
+  width: 2.25rem;
+  height: 3px;
+  margin: 0 auto 1.25rem;
+  border-radius: 999px;
+  background: rgb(43 43 43 / 0.2);
+}
+.bsheet__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--c-grafite-80);
+}
+.bsheet__close:hover { color: var(--c-azul); }
+
+.bsheet__label { color: var(--c-mineral); }
+.bsheet__brand {
+  margin-top: 0.5rem;
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: 1.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--c-azul);
+}
+
+.bsheet__block {
+  position: relative;
+  margin-top: 1.375rem;
+  padding-left: 1rem;
+}
+.bsheet__rule { position: absolute; left: 0; top: 0.15em; height: calc(100% - 0.3em); color: rgb(22 52 71 / 0.2); }
+.bsheet__address { font-size: 0.9375rem; line-height: 1.55; color: var(--c-grafite); }
+.bsheet__phone {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--c-azul);
+  text-decoration: underline;
+  text-decoration-color: rgb(22 52 71 / 0.3);
+  text-underline-offset: 3px;
+}
+
+.bsheet__map {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-top: 1.25rem;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  background: var(--c-cinza-20);
+}
+.bsheet__map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(0.5) contrast(0.96); }
+.bsheet__map--pending { display: grid; place-items: center; }
+.bsheet__map--pending::after {
+  content: 'Mapa — inserido após confirmação do endereço';
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-mineral);
+}
+
+.bsheet__actions {
+  display: grid;
+  gap: 0.625rem;
+  margin-top: 1.375rem;
+}
+.bsheet__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 3.25rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.bsheet__cta .i { width: 0.9375rem; height: auto; }
+.bsheet__cta--primary { background: var(--c-azul); color: var(--c-marfim); }
+.bsheet__cta--primary[aria-disabled] { opacity: 0.5; }
+.bsheet__cta--ghost { border: 1px solid rgb(22 52 71 / 0.25); color: var(--c-azul); }
+.bsheet__cta:focus-visible { outline: 2px solid var(--c-azul); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bsheet__panel { transition-duration: 90ms; }
+  .bsheet__backdrop { transition-duration: 90ms; }
+}
+
+/* Desktop: painel elevado, não uma gaveta edge-to-edge */
+@media (min-width: 900px) {
+  .bsheet__panel {
+    bottom: 1.5rem;
+    border-radius: 1.375rem;
+    padding: 1rem 1.75rem 1.75rem;
+  }
+  .bsheet__handle { display: none; }
+}
+
+html.sheet-open { overflow: hidden; }

@@ -1,0 +1,222 @@
+/* ==========================================================================
+   BASE — reset, tipografia, utilitários, acessibilidade
+   ========================================================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--c-marfim);
+  scroll-padding-top: var(--hd-h-compact);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.lenis) { scroll-behavior: smooth; }
+}
+
+body {
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+img, picture, video, svg { display: block; max-width: 100%; }
+img, video { height: auto; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; padding: 0; }
+address { font-style: normal; }
+p, h1, h2, h3, h4, li, dd { overflow-wrap: break-word; }
+
+::selection { background: var(--c-azul); color: var(--c-marfim); }
+.surface-dark ::selection { background: var(--c-marfim); color: var(--c-azul); }
+
+/* Foco: a mesma linha fina da marca, com recuo — visível em qualquer superfície */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+:focus:not(:focus-visible) { outline: none; }
+main:focus, [tabindex='-1']:focus { outline: none; }
+
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip {
+  position: fixed;
+  top: var(--s-2);
+  left: var(--s-2);
+  z-index: 100;
+  padding: var(--s-2) var(--s-3);
+  background: var(--c-azul);
+  color: var(--c-marfim);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  transform: translateY(-200%);
+  transition: transform var(--dur-2) var(--ease-orient);
+}
+.skip:focus { transform: none; }
+
+/* ---------- Tipografia ---------- */
+
+.display,
+.h1,
+.h2,
+.h3 {
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-optical-sizing: auto;
+  color: var(--fg-strong);
+  text-wrap: balance;
+}
+.display {
+  font-size: var(--fs-display);
+  line-height: 0.98;
+  letter-spacing: var(--tracking-display);
+}
+.h1 {
+  font-size: var(--fs-h1);
+  line-height: 1.02;
+  letter-spacing: var(--tracking-display);
+}
+.h2 {
+  font-size: var(--fs-h2);
+  line-height: 1.06;
+  letter-spacing: var(--tracking-head);
+}
+.h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--fg-muted);
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+em, .it { font-style: italic; }
+
+/* Linha autoral com máscara (reveal por linha).
+   Folga vertical/horizontal para não cortar descendentes e itálicos. */
+.ln {
+  display: block;
+  overflow: hidden;
+  padding: 0.2em 0.12em 0.14em 0;
+  margin: -0.2em -0.12em -0.14em 0;
+}
+.ln__i { display: block; }
+
+/* Placeholder factual — identificável e discreto */
+.ph {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--c-mineral);
+  background: repeating-linear-gradient(90deg, currentColor 0 3px, transparent 3px 6px) left bottom / 100% 1px no-repeat;
+  padding-bottom: 2px;
+}
+.surface-dark .ph { color: var(--c-azul-40); }
+
+.note {
+  font-size: var(--fs-small);
+  color: var(--fg-muted);
+  padding-left: var(--s-2);
+  border-left: 1px solid var(--line);
+  max-width: var(--measure);
+}
+
+/* ---------- Grid ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding-inline: var(--margin);
+}
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+
+/* ---------- Lenis ---------- */
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+
+/* ---------- Transição entre páginas (View Transitions nativas) ---------- */
+
+@view-transition { navigation: auto; }
+
+.hd { view-transition-name: header; }
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: vt-out 420ms var(--ease-inout) both;
+  }
+  ::view-transition-new(root) {
+    animation: vt-in 720ms var(--ease-orient) 120ms both;
+  }
+}
+@keyframes vt-out { to { opacity: 0; transform: translateY(-2vh); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(3vh); } }
+
+/* ---------- Estados iniciais de reveal (somente com motion confirmada) ---------- */
+
+/* Dentro de um palco ativo (html.motion.stage) quem define os estados é a cena. */
+html.motion [data-reveal='fade']:not(html.motion.stage [data-scene-desktop] *),
+html.motion [data-reveal='row']:not(html.motion.stage [data-scene-desktop] *) {
+  opacity: 0;
+}
+html.motion [data-reveal='lines']:not(html.motion.stage [data-scene-desktop] *) .ln__i,
+html.motion [data-reveal='line']:not(html.motion.stage [data-scene-desktop] *) .ln__i {
+  transform: translateY(130%);
+}
+html.motion [data-reveal='media']:not(html.motion.stage [data-scene-desktop] *) {
+  clip-path: inset(100% 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

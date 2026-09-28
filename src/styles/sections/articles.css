@@ -1,0 +1,93 @@
+/* ==========================================================================
+   CONTEÚDOS — revista contemporânea: um conteúdo dominante + leituras
+   secundárias em coluna tipográfica.
+   ========================================================================== */
+
+.articles {
+  background: var(--c-marfim);
+  padding: var(--section) var(--margin);
+}
+.articles__head { margin-bottom: var(--s-10); }
+.articles__title { margin-top: var(--s-4); }
+
+.articles__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--s-10);
+}
+
+.feature__link { display: grid; gap: var(--s-4); color: var(--fg); }
+.feature__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--c-cinza-60);
+}
+.feature__media-inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 1.4s var(--ease-orient);
+}
+.feature__text { display: grid; gap: var(--s-2); justify-items: start; }
+.feature__title {
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+  letter-spacing: var(--tracking-head);
+  color: var(--c-azul);
+  text-wrap: balance;
+}
+.feature__dek { max-width: 36rem; color: var(--fg-muted); font-size: var(--fs-lead); }
+.feature__go { color: var(--c-azul); transition: transform var(--dur-3) var(--ease-orient); }
+.feature__go .i--arrow { width: 36px; }
+
+@media (hover: hover) {
+  .feature__link:hover .feature__media-inner { transform: scale(1.035); }
+  .feature__link:hover .feature__go { transform: translateX(8px); }
+}
+
+.reads { display: grid; }
+.read { position: relative; }
+.read__rule { position: absolute; top: 0; left: 0; }
+.read__link {
+  position: relative;
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-6) var(--s-4) 0;
+  color: var(--fg);
+}
+.read__title {
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: var(--fs-h3);
+  line-height: 1.18;
+  color: var(--c-azul);
+  text-wrap: balance;
+}
+.read__go {
+  position: absolute;
+  right: 0;
+  bottom: var(--s-4);
+  color: var(--c-azul);
+  opacity: 0.4;
+  transition: transform var(--dur-3) var(--ease-orient), opacity var(--dur-2);
+}
+@media (hover: hover) {
+  .read__link:hover .read__go { opacity: 1; transform: translateX(6px); }
+}
+.reads__all { padding-top: var(--s-4); border-top: 1px solid var(--line); }
+
+@media (min-width: 1024px) {
+  .articles__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gutter);
+  }
+  .feature { grid-column: 1 / 7; }
+  .reads { grid-column: 8 / 13; align-self: end; }
+}
+@media (min-width: 1280px) {
+  .feature { grid-column: 1 / 8; }
+  .reads { grid-column: 9 / 13; }
+  .feature__media { aspect-ratio: 16 / 11; }
+}

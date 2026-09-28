@@ -1,0 +1,51 @@
+/* ==========================================================================
+   ASSINATURA — geometria derivada do SVG oficial (unidades do viewBox 2086×447)
+   --wm-w = largura de "Dr. Vinicius". Todas as outras medidas são proporções
+   fixas dessa largura: a construção nunca se altera, só a configuração.
+   ========================================================================== */
+
+.wm {
+  --wm-w: 150px;
+  position: relative;
+  display: block;
+  flex: none;
+  width: calc(var(--wm-w) * 1.322106);
+  height: calc(var(--wm-w) * 0.286114);
+  color: inherit;
+}
+
+.wm svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+  transform-origin: 0 0;
+  transition: transform var(--dur-3) var(--ease-orient);
+}
+
+/* Principal (empilhada) */
+.wm__name {
+  width: var(--wm-w);
+  height: calc(var(--wm-w) * 0.142214);
+  transform: translateX(calc(var(--wm-w) * 0.162034));
+}
+.wm__sub {
+  width: calc(var(--wm-w) * 1.322106);
+  height: calc(var(--wm-w) * 0.076543);
+  transform: translateY(calc(var(--wm-w) * 0.209571));
+}
+
+/* Horizontal — sobrenome a 80%, alinhado à linha de base do nome */
+.wm[data-layout='row'],
+.hd.is-compact .hd__wm {
+  width: calc(var(--wm-w) * 2.102586);
+  height: calc(var(--wm-w) * 0.145981);
+}
+.wm[data-layout='row'] .wm__name,
+.hd.is-compact .hd__wm .wm__name {
+  transform: none;
+}
+.wm[data-layout='row'] .wm__sub,
+.hd.is-compact .hd__wm .wm__sub {
+  transform: translate(calc(var(--wm-w) * 1.044901), calc(var(--wm-w) * 0.084747)) scale(0.8);
+}

@@ -1,0 +1,93 @@
+/* ==========================================================================
+   DR. VINICIUS — desacelerar. Fotografia grande, trajetória em linhas.
+   ========================================================================== */
+
+.doctor {
+  background: var(--c-marfim);
+  padding: var(--section) var(--margin);
+}
+.doctor__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: var(--s-8);
+}
+.doctor__portrait {
+  grid-column: 1 / -1;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--c-cinza-60);
+  margin-inline: calc(var(--margin) * -1) 0;
+}
+.doctor__portrait-inner { position: absolute; inset: -6% 0; }
+.doctor__text { grid-column: 1 / -1; }
+.doctor__title { margin-top: var(--s-4); font-size: var(--fs-h1-col); }
+.doctor__intro { margin-top: var(--s-4); }
+.doctor__cta { margin-top: var(--s-5); }
+
+/* Trajetória: informação editorial estruturada */
+.facts { margin-top: var(--s-8); }
+.facts__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-1);
+  padding: var(--s-3) 0;
+}
+.facts__line { position: absolute; top: 0; left: 0; }
+.facts__row:last-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.22;
+}
+.facts__term {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  padding-top: 0.3em;
+}
+.facts__desc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+}
+.facts__detail {
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: 1.3125rem;
+  line-height: 1.25;
+  color: var(--c-azul);
+}
+.facts__place,
+.facts__year { font-size: var(--fs-small); color: var(--fg-muted); }
+.facts__place::before { content: '— '; opacity: 0.5; }
+.facts__desc--registry { font-size: var(--fs-small); color: var(--fg); padding-top: 0.25em; }
+
+@media (min-width: 640px) {
+  .facts__row { grid-template-columns: 11rem minmax(0, 1fr); gap: var(--gutter); }
+}
+
+@media (min-width: 1024px) {
+  .doctor__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  /* O retrato permanece enquanto a trajetória é lida */
+  .doctor__portrait {
+    grid-column: 1 / 7;
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    max-height: calc(100vh - var(--hd-h-compact) - 8vh);
+    align-self: start;
+    position: sticky;
+    top: calc(var(--hd-h-compact) + 4vh);
+  }
+  .doctor__text {
+    grid-column: 8 / 13;
+    padding-top: clamp(4rem, 14vh, 10rem);
+  }
+}

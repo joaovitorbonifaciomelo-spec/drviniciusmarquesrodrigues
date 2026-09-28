@@ -1,0 +1,182 @@
+/* ==========================================================================
+   ÁREAS DE ATUAÇÃO — lista editorial (ponteiro) / acordeão (toque)
+   ========================================================================== */
+
+.areas {
+  background: var(--c-marfim);
+  padding: var(--section) var(--margin);
+}
+.areas__head { margin-bottom: var(--s-10); }
+.areas__title { margin-top: var(--s-4); }
+
+/* Qual interação aparece: capacidade do dispositivo, não só largura */
+.areas__list--pointer { display: none; }
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  .areas__list--pointer { display: block; }
+  .areas__list--touch { display: none; }
+}
+
+/* ---------- Lista (ponteiro) ---------- */
+
+.areas__list--pointer { position: relative; }
+.area__link {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: center;
+  padding-block: clamp(1.5rem, 2.4vw, 2.5rem);
+  color: var(--c-azul);
+  cursor: pointer;
+}
+.area__rule { position: absolute; top: 0; left: 0; }
+.area__rule--last { position: relative; }
+.area__rule-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--c-azul);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-4) var(--ease-orient);
+}
+.area__title {
+  grid-column: 1 / 8;
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: clamp(3rem, 1rem + 5.4vw, 7rem);
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  transition:
+    transform var(--dur-4) var(--ease-orient),
+    color var(--dur-3) var(--ease-orient);
+}
+.area__go {
+  grid-column: 12 / 13;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  color: var(--c-azul);
+  opacity: 0.35;
+  transition: opacity var(--dur-3), transform var(--dur-4) var(--ease-orient);
+}
+.area__go-line {
+  width: var(--s-3);
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur-4) var(--ease-orient);
+}
+.area__go .i--arrow { width: 32px; margin-left: -1px; }
+
+.areas__list--pointer.has-active .area__title { color: var(--fg-quiet); }
+.area.is-active .area__title {
+  color: var(--c-azul);
+  transform: translateX(clamp(1rem, 2.2vw, 2.5rem));
+}
+.area.is-active .area__rule-active { transform: scaleX(1); }
+.area.is-active .area__go { opacity: 1; }
+.area.is-active .area__go-line { transform: scaleX(1); }
+.area__link:focus-visible { outline-offset: -2px; }
+
+/* Painel flutuante: imagem vertical + descrição, acompanha o item ativo */
+.areas__visual {
+  position: absolute;
+  top: 0;
+  left: calc((100% + var(--gutter)) / 12 * 7);
+  width: calc((100% + var(--gutter)) / 12 * 2 - var(--gutter));
+  aspect-ratio: 3 / 4;
+  pointer-events: none;
+  z-index: 2;
+  will-change: transform;
+}
+.areas__img {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path var(--dur-4) var(--ease-orient);
+}
+.areas__img .scene__note { display: none; }
+.areas__img.is-active { clip-path: inset(0); }
+.areas__img.is-leaving { clip-path: inset(0 0 100% 0); }
+/* Descrição ocupa as duas colunas seguintes à imagem (mesma largura) */
+.areas__detail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(100% + var(--gutter));
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+.areas__detail p {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transform: translateY(calc(-50% + 10px));
+  transition: opacity var(--dur-3) var(--ease-orient), transform var(--dur-4) var(--ease-orient);
+}
+.areas__detail p.is-active { opacity: 1; transform: translateY(-50%); transition-delay: 120ms; }
+
+/* ---------- Acordeão (toque) ---------- */
+
+.acc { position: relative; }
+.acc__rule { color: var(--c-grafite); }
+.acc__btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  min-height: 5rem;
+  padding-block: var(--s-3);
+  text-align: left;
+  color: var(--c-azul);
+}
+.acc__title {
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: clamp(2.25rem, 1.4rem + 4vw, 4rem);
+  line-height: 1;
+  letter-spacing: var(--tracking-head);
+}
+.acc__icon { display: inline-flex; padding: var(--s-1); }
+.acc__icon .i { width: 18px; height: 18px; }
+.acc__icon .i__v { transform-origin: center; transition: transform var(--dur-3) var(--ease-orient); }
+.acc__btn[aria-expanded='true'] .i__v { transform: scaleY(0); }
+
+/* Sem JS: painéis abertos. Com JS: recolhidos e inertes até o toque. */
+.acc__panel {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--dur-3) var(--ease-orient);
+}
+.acc__panel > .acc__panel-inner { overflow: hidden; min-height: 0; }
+.js .acc:not(.is-open) .acc__panel { grid-template-rows: 0fr; }
+.js .acc__panel-inner > * { opacity: 0; transform: translateY(8px); transition: opacity var(--dur-3), transform var(--dur-3) var(--ease-orient); }
+.js .acc.is-open .acc__panel-inner > * { opacity: 1; transform: none; transition-delay: 80ms; }
+.js .acc__btn { cursor: pointer; }
+.no-js .acc__icon { display: none; }
+.acc__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  margin-bottom: var(--s-3);
+}
+.acc__desc {
+  max-width: 34rem;
+  font-size: var(--fs-lead);
+  color: var(--fg-muted);
+  margin-bottom: var(--s-2);
+}
+.acc__panel-inner { padding-bottom: var(--s-5); }
+.js .acc:not(.is-open) .acc__panel-inner { padding-bottom: 0; }
+
+.areas__visual { transition: transform var(--dur-4) var(--ease-orient); }
