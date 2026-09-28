@@ -69,7 +69,10 @@
   padding: 0 var(--s-2) 0 var(--s-3);
   font-size: 0.6875rem;
 }
-.hd .cta--ghost { --cta-fg-hover: var(--hd-surface); }
+/* --cta-fill: currentColor" herdaria a cor já trocada por ".cta:hover", puxando
+   o preenchimento para a cor do header em vez do contraste — trava no --hd-fg
+   (fixo), que não muda no hover. */
+.hd .cta--ghost { --cta-fg-hover: var(--hd-surface); --cta-fill: var(--hd-fg); }
 .hd .cta--ghost .cta__text,
 .hd .cta--ghost .cta__icon { transition: color var(--dur-3) var(--ease-orient); }
 @media (hover: hover) {
