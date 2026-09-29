@@ -197,6 +197,17 @@ export const media = {
     alt: 'Ambiente de procedimento de eletrofisiologia, em luz controlada.',
     brief: 'Vertical 3:4 · ambiente técnico real · luz controlada · sem equipamentos em primeiro plano como símbolo.',
   },
+  /* Capa do artigo "Infarto em jovens cresce no Brasil" — imagem final a
+     ser fornecida pelo Dr. Vinicius; não gerar/substituir por conta própria. */
+  articleInfartoJovens: {
+    kind: 'image',
+    ready: false,
+    file: 'artigo-infarto-jovens',
+    widths: [640, 960, 1400, 1900],
+    variant: 'conversation',
+    alt: 'Consulta cardiológica com discussão de fatores de risco.',
+    brief: 'Horizontal · consulta real ou avaliação de fatores de risco (aferição de pressão, conversa) · luz natural · sem ícones de ECG ou coração, sem clichê de saúde/tech.',
+  },
   /* APROVEITÁVEL (B) — master 01.jpg (Vivenza, recepção — arquivo distinto
      do "vivenza.jpg" do acervo, que é um detalhe de sinalização; ver
      `closing` abaixo). Fonte nativa de apenas 1200 px de largura →

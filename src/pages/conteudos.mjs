@@ -35,7 +35,7 @@ const block = (b) => {
 };
 
 const article = (a) => {
-  const next = articles[(articles.indexOf(a) + 1) % articles.length];
+  const next = articles.length > 1 ? articles[(articles.indexOf(a) + 1) % articles.length] : null;
   return html`
   <article class="post">
     <header class="post__head" data-header-tone="light">
@@ -55,10 +55,12 @@ const article = (a) => {
         ${cta({ href: bookingHref(), text: 'Agendar consulta', variant: 'solid' })}
       </aside>
     </div>
-    <nav class="post__next" aria-label="Próxima leitura">
+    ${next
+      ? html`<nav class="post__next" aria-label="Próxima leitura">
       <p class="label">Próxima leitura</p>
       ${linkArrow({ href: `/conteudos/${next.slug}/`, text: next.title, cls: 'post__next-link' })}
-    </nav>
+    </nav>`
+      : ''}
   </article>
 `;
 };
@@ -70,7 +72,7 @@ export default () => [
   },
   ...articles.map((a) => ({
     path: `/conteudos/${a.slug}/`,
-    html: layout({ title: `${a.title} — ${site.name}`, description: a.dek, path: `/conteudos/${a.slug}/`, page: 'article', body: article(a) }),
+    html: layout({ title: a.seoTitle || `${a.title} — ${site.name}`, description: a.seoDescription || a.dek, path: `/conteudos/${a.slug}/`, page: 'article', body: article(a) }),
   })),
 ];
 
