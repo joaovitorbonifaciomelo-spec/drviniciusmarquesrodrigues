@@ -37,7 +37,14 @@ export function initPause(mm) {
 
     tl.fromTo(media, { clipPath: 'inset(38% 34% 38% 34%)' }, { clipPath: 'inset(22% 18% 22% 18%)', duration: 1 }, 0)
       .fromTo(inner, { scale: 1.32 }, { scale: 1.18, duration: 1 }, 0)
-      .to(media, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.7, ease: 'inout' }, 1)
+      // fromTo explícito (não .to encadeado): o valor computado do clip-path
+      // anterior colapsa para a forma abreviada de 2 números (top/bottom,
+      // left/right iguais) quando o navegador serializa — e o GSAP, ao ler
+      // esse valor de volta como ponto de partida implícito, não casa as 4
+      // posições do alvo com as 2 do estado lido, fazendo bottom/left
+      // saltarem para 0 instantaneamente enquanto top/right ainda animam
+      // (assimetria visível: mídia "gruda" na esquerda, sobra vão à direita).
+      .fromTo(media, { clipPath: 'inset(22% 18% 22% 18%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.7, ease: 'inout' }, 1)
       .to(inner, { scale: 1.05, duration: 0.7, ease: 'inout' }, 1)
       .to(inner, { scale: 1, duration: DIST - 0.7 }, 1.7)
       .to(shade, { opacity: 1, duration: 0.4 }, 1.4);
