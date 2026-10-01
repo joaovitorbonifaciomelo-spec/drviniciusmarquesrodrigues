@@ -102,28 +102,21 @@ export const media = {
     variant: 'conversation',
     alt: 'Dr. Vinicius explicando algo a um paciente, com um modelo anatômico do coração.',
   },
-  /* APROVEITÁVEL COM RESSALVA (B) — reauditado em 2026-09-26, master
-     "proximo passo.jpg" (sala de espera/corredor da Vivenza — mesma
-     fonte que já usamos para "vivenza", ali chamada 01.jpg; imagens
-     diferentes, mesma sessão/local). Cadeiras + porta + luz de janela dão
-     a linha de fuga do briefing. Precisou de recorte fechado (zoom ~1,9×)
-     para excluir a bancada de recepção com a marca Vivenza — do
-     contrário duplicava o slot "vivenza" e confundia a leitura. Fonte
-     nativa de 1200 px já é pequena; depois desse recorte o crop real tem
-     só 631 px de largura → o tier de 960 já upscala 1,52×. `widths`
-     reduzido a [640,960] (sem 1400, que exigiria 2,2×). Serve para o
-     tamanho em que aparece (painel "Como cuidamos", não hero), mas é
-     candidato a nova captura em alta resolução do mesmo ângulo. */
+  /* ATUALIZADO (2026-10-01) — substitui "proximo passo.jpg" (crop fechado
+     a 1,9× do master antigo, upscale 1,52×) pelo acervo novo: corredor
+     central da Vivenza com DUAS bancadas de recepção enquadrando a linha
+     de fuga até a sala de espera ao fundo — a mesma ideia de "caminho/
+     direção/próximo passo", agora em alta resolução nativa (zero upscale,
+     fonte 1536 px) e com perspectiva mais clara que o crop antigo. */
   careDirection: {
     kind: 'image',
     ready: true,
-    file: 'cuidado-direcao',
+    file: 'care-direcao',
     widths: [640, 960],
     width: 960,
     height: 600,
     variant: 'corridor',
-    alt: 'Corredor da Vivenza com cadeiras de espera, porta e luz natural.',
-    brief: 'Espaço · corredor/porta com luz natural · composição com linha de fuga clara.',
+    alt: 'Corredor da Vivenza com bancadas de recepção e sala de espera ao fundo.',
   },
   /* APROVEITÁVEL (B) — master DSCF5469.jpg (sessão Louvre, casaco/óculos
      escuros, mãos nos bolsos — sem "braços cruzados", diretriz do Brandbook).
@@ -223,25 +216,23 @@ export const media = {
     variant: 'architecture',
     alt: 'Recepção da Vivenza, com marcenaria em madeira e mármore.',
   },
-  /* APROVEITÁVEL (B) — master "vivenza.jpg" no acervo (detalhe da
-     sinalização Vivenza: madeira, mármore e latão — reconfirmado em
-     2026-09-26 que é o mesmo arquivo, apenas renomeado). O arquivo
-     original tem uma marca d'água translúcida sobreposta (padrão
-     repetido) cobrindo ~40% do quadro à esquerda — o recorte usado evita
-     inteiramente essa área. Testado também nos formatos reais do slot
-     "vivenza" (5:4/4:3): é um bom detalhe, mas não substitui 01.jpg como
-     arquitetura/recepção — mantido só aqui, como textura decorativa de
-     baixa opacidade. `widths` reduzido de [1600,2400] para [1200,1600]
-     pela resolução nativa do recorte. */
+  /* ATUALIZADO (2026-10-01) — substitui a textura antiga (madeira/luz,
+     sem marca) pelo letreiro dourado novo da Vivenza, recortado para
+     mostrar só a marca-símbolo (o "V") sobre madeira e mármore — sem a
+     palavra "VIVENZA" legível no quadro (ver crop alternativo testado e
+     descartado: a versão com o nome por extenso lia como marca d'água a
+     16% de opacidade, o mesmo problema que o vivenza.jpg antigo tinha).
+     Fonte nativa só permite 941 px de largura no recorte 16:9 — mantido
+     honesto (`widths: [640, 941]`, zero upscale); o papel é 100%
+     decorativo e desfocado, a resolução extra não faria diferença. */
   closing: {
     kind: 'image',
     ready: true,
-    file: 'encerramento-textura',
-    widths: [1200, 1600],
-    width: 1600,
-    height: 900,
+    file: 'encerramento-detalhe',
+    widths: [640, 941],
+    width: 941,
+    height: 529,
     variant: 'closing',
     alt: '',
-    brief: 'Textura fotográfica sutil (luz em parede) para o fundo do encerramento — usada a ~10% de opacidade.',
   },
 };
