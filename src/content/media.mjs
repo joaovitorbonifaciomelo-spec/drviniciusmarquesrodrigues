@@ -32,28 +32,26 @@
 
 export const media = {
   /* ESTADO PROVISÓRIO (2026-10-01) — ainda sem arquivo de vídeo real
-     (`ready: false`), mas com pôster estático real: reaproveita o mesmo
-     arquivo de `listening` (Autoridade Próxima), a foto que esta própria
-     cena já revela ao final da transformação do hero — pôster e revelação
-     mostram a mesma imagem, então a cena "vídeo vira foto" fica coerente
-     mesmo sem o vídeo. `posterReady: true` faz `mediaFor` renderizar o
-     <picture> do pôster (nunca a cena-placeholder com legenda de
-     briefing); sem `ready`, nenhuma tag <video> é emitida — nada para a
-     cena suspender/animar, nada para o botão de pausa controlar (por
-     isso `.ha__toggle` só é renderizado quando `ready` for true, ver
-     sections/hero-authority.mjs). Quando o vídeo real chegar: trocar
-     `ready` para `true` e gerar hero-desktop/mobile.mp4|webm — o
-     cross-fade pôster→vídeo (só depois de `canplay`, nunca tela vazia,
-     autoplay bloqueado = mantém pôster, respeita prefers-reduced-motion)
-     já está implementado em scripts/ui/video.js, sem mudança nenhuma. */
+     (`ready: false`): a cena mostra o tratamento atmosférico padrão
+     (Azul Profundo + luz/grão, já previsto por scene() em components/
+     media.mjs) em vez de qualquer fotografia — este slot é do VÍDEO,
+     não deve reaproveitar a foto de `listening` (Autoridade Próxima) nem
+     nenhuma outra. `hideBrief: true` suprime a legenda de briefing
+     ("Vídeo · plano contínuo...") na versão publicada, mesmo com
+     SHOW_NOTES ativo (ela continua útil durante o desenvolvimento via
+     HIDE_MEDIA_NOTES=1; isso só afeta este slot especificamente).
+     Quando o vídeo real chegar: `ready: true` + hero-desktop/mobile.
+     mp4|webm + pôster extraído do próprio vídeo (hero-poster-*.avif|jpg,
+     NUNCA de outra seção) — o cross-fade pôster→vídeo (só depois de
+     `canplay`, nunca tela vazia, autoplay bloqueado = mantém pôster,
+     respeita prefers-reduced-motion) já está implementado em
+     scripts/ui/video.js, sem mudança nenhuma. */
   heroVideo: {
     kind: 'video',
     ready: false,
-    posterReady: true,
-    file: 'hero', // hero-desktop.mp4/.webm (1920×1080, ≤ 6 MB), hero-mobile.mp4/.webm (1080×1350, ≤ 3 MB) — quando o vídeo real for produzido
-    posterWidths: [640, 960, 1122], // hero-poster-*.avif|jpg — hoje, cópia de authority-listening-mobile (ver nota acima)
-    width: 1122,
-    height: 1402,
+    hideBrief: true,
+    file: 'hero', // hero-desktop.mp4/.webm (16:9, ≤ 6 MB), hero-mobile.mp4/.webm (9:16, ≤ 3 MB) — e hero-poster-*.avif|jpg extraído do próprio vídeo
+    posterWidths: [720, 1080],
     variant: 'hero',
     alt: 'Dr. Vinicius em atendimento, em um ambiente de luz natural.',
     brief:

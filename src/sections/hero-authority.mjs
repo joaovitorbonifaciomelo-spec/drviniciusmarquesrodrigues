@@ -11,7 +11,7 @@
  */
 import { html, lines } from '../../tools/lib/html.mjs';
 import { hero, authority } from '../content/home.mjs';
-import { mediaFor, mediaMeta } from '../components/media.mjs';
+import { mediaFor } from '../components/media.mjs';
 import { cta, icon } from '../components/ui.mjs';
 import { bookingHref } from '../content/site.mjs';
 
@@ -34,13 +34,11 @@ export const heroAuthority = () => html`<section class="ha" id="inicio" data-sce
       </div>
 
       <span class="ha__cue" aria-hidden="true"><span class="ha__cue-run"></span></span>
-      ${mediaMeta('heroVideo').ready
-        ? html`<button class="ha__toggle" type="button" data-video-toggle aria-pressed="false">
+      <button class="ha__toggle" type="button" data-video-toggle aria-pressed="false">
         <span class="ha__toggle-icon ha__toggle-icon--pause">${icon.pause()}</span>
         <span class="ha__toggle-icon ha__toggle-icon--play">${icon.play()}</span>
         <span class="ha__toggle-label" data-video-toggle-label>Pausar vídeo</span>
-      </button>`
-        : ''}
+      </button>
     </div>
 
     <div class="ha__auth" id="autoridade" data-header-tone="light" data-chapter="${authority.chapter}" aria-labelledby="auth-title">
