@@ -1,6 +1,14 @@
 /* ==========================================================================
    FOOTER — última aparição da Linha de Orientação: atravessa a página e
    termina no retorno ao início.
+
+   Mobile: fluxo simples, tudo centralizado (sem mudanças nesta rodada).
+   Desktop (≥1024px): uma única grade de 12 colunas / 2 linhas.
+   `.ft__rule`/`.ft__grid` viram `display: contents` só no desktop — os
+   filhos reais (linha, assinatura, navegação, CRM/RQE, Instagram, legal,
+   voltar ao início) passam a ser itens diretos da grade do `.ft`, cada um
+   com sua própria posição. Nenhuma duplicação de marcação entre
+   breakpoints, nenhuma mudança na árvore do HTML.
    ========================================================================== */
 
 .ft {
@@ -15,6 +23,7 @@
   align-items: center;
   gap: var(--s-3);
   color: var(--c-azul);
+  margin-bottom: var(--s-10);
 }
 .ft__line { flex: 1; opacity: 0.35; }
 .ft__top {
@@ -26,6 +35,7 @@
   font-weight: 500;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .ft__top .i--up { width: 10px; height: 20px; transition: transform var(--dur-3) var(--ease-orient); }
 .ft__top:hover .i--up { transform: translateY(-4px); }
@@ -36,7 +46,6 @@
   align-items: center;
   text-align: center;
   gap: var(--s-8);
-  padding-top: var(--s-10);
 }
 .ft__brand { color: var(--c-azul); }
 .ft__wm { --wm-w: clamp(180px, 30vw, 380px); }
@@ -73,20 +82,45 @@
 .ft__legal a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 
 @media (min-width: 1024px) {
-  .ft { padding-top: var(--s-16); }
-  .ft__grid {
+  .ft {
+    padding-top: var(--s-10);
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--gutter);
-    row-gap: var(--s-8);
-    padding-top: var(--s-12);
-    text-align: left;
-    align-items: start;
+    row-gap: var(--s-6);
+    align-items: center;
   }
-  .ft__brand { grid-column: 1 / 6; justify-self: start; align-self: start; }
-  .ft__nav { grid-column: 7 / 10; }
-  .ft__nav ul { justify-items: start; }
-  .ft__meta { grid-column: 10 / 13; align-self: end; justify-items: start; }
-  .ft__social { grid-column: 1 / 6; justify-self: start; }
-  .ft__legal { justify-content: space-between; text-align: left; }
+
+  /* Os wrappers somem da árvore de caixas — os filhos viram itens
+     diretos da grade do .ft, cada um com sua própria célula. */
+  .ft__rule,
+  .ft__grid {
+    display: contents;
+  }
+
+  /* Linha 1 — assinatura · navegação · registro */
+  .ft__brand { grid-column: 1 / 5; grid-row: 1; justify-self: start; }
+  .ft__wm { --wm-w: 128px; }
+  .ft__nav { grid-column: 5 / 9; grid-row: 1; justify-self: start; }
+  .ft__nav ul { justify-items: start; gap: 0.3em; }
+  .ft__nav a { font-size: var(--fs-small); }
+  .ft__meta { grid-column: 9 / 13; grid-row: 1; justify-self: start; text-align: left; justify-items: start; }
+
+  /* Linha divisória — a Linha de Orientação, discreta e funcional */
+  .ft__line { grid-column: 1 / 13; grid-row: 2; width: 100%; opacity: 0.18; }
+
+  /* Linha 2 — Instagram · legal · voltar ao início, nas mesmas colunas da linha 1 */
+  .ft__social { grid-column: 1 / 5; grid-row: 3; justify-self: start; }
+  .ft__legal {
+    grid-column: 5 / 11;
+    grid-row: 3;
+    justify-self: start;
+    width: auto;
+    flex-wrap: nowrap;
+    padding-top: 0;
+    border-top: none;
+    gap: var(--s-3);
+    white-space: nowrap;
+  }
+  .ft__top { grid-column: 11 / 13; grid-row: 3; justify-self: end; margin: 0; }
 }
