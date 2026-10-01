@@ -6,6 +6,12 @@
 .articles {
   background: var(--c-marfim);
   padding: var(--section) var(--margin);
+  /* Exceção local só para esta borda: Conteúdos → Onde Atendo é a única
+     transição do site onde dois `--section` inteiros se somam (ver o
+     padding-top espelhado em vivenza.css). Metade de --section aqui +
+     metade lá soma um respiro editorial normal, não dois. Não mexe no
+     padding-top (mantém a distância de Perguntas → Conteúdos como já era). */
+  padding-bottom: clamp(3rem, 6vw, 6.25rem);
 }
 .articles__head { margin-bottom: var(--s-10); }
 .articles__title { margin-top: var(--s-4); }

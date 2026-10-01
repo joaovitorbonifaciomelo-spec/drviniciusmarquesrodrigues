@@ -6,6 +6,11 @@
 .vivenza {
   background: var(--c-marfim);
   padding: var(--section) var(--margin);
+  /* Exceção local só para esta borda: espelha o padding-bottom de
+     articles.css — Conteúdos → Onde Atendo não deve somar dois
+     `--section` inteiros. Não mexe no padding-bottom (mantém a distância
+     de Onde Atendo → Contato como já era). */
+  padding-top: clamp(3rem, 6vw, 6.25rem);
 }
 .vivenza__grid {
   display: grid;
