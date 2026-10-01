@@ -95,12 +95,12 @@
   }
   .feature { grid-column: 1 / 7; }
   .reads { grid-column: 8 / 13; align-self: end; }
-  /* Sem leituras secundárias: o bloco principal ocupa mais largura em
-     vez de deixar uma coluna direita vazia com o CTA isolado no rodapé. */
-  .articles__grid--solo .feature { grid-column: 1 / 9; }
+  /* Sem leituras secundárias: o bloco principal ocupa a largura inteira
+     em vez de deixar uma coluna direita vazia. */
+  .articles__grid--solo .feature { grid-column: 1 / 13; }
 }
 @media (min-width: 1280px) {
   .feature { grid-column: 1 / 8; }
   .reads { grid-column: 9 / 13; }
-  .articles__grid--solo .feature { grid-column: 1 / 9; }
+  .articles__grid--solo .feature { grid-column: 1 / 13; }
 }
