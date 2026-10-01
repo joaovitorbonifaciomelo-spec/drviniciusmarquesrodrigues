@@ -5,13 +5,28 @@
  * briefing de captação (direção: Presença Editorial — Brandbook).
  *
  * Para substituir um placeholder:
- *   1. salve os arquivos em /public/media/ seguindo `file` (sem extensão);
+ *   1. salve o master em assets-src/photos/masters/<categoria>/ (não
+ *      versionado — ver .gitignore) e os derivados em /public/media/
+ *      seguindo `file` (sem extensão);
  *   2. gere as larguras listadas em `widths` nos formatos .avif e .jpg
  *      (ex.: retrato-escuta-800.avif, retrato-escuta-800.jpg);
  *   3. preencha `ready: true` e `width`/`height` do arquivo original.
  *
  * Enquanto `ready` for false, o site mostra uma "cena" tonal com o
  * briefing — o layout, o recorte e o motion já funcionam com ela.
+ *
+ * Organização dos masters (reorganizado em 2026-10-01 — ver memória do
+ * projeto / histórico de commits para o inventário completo):
+ *   assets-src/photos/
+ *     masters/authority/  → listening
+ *     masters/care/       → careDepth, careInterpretation, careExplanation,
+ *                            careDirection, careOrientation
+ *     masters/areas/      → areaCardiology, areaArrhythmia, areaEp
+ *     masters/content/    → articleInfartoJovens
+ *     masters/vivenza/    → vivenza, closing (sinalização)
+ *     masters/trajectory/ → portrait
+ *     legacy/             → masters reais já substituídos (preservados)
+ *     archive/             → candidatos avaliados e não usados (preservados)
  */
 
 export const media = {
@@ -66,11 +81,11 @@ export const media = {
   careDepth: {
     kind: 'image',
     ready: true,
-    file: 'care-profundidade-desktop',
+    file: 'care-depth-desktop',
     widths: [960, 1536],
     width: 1536,
     height: 960,
-    mobile: { file: 'care-profundidade-mobile', widths: [640, 960, 1122] },
+    mobile: { file: 'care-depth-mobile', widths: [640, 960, 1122] },
     variant: 'exam',
     alt: 'Mãos do Dr. Vinicius escrevendo, com o bordado do jaleco visível.',
   },
@@ -83,7 +98,7 @@ export const media = {
   careInterpretation: {
     kind: 'image',
     ready: true,
-    file: 'pause-desktop',
+    file: 'care-interpretation-desktop',
     widths: [960, 1536],
     width: 1536,
     height: 864,
@@ -99,7 +114,7 @@ export const media = {
   careExplanation: {
     kind: 'image',
     ready: true,
-    file: 'care-explicacao',
+    file: 'care-explanation',
     widths: [640, 960, 1400],
     width: 1400,
     height: 875,
@@ -115,7 +130,7 @@ export const media = {
   careDirection: {
     kind: 'image',
     ready: true,
-    file: 'care-direcao',
+    file: 'care-next-step',
     widths: [640, 960],
     width: 960,
     height: 600,
@@ -130,7 +145,7 @@ export const media = {
   careOrientation: {
     kind: 'image',
     ready: true,
-    file: 'authority-listening-desktop',
+    file: 'care-orientation',
     widths: [960, 1536],
     width: 1536,
     height: 960,
@@ -218,7 +233,7 @@ export const media = {
   articleInfartoJovens: {
     kind: 'image',
     ready: true,
-    file: 'artigo-infarto-jovens',
+    file: 'content-infarto-jovens',
     widths: [640, 960, 1400],
     width: 1400,
     height: 600,
@@ -251,11 +266,11 @@ export const media = {
   closing: {
     kind: 'image',
     ready: true,
-    file: 'encerramento-detalhe-desktop',
+    file: 'vivenza-signage-desktop',
     widths: [960, 1448],
     width: 1448,
     height: 814,
-    mobile: { file: 'encerramento-detalhe', widths: [640, 941] },
+    mobile: { file: 'vivenza-signage-mobile', widths: [640, 941] },
     variant: 'closing',
     alt: '',
   },
