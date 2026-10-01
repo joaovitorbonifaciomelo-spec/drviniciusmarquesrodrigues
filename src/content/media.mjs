@@ -169,20 +169,15 @@ export const media = {
     alt: 'Retrato editorial do Dr. Vinicius Marques Rodrigues.',
     brief: 'Retrato editorial vertical 4:5 · presença tranquila · pode olhar para a câmera · sem braços cruzados, sem estetoscópio como adereço.',
   },
-  /* RESOLVIDO (2026-10-01) — "Homem Elegante em Pátio Clássico.png"
-     (sessão Louvre/Paris, mesmo figurino do `portrait`, mas plano aberto
-     diferente): pátio monumental com grande espaço negativo à esquerda,
-     Dr. Vinicius pequeno no quadro, postura natural encostado num poste
-     — cumpre os critérios que DSCF5237/DSCF5177/"ambiente acolhedor"
-     não cumpriam (ver histórico abaixo no commit anterior).
-
-     MOBILE PROVISÓRIO: o cliente pediu "DSCF5521.jpg" como original
-     vertical para o mobile, mas esse arquivo não existe em nenhum lugar
-     do projeto (busca completa feita em 2026-10-01). Enquanto não for
-     fornecido, `mobile` usa um recorte vertical (4:5) desta MESMA foto
-     — não é a arte-dirigida real que foi pedida, apenas um crop
-     provisório para não deixar a seção sem imagem nenhuma no mobile.
-     Trocar por um `file` próprio assim que DSCF5521.jpg existir. */
+  /* RESOLVIDO (2026-10-01) — par mobile/desktop real da sessão
+     Louvre/Paris (mesmo figurino do `portrait`, plano aberto diferente):
+     pátio monumental com grande espaço negativo, Dr. Vinicius pequeno no
+     quadro, postura natural encostado num poste — cumpre os critérios
+     que DSCF5237/DSCF5177/"ambiente acolhedor" não cumpriam (ver
+     histórico em commits anteriores). Desktop = plano horizontal
+     (pause-editorial-desktop); mobile = DSCF5521.jpg, o mesmo instante
+     capturado verticalmente (não um recorte do desktop) — arte-dirigida
+     real, zero upscale em ambos. */
   pause: {
     kind: 'image',
     ready: true,
@@ -190,7 +185,7 @@ export const media = {
     widths: [960, 1672],
     width: 1672,
     height: 940,
-    mobile: { file: 'pause-editorial-mobile', widths: [640, 941] },
+    mobile: { file: 'pause-editorial-mobile', widths: [640, 960, 1365] },
     variant: 'pause',
     alt: 'Dr. Vinicius em silêncio, em um pátio monumental com grande área de espaço negativo.',
   },
