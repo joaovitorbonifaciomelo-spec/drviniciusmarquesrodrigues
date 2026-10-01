@@ -25,14 +25,18 @@ export const label = (text, cls = '') => html`<p class="label ${cls}">${text}</p
  * CTA principal — derivado do MARCADOR do Brandbook (cápsula + seta).
  * O preenchimento cresce da esquerda (a seta "conduz" o gesto).
  */
-export const cta = ({ href, text, external = false, variant = 'solid', cls = '', magnetic = true, attrs: extra = {} }) =>
-  html`<a${attrs({
+export const cta = ({ href, text, external, variant = 'solid', cls = '', magnetic = true, attrs: extra = {} }) => {
+  // Link absoluto (http...) = sai do site (WhatsApp, Instagram, Maps...) — nova aba.
+  // Âncora/rota interna nunca começa com "http", então isso nunca falsa-positiva.
+  const out = external ?? href?.startsWith('http');
+  return html`<a${attrs({
     class: `cta cta--${variant} ${cls}`.trim(),
     href,
     'data-magnetic': magnetic || null,
-    ...(external ? { target: '_blank', rel: 'noopener' } : {}),
+    ...(out ? { target: '_blank', rel: 'noopener' } : {}),
     ...extra,
-  })}><span class="cta__fill" aria-hidden="true"></span><span class="cta__text">${text}</span><span class="cta__icon">${icon.arrowOut()}</span>${external ? html`<span class="sr-only"> (abre em nova aba)</span>` : ''}</a>`;
+  })}><span class="cta__fill" aria-hidden="true"></span><span class="cta__text">${text}</span><span class="cta__icon">${icon.arrowOut()}</span>${out ? html`<span class="sr-only"> (abre em nova aba)</span>` : ''}</a>`;
+};
 
 /** Link editorial com seta — a linha da seta se estende no hover. */
 export const linkArrow = ({ href, text, cls = '', attrs: extra = {} }) =>

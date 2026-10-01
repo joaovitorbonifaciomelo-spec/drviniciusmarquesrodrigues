@@ -31,22 +31,23 @@ export const site = {
   },
 
   /**
-   * Canais de contato. Telefone confirmado em 2026-09-27, Instagram em
-   * 2026-10-01 (dados oficiais fornecidos). WhatsApp e e-mail continuam
-   * sem confirmação nas fontes.
+   * Canais de contato. Telefone (Vivenza) confirmado em 2026-09-27,
+   * Instagram em 2026-10-01, WhatsApp em 2026-10-01 (dados oficiais
+   * fornecidos). E-mail continua sem confirmação nas fontes.
    */
   contact: {
-    whatsapp: { label: ph('WhatsApp'), href: null },
+    whatsapp: { label: '(62) 99966-7661', href: 'https://wa.me/5562999667661' },
     phone: { label: '(62) 3093-2333', href: 'tel:+556230932333' },
     email: { label: ph('E-mail'), href: null },
     instagram: { label: '@dr.vinicius.marques.rodrigues', href: 'https://www.instagram.com/dr.vinicius.marques.rodrigues/' },
   },
 
   /**
-   * Agendamento. Quando houver URL/canal definido, preencher `href`.
-   * Enquanto null, os CTAs levam à seção de contato da Home.
+   * Agendamento. Enquanto não há uma URL de agendamento online dedicada,
+   * os CTAs "Agendar consulta" direcionam direto para o WhatsApp
+   * confirmado acima.
    */
-  booking: { href: null, label: 'Agendar consulta' },
+  booking: { href: 'https://wa.me/5562999667661', label: 'Agendar consulta' },
 
   nav: [
     { label: 'Trajetória', href: '/#trajetoria', chapter: 'trajetoria' },

@@ -7,7 +7,7 @@
 import { html, raw, attrs, text } from '../../tools/lib/html.mjs';
 import { site, bookingHref } from '../content/site.mjs';
 import { wordmark, wordmarkSprite } from './wordmark.mjs';
-import { cta, icon, contactLink } from './ui.mjs';
+import { cta, icon } from './ui.mjs';
 
 const v = () => globalThis.__BUILD__?.version ?? '0';
 
@@ -69,7 +69,6 @@ const menu = () => html`<div class="menu" id="menu" data-menu hidden>
     </nav>
     <div class="menu__foot">
       ${cta({ href: bookingHref(), text: site.booking.label, variant: 'light', magnetic: false, attrs: { 'data-menu-link': '' } })}
-      <p class="menu__contact">${contactLink(site.contact.whatsapp)}<span aria-hidden="true"> · </span>${contactLink(site.contact.phone)}</p>
     </div>
   </div>
 </div>`;
