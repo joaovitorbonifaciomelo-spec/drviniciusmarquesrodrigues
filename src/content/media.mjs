@@ -127,14 +127,17 @@ export const media = {
      central da Vivenza com DUAS bancadas de recepção enquadrando a linha
      de fuga até a sala de espera ao fundo — a mesma ideia de "caminho/
      direção/próximo passo", agora em alta resolução nativa (zero upscale,
-     fonte 1536 px) e com perspectiva mais clara que o crop antigo. */
+     fonte 1536 px) e com perspectiva mais clara que o crop antigo.
+     ATUALIZADO (2026-10-01, 2ª vez) — ganhou par mobile real: mesma cena,
+     captura vertical própria (não um recorte do desktop), zero upscale. */
   careDirection: {
     kind: 'image',
     ready: true,
-    file: 'care-next-step',
+    file: 'care-next-step-desktop',
     widths: [640, 960],
     width: 960,
     height: 600,
+    mobile: { file: 'care-next-step-mobile', widths: [640, 960, 1122] },
     variant: 'corridor',
     alt: 'Corredor da Vivenza com bancadas de recepção e sala de espera ao fundo.',
   },
