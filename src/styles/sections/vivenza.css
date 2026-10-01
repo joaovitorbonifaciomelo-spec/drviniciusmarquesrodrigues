@@ -116,7 +116,7 @@
     column-gap: var(--gutter);
     row-gap: var(--s-10);
   }
-  .vivenza__text { grid-column: 1 / 8; grid-row: 1; align-self: end; }
+  .vivenza__text { grid-column: 1 / 8; grid-row: 1; align-self: start; }
   .vivenza__media { grid-column: 8 / 13; grid-row: 1; margin: 0 calc(var(--margin) * -1) 0 0; }
   .vivenza__info { grid-column: 1 / 6; grid-row: 2; }
   .vivenza__map { grid-column: 8 / 13; grid-row: 2; align-self: start; }
