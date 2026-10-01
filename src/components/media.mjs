@@ -14,14 +14,23 @@ import { media as manifest } from '../content/media.mjs';
 const SHOW_NOTES = !process.env.HIDE_MEDIA_NOTES;
 const base = (m) => `/media/${m.file}`;
 
+/** Direção de arte: quando `m.mobile` existe, é um recorte diferente do
+ * desktop (não o mesmo crop redimensionado) — troca por <source media>,
+ * sem custo de CLS (o container já reserva o espaço; object-fit: cover
+ * não depende das dimensões intrínsecas da fonte escolhida). */
 function picture(m, { sizes = '100vw', priority = false, decorative = false }) {
   const ws = m.widths || [1200];
-  const set = (ext) => ws.map((w) => `${base(m)}-${w}.${ext} ${w}w`).join(', ');
+  const set = (mm, ext) => (mm.widths || ws).map((w) => `${base(mm)}-${w}.${ext} ${w}w`).join(', ');
+  const bp = m.mobile?.breakpoint ?? 767;
   return html`<picture class="media__pic">
-    <source type="image/avif" srcset="${set('avif')}" sizes="${sizes}">
+    ${m.mobile
+      ? html`<source media="(max-width: ${bp}px)" type="image/avif" srcset="${set(m.mobile, 'avif')}" sizes="100vw">
+    <source media="(max-width: ${bp}px)" srcset="${set(m.mobile, 'jpg')}" sizes="100vw">`
+      : ''}
+    <source type="image/avif" srcset="${set(m, 'avif')}" sizes="${sizes}">
     <img${attrs({
       src: `${base(m)}-${ws[ws.length - 1]}.jpg`,
-      srcset: set('jpg'),
+      srcset: set(m, 'jpg'),
       sizes,
       width: m.width,
       height: m.height,

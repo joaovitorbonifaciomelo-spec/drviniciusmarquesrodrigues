@@ -39,21 +39,24 @@ export const media = {
     brief:
       '9:16 · 6–10 s em loop · sem áudio · Dr. Vinicius em situação real, sem olhar para a câmera · movimento mínimo · luz natural · figura ao centro-direita · elegante também como foto (pôster).',
   },
-  /* FALTANTE (D) — reauditado em 2026-09-26 (arquivo hoje chamado
-     escuta.jpg no acervo; é o mesmo DSC04880 já testado — o nome do
-     arquivo não muda o conteúdo). Testado de novo, com 3 recortes
-     diferentes: em todos, o médico sorrindo direto para a câmera continua
-     inequívoco — é um problema de POSE (olhar na lente, não no paciente),
-     não de enquadramento. Nenhum recorte resolve isso. Mantido como
-     placeholder até existir uma foto de escuta real (olhar no paciente). */
+  /* RESOLVIDO (2026-10-01) — acervo novo fornecido pelo cliente. Par
+     mobile/desktop real (duas fotos distintas da mesma cena, não o mesmo
+     crop redimensionado): mobile usa o enquadramento vertical já quase
+     4:5 nativo; desktop usa o plano horizontal, que é o que a cena
+     hero→autoridade realmente recorta dinamicamente via clip-path no
+     palco (scenes/hero-authority.js). Olhar no paciente, não na câmera —
+     resolve a limitação do acervo anterior (DSC04880/escuta.jpg, sempre
+     olhando pra lente). */
   listening: {
     kind: 'image',
-    ready: false,
-    file: 'retrato-escuta',
-    widths: [640, 960, 1400],
+    ready: true,
+    file: 'authority-listening-desktop',
+    widths: [960, 1536],
+    width: 1536,
+    height: 960,
+    mobile: { file: 'authority-listening-mobile', widths: [640, 960, 1122] },
     variant: 'listening',
-    alt: 'Dr. Vinicius ouvindo com atenção durante uma conversa em consulta.',
-    brief: 'Foto vertical 4:5 · escuta em consulta · perfil ou três-quartos · sem olhar para a câmera · luz lateral suave.',
+    alt: 'Dr. Vinicius ouvindo um paciente durante a consulta.',
   },
   /* RESOLVIDO — acervo real (auditoria 2026-09-26). Master: DSC04925.jpg
      (assets-src/photos/masters, não versionado). Mãos escrevendo, bordado
@@ -145,86 +148,87 @@ export const media = {
     alt: 'Retrato editorial do Dr. Vinicius Marques Rodrigues.',
     brief: 'Retrato editorial vertical 4:5 · presença tranquila · pode olhar para a câmera · sem braços cruzados, sem estetoscópio como adereço.',
   },
-  /* FALTANTE (D) — reauditado em 2026-09-26, incluindo o candidato mais
-     recente ("pausa editorial.jpg" no acervo, na verdade o mesmo arquivo
-     já usado em `portrait` — Louvre, sobretudo). Testado nos 3 formatos
-     reais da seção (4:5, 16:9, 21:9): com a pessoa em quadro, é
-     inequivocamente um RETRATO POSADO — braços cruzados (a pose que o
-     Brandbook pede para evitar), olhando para o lado de forma estilizada,
-     óculos escuros, num marco turístico reconhecível; sem a pessoa em
-     quadro (recorte bem largo), vira só fachada de prédio, sem nenhuma
-     ligação com o Dr. Vinicius. Nenhum dos dois serve a "pausa editorial"
-     (silêncio, espaço negativo, sem pose de câmera). Reutilizar essa
-     mesma foto aqui também duplicaria o slot `portrait`, onde ela já é
-     usada e onde a pose posada faz sentido. Mantido como placeholder. */
+  /* RESOLVIDO (2026-10-01) — acervo novo. Par mobile/desktop real (cenas
+     distintas, não o mesmo crop): médico sozinho, janela/skyline, muita
+     respiração visual — o "momento de silêncio" que o placeholder antigo
+     nunca teve (o único candidato disponível antes, pausa editorial.jpg,
+     era um retrato posado turístico sem relação com a cena; ver histórico
+     de auditoria abaixo). */
   pause: {
     kind: 'image',
-    ready: false,
-    file: 'pausa-horizontal',
-    widths: [960, 1600, 2400],
+    ready: true,
+    file: 'pause-desktop',
+    widths: [960, 1536],
+    width: 1536,
+    height: 864,
+    mobile: { file: 'pause-mobile', widths: [640, 960, 1122] },
     variant: 'pause',
-    alt: 'Dr. Vinicius em silêncio junto à janela, com grande área de espaço negativo.',
-    brief: 'Horizontal 16:9 · plano aberto · muito espaço negativo à esquerda · luz natural · momento de silêncio.',
+    alt: 'Dr. Vinicius em silêncio, trabalhando junto à janela com vista para a cidade.',
   },
-  /* FALTANTE (D), as três áreas — o acervo atual não contém nenhuma cena
-     que distinga visualmente cardiologia, arritmias e eletrofisiologia.
-     Por instrução explícita, não improvisar: as três seguem como placeholder
-     até haver fotografia real específica para cada uma. */
+  /* RESOLVIDO (2026-10-01) — acervo novo: uma cena própria para cada
+     área, finalmente distinguindo visualmente cardiologia (modelo
+     anatômico do coração), arritmias (ECG/monitor) e eletrofisiologia
+     (mapeamento cardíaco 3D na tela) — o acervo antigo não tinha nenhuma
+     cena que diferenciasse as três. */
   areaCardiology: {
     kind: 'image',
-    ready: false,
+    ready: true,
     file: 'area-cardiologia',
     widths: [480, 800],
+    width: 800,
+    height: 1000,
     variant: 'desk',
-    alt: 'Consulta cardiológica em andamento.',
-    brief: 'Vertical 3:4 · consulta em andamento · conversa.',
+    alt: 'Dr. Vinicius explicando um modelo anatômico do coração durante consulta.',
   },
   areaArrhythmia: {
     kind: 'image',
-    ready: false,
+    ready: true,
     file: 'area-arritmias',
     widths: [480, 800],
+    width: 800,
+    height: 1000,
     variant: 'exam',
-    alt: 'Detalhe de um registro de ritmo cardíaco sendo analisado.',
-    brief: 'Vertical 3:4 · exame real de ritmo em análise (Holter/registro) · detalhe com mãos.',
+    alt: 'Dr. Vinicius analisando um traçado de ECG com o paciente.',
   },
   areaEp: {
     kind: 'image',
-    ready: false,
+    ready: true,
     file: 'area-eletrofisiologia',
     widths: [480, 800],
+    width: 800,
+    height: 1000,
     variant: 'corridor',
-    alt: 'Ambiente de procedimento de eletrofisiologia, em luz controlada.',
-    brief: 'Vertical 3:4 · ambiente técnico real · luz controlada · sem equipamentos em primeiro plano como símbolo.',
+    alt: 'Dr. Vinicius mostrando um mapeamento cardíaco em tela.',
   },
-  /* Capa do artigo "Infarto em jovens cresce no Brasil" — imagem final a
-     ser fornecida pelo Dr. Vinicius; não gerar/substituir por conta própria. */
+  /* RESOLVIDO (2026-10-01) — acervo novo. Crop largo (21:9) a partir de
+     uma cena horizontal real; evita deliberadamente ECG/monitor (pedido
+     explícito do briefing editorial: capa de prevenção, não de tecnologia
+     médica) — por isso não reaproveita area-arritmias/area-eletrofisiologia. */
   articleInfartoJovens: {
     kind: 'image',
-    ready: false,
+    ready: true,
     file: 'artigo-infarto-jovens',
-    widths: [640, 960, 1400, 1900],
+    widths: [640, 960, 1400],
+    width: 1400,
+    height: 600,
     variant: 'conversation',
-    alt: 'Consulta cardiológica com discussão de fatores de risco.',
-    brief: 'Horizontal · consulta real ou avaliação de fatores de risco (aferição de pressão, conversa) · luz natural · sem ícones de ECG ou coração, sem clichê de saúde/tech.',
+    alt: 'Dr. Vinicius em consulta, com um modelo anatômico do coração.',
   },
-  /* APROVEITÁVEL (B) — master 01.jpg (Vivenza, recepção — arquivo distinto
-     do "vivenza.jpg" do acervo, que é um detalhe de sinalização; ver
-     `closing` abaixo). Fonte nativa de apenas 1200 px de largura →
-     upscale moderado (~1,33×) no maior tier; aceitável para uso atual,
-     mas uma nova captura em alta resolução é recomendada a médio prazo.
-     `widths` reduzido de [960,1600,2200] para [960,1600] — 2200 exigiria
-     upscale grande demais para ser honesto. */
+  /* ATUALIZADO (2026-10-01) — acervo novo substitui 01.jpg (1200 px,
+     upscale 1,33×): mesma recepção, resolução nativa maior (1536 px,
+     zero upscale no tier usado) e melhor enquadramento — marca "Vivenza"
+     no balcão legível, luminárias e marcenaria em evidência. Par
+     mobile/desktop real. */
   vivenza: {
     kind: 'image',
     ready: true,
-    file: 'vivenza-arquitetura',
-    widths: [960, 1600],
-    width: 1600,
-    height: 1200,
+    file: 'vivenza-recepcao-desktop',
+    widths: [960, 1536],
+    width: 1536,
+    height: 768,
+    mobile: { file: 'vivenza-recepcao-mobile', widths: [640, 960, 1122] },
     variant: 'architecture',
     alt: 'Recepção da Vivenza, com marcenaria em madeira e mármore.',
-    brief: 'Arquitetura · fachada ou recepção da Vivenza · linhas limpas · luz natural · sem pessoas posando.',
   },
   /* APROVEITÁVEL (B) — master "vivenza.jpg" no acervo (detalhe da
      sinalização Vivenza: madeira, mármore e latão — reconfirmado em

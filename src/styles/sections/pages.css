@@ -68,21 +68,39 @@
   color: var(--c-azul);
 }
 
-/* Trajetória */
-.bio {
+/* Trajetória — uma grade só; a ordem muda por breakpoint, a composição não.
+   Mobile: crumb → foto → label → título → texto (leitura contínua).
+   Desktop: crumb + label + título em largura cheia, foto (sticky) e texto
+   lado a lado — exatamente a composição anterior, só sem duas seções. */
+.traj {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--s-10);
-  padding: var(--s-12) var(--margin) var(--section);
+  gap: var(--s-8);
+  padding: calc(var(--hd-h) + clamp(4rem, 14vh, 9rem)) var(--margin) var(--section);
 }
+.traj__crumb { order: 1; }
+.traj__portrait { order: 2; }
+.traj__label { order: 3; margin-top: var(--s-2); }
+.traj__title { order: 4; margin-top: 0; }
+.traj__line { order: 4; }
+.traj__text { order: 5; }
 .bio__portrait { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--c-cinza-60); }
 .bio__portrait-inner { position: absolute; inset: 0; }
 .bio__label { margin-top: var(--s-10); }
 .bio__cta { margin-top: var(--s-8); }
 @media (min-width: 1024px) {
-  .bio { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
-  .bio__portrait { grid-column: 1 / 6; align-self: start; position: sticky; top: calc(var(--hd-h-compact) + var(--s-4)); }
-  .bio__text { grid-column: 7 / 13; }
+  .traj {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gutter);
+    row-gap: var(--s-10);
+    padding-top: calc(var(--hd-h) + clamp(4rem, 14vh, 9rem));
+  }
+  .traj__crumb { grid-column: 1 / 13; grid-row: 1; order: 0; margin-bottom: 0; }
+  .traj__label { grid-column: 1 / 9; grid-row: 2; order: 0; margin-top: var(--s-6); }
+  .traj__title { grid-column: 1 / 9; grid-row: 3; order: 0; margin-top: var(--s-4); }
+  .traj__portrait { grid-column: 1 / 6; grid-row: 4; order: 0; align-self: start; position: sticky; top: calc(var(--hd-h-compact) + var(--s-4)); }
+  .traj__text { grid-column: 7 / 13; grid-row: 4; order: 0; }
 }
 
 /* Área de atuação */
