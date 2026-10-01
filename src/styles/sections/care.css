@@ -246,19 +246,26 @@ html.motion.stage .care .care__body {
   gap: var(--s-4);
   justify-items: start;
 }
-/* No palco (pinned/desktop-motion), a largura vem da coluna da grade
-   (9/13) e a altura nasce da proporção real de cada master — por isso a
-   "janela" muda de altura de uma etapa paisagem (3:2) para a etapa
-   retrato (Explicação, 4:5), em vez de forçar todas ao mesmo recorte.
-   max-height é só um teto de segurança para a única etapa vertical em
-   viewports muito largos (nesse caso raro, width continua a da coluna e
-   o recorte residual é mínimo — não as cinco etapas inteiras como antes). */
+/* EXCEÇÃO DELIBERADA E TECNICAMENTE NECESSÁRIA (corrigido — ver histórico):
+   as 5 figuras do palco NÃO fazem crossfade por opacidade — cada uma é
+   revelada por clip-path e permanece revelada (z-index crescente) por
+   cima das anteriores (ver scripts/scenes/care.js). Isso só funciona se
+   as 5 ocuparem exatamente a MESMA caixa: a figura revelada por último
+   precisa cobrir por completo as anteriores. Deixar a altura nascer da
+   proporção real de cada master (tentativa anterior) quebrou essa
+   premissa — a etapa retrato (Explicação, 4:5) ficava mais estreita que
+   as paisagem (3:2) e um fragmento da etapa anterior vazava pela lateral
+   (bug reportado pelo cliente). Por isso aqui — só no modo palco — as 5
+   etapas voltam a usar uma janela de tamanho fixo e idêntico (com
+   recorte via object-fit: cover); fora do palco (flow/mobile/reduced-
+   motion), cada `.care__figure` já segue a proporção real do seu master
+   (ver as regras fora deste bloco `html.motion.stage`). */
 html.motion.stage .care .care__figure {
   grid-column: 9 / 13;
   grid-row: 1 / 5;
   align-self: center;
-  aspect-ratio: var(--figure-ratio-desktop);
-  max-height: min(66vh, 44rem);
+  height: min(66vh, 44rem);
+  aspect-ratio: auto;
   margin: 0;
   background: transparent;
 }
