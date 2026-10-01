@@ -241,22 +241,21 @@ export const media = {
     variant: 'architecture',
     alt: 'Recepção da Vivenza, com marcenaria em madeira e mármore.',
   },
-  /* ATUALIZADO (2026-10-01) — substitui a textura antiga (madeira/luz,
-     sem marca) pelo letreiro dourado novo da Vivenza, recortado para
-     mostrar só a marca-símbolo (o "V") sobre madeira e mármore — sem a
-     palavra "VIVENZA" legível no quadro (ver crop alternativo testado e
-     descartado: a versão com o nome por extenso lia como marca d'água a
-     16% de opacidade, o mesmo problema que o vivenza.jpg antigo tinha).
-     Fonte nativa só permite 941 px de largura no recorte 16:9 — mantido
-     honesto (`widths: [640, 941]`, zero upscale); o papel é 100%
-     decorativo e desfocado, a resolução extra não faria diferença. */
+  /* ATUALIZADO (2026-10-01) — correção pontual: o desktop estava usando o
+     recorte derivado da foto vertical do letreiro (941 px nativo, ainda
+     retrato na fonte). Cliente forneceu uma foto nativamente horizontal
+     da mesma sinalização (logo + mármore) especificamente para o
+     desktop — `mobile` mantém o recorte antigo (derivado da vertical,
+     já aprovado para esse uso), `file` (desktop) passa a apontar para a
+     nova fonte horizontal, zero upscale (nativa 1448 px). */
   closing: {
     kind: 'image',
     ready: true,
-    file: 'encerramento-detalhe',
-    widths: [640, 941],
-    width: 941,
-    height: 529,
+    file: 'encerramento-detalhe-desktop',
+    widths: [960, 1448],
+    width: 1448,
+    height: 814,
+    mobile: { file: 'encerramento-detalhe', widths: [640, 941] },
     variant: 'closing',
     alt: '',
   },
