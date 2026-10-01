@@ -88,7 +88,7 @@
   top: 0;
   left: calc((100% + var(--gutter)) / 12 * 7);
   width: calc((100% + var(--gutter)) / 12 * 2 - var(--gutter));
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1122 / 1402; /* proporção real dos masters (area-cardiologia/arritmias/eletrofisiologia) */
   pointer-events: none;
   z-index: 2;
   will-change: transform;
@@ -166,7 +166,7 @@
 .no-js .acc__icon { display: none; }
 .acc__media {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 1122 / 1402; /* era 16/10 — cortava quase toda a foto vertical (native 4:5) */
   overflow: hidden;
   margin-bottom: var(--s-3);
 }

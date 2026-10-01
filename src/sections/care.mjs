@@ -8,9 +8,20 @@
  */
 import { html } from '../../tools/lib/html.mjs';
 import { care } from '../content/home.mjs';
-import { mediaFor } from '../components/media.mjs';
+import { mediaFor, mediaMeta } from '../components/media.mjs';
 import { cta } from '../components/ui.mjs';
 import { bookingHref } from '../content/site.mjs';
+
+/* O frame segue a foto, não o contrário: cada etapa tem seu master com
+   proporção própria (ver content/media.mjs), então o aspect-ratio do
+   .care__figure vem de custom properties por instância em vez de um
+   valor fixo compartilhado entre as cinco etapas. */
+const figureRatioVars = (s) => {
+  const m = mediaMeta(s.media);
+  const d = `${m.width} / ${m.height}`;
+  const mb = m.mobile ? `${m.mobile.width} / ${m.mobile.height}` : d;
+  return `--figure-ratio-desktop:${d};--figure-ratio-mobile:${mb}`;
+};
 
 export const careSection = () => html`<section class="care" id="como-cuidamos" data-scene="care" data-scene-desktop data-chapter="${care.chapter}" data-header-tone="dark" aria-labelledby="care-title">
   <div class="care__panel" data-care-panel>
@@ -41,7 +52,7 @@ export const careSection = () => html`<section class="care" id="como-cuidamos" d
               <p class="care__text" data-reveal="fade">${s.text}</p>
               ${s.cta ? html`<div class="care__cta" data-reveal="fade">${cta({ href: bookingHref(), text: 'Agendar consulta', variant: 'light' })}</div>` : ''}
             </div>
-            <figure class="care__figure" data-care-figure data-reveal="media">
+            <figure class="care__figure" data-care-figure data-reveal="media" style="${figureRatioVars(s)}">
               <div class="care__figure-inner">${mediaFor(s.media, { sizes: '(min-width: 1024px) 34vw, 100vw' })}</div>
             </figure>
           </li>`

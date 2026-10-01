@@ -271,6 +271,14 @@ html.motion.stage .ha .ha__auth-grid {
   padding-bottom: 9vh;
   row-gap: 6vh;
 }
+/* EXCEÇÃO DELIBERADA (palco fixo): no modo pinned/desktop-motion o
+   enquadramento nasce dinamicamente do clip-path calculado em JS a partir
+   da geometria renderizada da coluna da grade (ver scenes/hero-authority.js:
+   frame()), não da proporção nativa da foto — é a mesma cena hero→
+   autoridade recortando a imagem de forma cinemática, estrutural ao
+   palco. Fora do stage (flow/mobile/reduced-motion), `.ha__figure` usa
+   aspect-ratio:4/5 (base, acima), que já corresponde à proporção nativa
+   do master (1122×1402 ≈ 4:5 — diferença < 0,1%, não é um crop real). */
 html.motion.stage .ha .ha__figure {
   aspect-ratio: auto;
   height: 100%;

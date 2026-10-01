@@ -15,14 +15,29 @@
 .vivenza__title { margin-top: var(--s-4); font-size: var(--fs-h1-col); }
 .vivenza__copy { margin-top: var(--s-4); }
 
+/* O master mobile (1122×1402) entra abaixo de 768px; o master desktop
+   (1536×1024, 3:2) entra a partir de 768px — mesmo ponto de troca do
+   <source media> em components/media.mjs — para a proporção do frame
+   nunca descasar da foto realmente exibida (ver @media (min-width:768px)
+   abaixo). */
 .vivenza__media {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1122 / 1402;
   overflow: hidden;
   background: var(--c-cinza-40);
   margin-inline: calc(var(--margin) * -1);
 }
+/* EXCEÇÃO DELIBERADA, pequena e necessária: a folga vertical de 6% para
+   cima/baixo é a margem de manobra do parallax (data-parallax="0.06" em
+   vivenza.mjs) — sem ela, o deslocamento no scroll exporia uma borda
+   vazia. O recorte residual (~11%) é o preço estrutural desse micro-
+   movimento, não um aspect-ratio errado (o `.vivenza__media` acima já
+   usa a proporção real do master). */
 .vivenza__media-inner { position: absolute; inset: -6% 0; }
+
+@media (min-width: 768px) {
+  .vivenza__media { aspect-ratio: 3 / 2; }
+}
 
 .vivenza__brand {
   display: flex;
@@ -102,7 +117,7 @@
     row-gap: var(--s-10);
   }
   .vivenza__text { grid-column: 1 / 8; grid-row: 1; align-self: end; }
-  .vivenza__media { grid-column: 8 / 13; grid-row: 1; margin: 0 calc(var(--margin) * -1) 0 0; aspect-ratio: 5 / 4; }
+  .vivenza__media { grid-column: 8 / 13; grid-row: 1; margin: 0 calc(var(--margin) * -1) 0 0; }
   .vivenza__info { grid-column: 1 / 6; grid-row: 2; }
   .vivenza__map { grid-column: 8 / 13; grid-row: 2; align-self: start; }
   .map { aspect-ratio: 16 / 8; }

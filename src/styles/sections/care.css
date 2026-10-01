@@ -85,9 +85,16 @@
   color: var(--c-azul-20);
 }
 .care__cta { margin-top: var(--s-2); }
+/* O frame segue a foto: cada <figure> recebe --figure-ratio-desktop e
+   --figure-ratio-mobile inline (ver sections/care.mjs), calculados a
+   partir das dimensões reais do master em content/media.mjs — nada de
+   proporção fixa compartilhada entre as cinco etapas. Abaixo de 768px
+   (fluxo/lista) o master mobile é exibido; de 768px em diante (inclusive
+   a faixa tablet 768–1023px) o master desktop é exibido, então a
+   proporção desktop é a correta também nessa faixa. */
 .care__figure {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: var(--figure-ratio-mobile, 4 / 5);
   overflow: hidden;
   margin-top: var(--s-2);
   background: var(--c-azul-80);
@@ -102,7 +109,7 @@
 @media (min-width: 768px) and (max-width: 1023px) {
   .care__step { grid-template-columns: 1fr 1fr; column-gap: var(--gutter); }
   .care__title, .care__body { grid-column: 1; }
-  .care__figure { grid-column: 2; grid-row: 1 / 3; margin: 0; aspect-ratio: 4 / 5; }
+  .care__figure { grid-column: 2; grid-row: 1 / 3; margin: 0; aspect-ratio: var(--figure-ratio-desktop); }
 }
 
 @media (min-width: 1024px) {
@@ -115,7 +122,7 @@
   .care__stem, .care__node { display: none; }
   .care__title { grid-column: 3 / 9; }
   .care__body { grid-column: 3 / 8; }
-  .care__figure { grid-column: 9 / 13; grid-row: 1 / 3; aspect-ratio: 4 / 5; margin: 0; }
+  .care__figure { grid-column: 9 / 13; grid-row: 1 / 3; aspect-ratio: var(--figure-ratio-desktop); margin: 0; }
 }
 
 /* ---------- PALCO (desktop + movimento) ---------- */
@@ -239,12 +246,19 @@ html.motion.stage .care .care__body {
   gap: var(--s-4);
   justify-items: start;
 }
+/* No palco (pinned/desktop-motion), a largura vem da coluna da grade
+   (9/13) e a altura nasce da proporção real de cada master — por isso a
+   "janela" muda de altura de uma etapa paisagem (3:2) para a etapa
+   retrato (Explicação, 4:5), em vez de forçar todas ao mesmo recorte.
+   max-height é só um teto de segurança para a única etapa vertical em
+   viewports muito largos (nesse caso raro, width continua a da coluna e
+   o recorte residual é mínimo — não as cinco etapas inteiras como antes). */
 html.motion.stage .care .care__figure {
   grid-column: 9 / 13;
   grid-row: 1 / 5;
   align-self: center;
-  height: min(66vh, 44rem);
-  aspect-ratio: auto;
+  aspect-ratio: var(--figure-ratio-desktop);
+  max-height: min(66vh, 44rem);
   margin: 0;
   background: transparent;
 }

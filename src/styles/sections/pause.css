@@ -8,9 +8,13 @@
   background: var(--c-marfim);
   padding: var(--s-8) 0 var(--section);
 }
+/* Master mobile nativo: 1365×2047 (≈2:3, NÃO 4:5 — o crop antigo cortava
+   a foto). Master desktop (≥768px, mesmo ponto de troca do <source
+   media>): 1672×941, ≈16:9 nativo (diferença < 0,1% para 16/9 exato —
+   não é um crop real, mantido como está). */
 .pause__media {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1365 / 2047;
   overflow: hidden;
   background: var(--c-cinza-80);
   margin-inline: var(--margin);
@@ -63,6 +67,10 @@ html.motion.stage .pause .pause__stage {
   height: 100vh;
   overflow: hidden;
 }
+/* EXCEÇÃO DELIBERADA (palco fixo): no modo pinned/desktop-motion a foto
+   ocupa o viewport inteiro por trás de um clip-path cinemático que se
+   abre com o scroll (ver scripts/scenes/pause.js) — o recorte aqui é
+   estrutural à cena, não um acidente de proporção. */
 html.motion.stage .pause .pause__media {
   position: absolute;
   inset: 0;

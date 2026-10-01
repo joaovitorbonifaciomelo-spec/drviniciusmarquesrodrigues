@@ -85,8 +85,8 @@ export const media = {
     file: 'care-depth-desktop',
     widths: [960, 1536],
     width: 1536,
-    height: 960,
-    mobile: { file: 'care-depth-mobile', widths: [640, 960, 1122] },
+    height: 1024,
+    mobile: { file: 'care-depth-mobile', widths: [640, 960, 1122], width: 1122, height: 1402 },
     variant: 'exam',
     alt: 'Mãos do Dr. Vinicius escrevendo, com o bordado do jaleco visível.',
   },
@@ -102,23 +102,23 @@ export const media = {
     file: 'care-interpretation-desktop',
     widths: [960, 1536],
     width: 1536,
-    height: 864,
+    height: 1024,
     variant: 'desk',
     alt: 'Dr. Vinicius concentrado, trabalhando no computador.',
   },
   /* ATUALIZADO (2026-10-01) — substitui o master DSC04954 pelo acervo
      novo (mesma ideia: explicação com modelo anatômico, paciente fora de
-     foco). Só há uma versão (sem par mobile dedicado) — crop único
-     reaproveitado via object-fit:cover, como antes. Tier de 1400 px
-     upscala 1,25× (fonte nativa permite nitidez até ~1120 px no recorte
-     16:10); aceitável, consistente com a tolerância já usada no projeto. */
+     foco). Só há uma versão (sem par mobile dedicado). CORRIGIDO
+     (2026-10-01, correção global de proporção): sem crop — a fonte nativa
+     é vertical (4:5, 1122×1402); o tier máximo passa a ser 1122 px (zero
+     upscale) em vez do antigo 1400 px cropado para 16:10. */
   careExplanation: {
     kind: 'image',
     ready: true,
     file: 'care-explanation',
-    widths: [640, 960, 1400],
-    width: 1400,
-    height: 875,
+    widths: [640, 960, 1122],
+    width: 1122,
+    height: 1402,
     variant: 'conversation',
     alt: 'Dr. Vinicius explicando algo a um paciente, com um modelo anatômico do coração.',
   },
@@ -134,10 +134,10 @@ export const media = {
     kind: 'image',
     ready: true,
     file: 'care-next-step-desktop',
-    widths: [640, 960],
-    width: 960,
-    height: 600,
-    mobile: { file: 'care-next-step-mobile', widths: [640, 960, 1122] },
+    widths: [640, 960, 1536],
+    width: 1536,
+    height: 1024,
+    mobile: { file: 'care-next-step-mobile', widths: [640, 960, 1122], width: 1122, height: 1402 },
     variant: 'corridor',
     alt: 'Corredor da Vivenza com bancadas de recepção e sala de espera ao fundo.',
   },
@@ -152,7 +152,7 @@ export const media = {
     file: 'care-orientation',
     widths: [960, 1536],
     width: 1536,
-    height: 960,
+    height: 1024,
     variant: 'listening',
     alt: 'Dr. Vinicius ouvindo um paciente durante a consulta.',
   },
@@ -160,17 +160,21 @@ export const media = {
      escuros, mãos nos bolsos — sem "braços cruzados", diretriz do Brandbook).
      Perfil três-quartos, não olha para a câmera, luz natural, arquitetura
      serena. Limitação real: óculos escondem os olhos — considerar produção
-     de um retrato sem óculos antes de tratar como definitivo. */
+     de um retrato sem óculos antes de tratar como definitivo.
+     CORRIGIDO (2026-10-01, correção global de proporção): sem crop 4:5 —
+     a fonte nativa é 2:3 (5117×7676, master renomeado para
+     trajectory-portrait.jpg na reorganização de pastas), mostrada na
+     proporção real. */
   portrait: {
     kind: 'image',
     ready: true,
-    file: 'retrato-editorial',
+    file: 'trajectory-portrait',
     widths: [640, 960, 1400, 1800],
     width: 1800,
-    height: 2250,
+    height: 2700,
     variant: 'portrait',
     alt: 'Retrato editorial do Dr. Vinicius Marques Rodrigues.',
-    brief: 'Retrato editorial vertical 4:5 · presença tranquila · pode olhar para a câmera · sem braços cruzados, sem estetoscópio como adereço.',
+    brief: 'Retrato editorial vertical 2:3 · presença tranquila · pode olhar para a câmera · sem braços cruzados, sem estetoscópio como adereço.',
   },
   /* RESOLVIDO (2026-10-01) — par mobile/desktop real da sessão
      Louvre/Paris (mesmo figurino do `portrait`, plano aberto diferente):
@@ -178,17 +182,18 @@ export const media = {
      quadro, postura natural encostado num poste — cumpre os critérios
      que DSCF5237/DSCF5177/"ambiente acolhedor" não cumpriam (ver
      histórico em commits anteriores). Desktop = plano horizontal
-     (pause-editorial-desktop); mobile = DSCF5521.jpg, o mesmo instante
-     capturado verticalmente (não um recorte do desktop) — arte-dirigida
-     real, zero upscale em ambos. */
+     (pause-editorial-desktop, nativo 1672×941 ≈ 16:9 — a diferença para
+     1672×940 é <0,1%, não é um crop real); mobile = DSCF5521.jpg, o mesmo
+     instante capturado verticalmente (nativo 1365×2047 ≈ 2:3, NÃO 4:5) —
+     arte-dirigida real, zero upscale em ambos. */
   pause: {
     kind: 'image',
     ready: true,
     file: 'pause-editorial-desktop',
     widths: [960, 1672],
     width: 1672,
-    height: 940,
-    mobile: { file: 'pause-editorial-mobile', widths: [640, 960, 1365] },
+    height: 941,
+    mobile: { file: 'pause-editorial-mobile', widths: [640, 960, 1365], width: 1365, height: 2047 },
     variant: 'pause',
     alt: 'Dr. Vinicius em silêncio, em um pátio monumental com grande área de espaço negativo.',
   },
@@ -227,17 +232,19 @@ export const media = {
     variant: 'corridor',
     alt: 'Dr. Vinicius mostrando um mapeamento cardíaco em tela.',
   },
-  /* RESOLVIDO (2026-10-01) — acervo novo. Crop largo (21:9) a partir de
-     uma cena horizontal real; evita deliberadamente ECG/monitor (pedido
-     explícito do briefing editorial: capa de prevenção, não de tecnologia
-     médica) — por isso não reaproveita area-arritmias/area-eletrofisiologia. */
+  /* RESOLVIDO (2026-10-01) — acervo novo: cena horizontal real; evita
+     deliberadamente ECG/monitor (pedido explícito do briefing editorial:
+     capa de prevenção, não de tecnologia médica) — por isso não reaproveita
+     area-arritmias/area-eletrofisiologia. CORRIGIDO (2026-10-01, correção
+     global de proporção): sem crop 21:9 — a fonte nativa é 3:2 (1536×1024),
+     mostrada na proporção real. */
   articleInfartoJovens: {
     kind: 'image',
     ready: true,
     file: 'content-infarto-jovens',
-    widths: [640, 960, 1400],
-    width: 1400,
-    height: 600,
+    widths: [640, 960, 1536],
+    width: 1536,
+    height: 1024,
     variant: 'conversation',
     alt: 'Dr. Vinicius em consulta, com um modelo anatômico do coração.',
   },
@@ -252,8 +259,8 @@ export const media = {
     file: 'vivenza-recepcao-desktop',
     widths: [960, 1536],
     width: 1536,
-    height: 768,
-    mobile: { file: 'vivenza-recepcao-mobile', widths: [640, 960, 1122] },
+    height: 1024,
+    mobile: { file: 'vivenza-recepcao-mobile', widths: [640, 960, 1122], width: 1122, height: 1402 },
     variant: 'architecture',
     alt: 'Recepção da Vivenza, com marcenaria em madeira e mármore.',
   },

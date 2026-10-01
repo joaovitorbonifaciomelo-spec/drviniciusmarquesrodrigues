@@ -85,7 +85,7 @@
 .traj__title { order: 4; margin-top: 0; }
 .traj__line { order: 4; }
 .traj__text { order: 5; }
-.bio__portrait { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--c-cinza-60); }
+.bio__portrait { position: relative; aspect-ratio: 1800 / 2700; overflow: hidden; background: var(--c-cinza-60); } /* proporção real do master (trajectory-portrait, 2:3) */
 .bio__portrait-inner { position: absolute; inset: 0; }
 .bio__label { margin-top: var(--s-10); }
 .bio__cta { margin-top: var(--s-8); }
@@ -110,7 +110,7 @@
   gap: var(--s-10);
   padding: var(--s-12) var(--margin) var(--section);
 }
-.spec__media { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--c-cinza-60); }
+.spec__media { position: relative; aspect-ratio: 1122 / 1402; overflow: hidden; background: var(--c-cinza-60); } /* proporção real dos masters de área (4:5) */
 .spec__media-inner { position: absolute; inset: 0; }
 .spec__summary {
   font-family: var(--font-serif);
@@ -186,7 +186,7 @@
 .post__byline { margin-top: var(--s-5); font-size: var(--fs-small); color: var(--fg-muted); }
 .post__media {
   position: relative;
-  aspect-ratio: 21 / 9;
+  aspect-ratio: 3 / 2; /* proporção real do master (content-infarto-jovens, 1536×1024) — era 21/9, cortava a foto */
   overflow: hidden;
   margin-inline: var(--margin);
   background: var(--c-cinza-60);

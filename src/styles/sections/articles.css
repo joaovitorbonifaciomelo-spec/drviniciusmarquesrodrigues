@@ -19,7 +19,7 @@
 .feature__link { display: grid; gap: var(--s-4); color: var(--fg); }
 .feature__media {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2; /* proporção real do master (content-infarto-jovens, 1536×1024) — sem crop */
   overflow: hidden;
   background: var(--c-cinza-60);
 }
@@ -96,6 +96,5 @@
 @media (min-width: 1280px) {
   .feature { grid-column: 1 / 8; }
   .reads { grid-column: 9 / 13; }
-  .feature__media { aspect-ratio: 16 / 11; }
   .articles__grid--solo .feature { grid-column: 1 / 9; }
 }

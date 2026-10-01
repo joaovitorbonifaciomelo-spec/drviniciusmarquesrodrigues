@@ -15,11 +15,14 @@
 .doctor__portrait {
   grid-column: 1 / -1;
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1800 / 2700; /* proporção real do master (trajectory-portrait, 2:3) */
   overflow: hidden;
   background: var(--c-cinza-60);
   margin-inline: calc(var(--margin) * -1) 0;
 }
+/* EXCEÇÃO DELIBERADA, pequena e necessária: mesma folga de parallax do
+   Vivenza (ver comentário em vivenza.css) — margem para data-parallax
+   em doctor.mjs, não um aspect-ratio incorreto. */
 .doctor__portrait-inner { position: absolute; inset: -6% 0; }
 .doctor__text { grid-column: 1 / -1; }
 .doctor__title { margin-top: var(--s-4); font-size: var(--fs-h1-col); }
@@ -76,12 +79,18 @@
 
 @media (min-width: 1024px) {
   .doctor__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-  /* O retrato permanece enquanto a trajetória é lida */
+  /* O retrato permanece enquanto a trajetória é lida. A foto é 2:3
+     (bem mais alta que larga) — em vez de esticar a largura até a coluna
+     inteira e cortar o excesso de altura, a altura segue o espaço
+     disponível (viewport) e a largura nasce da proporção real da foto
+     (justify-self: start, em vez do stretch padrão do grid). */
   .doctor__portrait {
     grid-column: 1 / 7;
     margin: 0;
-    aspect-ratio: 4 / 5;
-    max-height: calc(100vh - var(--hd-h-compact) - 8vh);
+    aspect-ratio: 1800 / 2700;
+    height: calc(100vh - var(--hd-h-compact) - 8vh);
+    max-width: 100%;
+    justify-self: start;
     align-self: start;
     position: sticky;
     top: calc(var(--hd-h-compact) + 4vh);
