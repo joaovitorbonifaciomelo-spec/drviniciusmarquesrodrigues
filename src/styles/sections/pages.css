@@ -215,8 +215,14 @@
 }
 .post__next-link { margin-top: var(--s-2); text-transform: none; letter-spacing: 0; font-size: var(--fs-h3); font-family: var(--font-serif); font-weight: var(--w-serif); }
 @media (min-width: 1024px) {
-  .post__head, .post__body { padding-left: calc(var(--margin) + (100% - var(--margin) * 2 + var(--gutter)) / 12 * 2); }
-  .post__line { left: calc(var(--margin) + (100% - var(--margin) * 2 + var(--gutter)) / 12 * 2 - var(--s-8)); }
+  /* O recuo de "2 colunas" é proporcional ao viewport, mas .post__head já
+     tem max-width (58rem + margens) — sem um teto aqui, o recuo continua
+     crescendo com a tela mesmo depois que a caixa parou de crescer,
+     espremendo a coluna de leitura em telas largas (1920px+) em vez de
+     só sobrar espaço à direita. min() trava o recuo no valor que já
+     funciona bem por volta de 1440px. */
+  .post__head, .post__body { padding-left: min(calc(var(--margin) + (100% - var(--margin) * 2 + var(--gutter)) / 12 * 2), 19rem); }
+  .post__line { left: min(calc(var(--margin) + (100% - var(--margin) * 2 + var(--gutter)) / 12 * 2 - var(--s-8)), calc(19rem - var(--s-8))); }
 }
 
 .legal { padding: var(--s-8) var(--margin) var(--section); }
