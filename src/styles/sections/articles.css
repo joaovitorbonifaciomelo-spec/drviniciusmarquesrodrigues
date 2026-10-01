@@ -41,6 +41,10 @@
 .feature__dek { max-width: 36rem; color: var(--fg-muted); font-size: var(--fs-lead); }
 .feature__go { color: var(--c-azul); transition: transform var(--dur-3) var(--ease-orient); }
 .feature__go .i--arrow { width: 36px; }
+/* Sem leituras secundárias (hoje: só 1 artigo publicado) — o CTA "ver
+   todos" fica junto do próprio conteúdo em vez de isolado numa coluna
+   vazia (ver articles.mjs: articles__grid--solo). */
+.feature__more { margin-top: var(--s-2); }
 
 @media (hover: hover) {
   .feature__link:hover .feature__media-inner { transform: scale(1.035); }
@@ -85,9 +89,13 @@
   }
   .feature { grid-column: 1 / 7; }
   .reads { grid-column: 8 / 13; align-self: end; }
+  /* Sem leituras secundárias: o bloco principal ocupa mais largura em
+     vez de deixar uma coluna direita vazia com o CTA isolado no rodapé. */
+  .articles__grid--solo .feature { grid-column: 1 / 9; }
 }
 @media (min-width: 1280px) {
   .feature { grid-column: 1 / 8; }
   .reads { grid-column: 9 / 13; }
   .feature__media { aspect-ratio: 16 / 11; }
+  .articles__grid--solo .feature { grid-column: 1 / 9; }
 }

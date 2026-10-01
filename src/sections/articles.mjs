@@ -15,13 +15,14 @@ export const articleMeta = (a) =>
 export const articlesSection = () => {
   const featured = articles.find((a) => a.featured) || articles[0];
   const rest = articles.filter((a) => a !== featured).slice(0, 3);
+  const hasRest = rest.length > 0;
   return html`<section class="articles" id="conteudos" data-chapter="${articlesIntro.chapter}" data-header-tone="light" aria-labelledby="articles-title">
   <div class="articles__head">
     <p class="label" data-reveal="fade">${articlesIntro.label}</p>
     <h2 class="h1 articles__title" id="articles-title" data-reveal="lines">${lines(articlesIntro.title)}</h2>
   </div>
 
-  <div class="articles__grid">
+  <div class="articles__grid${hasRest ? '' : ' articles__grid--solo'}">
     <article class="feature" data-reveal="fade">
       <a class="feature__link" href="/conteudos/${featured.slug}/">
         <div class="feature__media" data-reveal="media"><div class="feature__media-inner">${mediaFor(featured.media, { sizes: '(min-width: 1024px) 55vw, 100vw', decorative: true })}</div></div>
@@ -32,9 +33,11 @@ export const articlesSection = () => {
           <span class="feature__go" aria-hidden="true">${icon.arrow()}</span>
         </div>
       </a>
+      ${!hasRest ? html`<div class="feature__more" data-reveal="fade">${linkArrow({ href: '/conteudos/', text: articlesIntro.cta })}</div>` : ''}
     </article>
 
-    <ul class="reads">
+    ${hasRest
+      ? html`<ul class="reads">
       ${rest.map(
         (a) => html`<li class="read" data-reveal="row">
         <span class="oline oline--x read__rule" data-line="draw" aria-hidden="true"></span>
@@ -46,7 +49,8 @@ export const articlesSection = () => {
       </li>`
       )}
       <li class="reads__all" data-reveal="fade">${linkArrow({ href: '/conteudos/', text: articlesIntro.cta })}</li>
-    </ul>
+    </ul>`
+      : ''}
   </div>
 </section>`;
 };
