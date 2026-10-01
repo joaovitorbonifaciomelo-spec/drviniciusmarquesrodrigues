@@ -52,7 +52,7 @@ export const care = {
       short: 'Orientação',
       title: 'Orientação para a decisão',
       text: 'Os caminhos possíveis são apresentados com critério, para que a decisão seja tomada com segurança.',
-      media: 'listening',
+      media: 'careOrientation',
     },
     {
       short: 'Próximo passo',

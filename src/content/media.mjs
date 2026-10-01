@@ -39,22 +39,24 @@ export const media = {
     brief:
       '9:16 · 6–10 s em loop · sem áudio · Dr. Vinicius em situação real, sem olhar para a câmera · movimento mínimo · luz natural · figura ao centro-direita · elegante também como foto (pôster).',
   },
-  /* RESOLVIDO (2026-10-01) — acervo novo fornecido pelo cliente. Par
-     mobile/desktop real (duas fotos distintas da mesma cena, não o mesmo
-     crop redimensionado): mobile usa o enquadramento vertical já quase
-     4:5 nativo; desktop usa o plano horizontal, que é o que a cena
-     hero→autoridade realmente recorta dinamicamente via clip-path no
-     palco (scenes/hero-authority.js). Olhar no paciente, não na câmera —
-     resolve a limitação do acervo anterior (DSC04880/escuta.jpg, sempre
-     olhando pra lente). */
+  /* ATUALIZADO (2026-10-01) — desacoplado de `careOrientation` (abaixo):
+     até aqui os dois compartilhavam esta mesma referência, então
+     "Autoridade Próxima" e "Como cuidamos → Orientação" sempre mostravam
+     a mesma foto por acidente de arquitetura, não por escolha. Correção
+     pontual do cliente: `listening` (Autoridade Próxima, hero→autoridade)
+     passa a usar exclusivamente "Consulta Médica Acolhedora no
+     Consultório.png" — arquivo único, sem par desktop (a cena hero→
+     autoridade recorta essa mesma imagem dinamicamente via clip-path no
+     palco desktop; ver scenes/hero-authority.js). O par antigo
+     (authority-listening-desktop) continua existindo só em
+     `careOrientation`, com asset próprio e independente. */
   listening: {
     kind: 'image',
     ready: true,
-    file: 'authority-listening-desktop',
-    widths: [960, 1536],
-    width: 1536,
-    height: 960,
-    mobile: { file: 'authority-listening-mobile', widths: [640, 960, 1122] },
+    file: 'authority-listening-mobile',
+    widths: [640, 960, 1122],
+    width: 1122,
+    height: 1402,
     variant: 'listening',
     alt: 'Dr. Vinicius ouvindo um paciente durante a consulta.',
   },
@@ -119,6 +121,21 @@ export const media = {
     height: 600,
     variant: 'corridor',
     alt: 'Corredor da Vivenza com bancadas de recepção e sala de espera ao fundo.',
+  },
+  /* NOVO (2026-10-01) — desacoplado de `listening` (ver comentário lá em
+     cima): esta etapa ("Orientação para a decisão") tem agora seu próprio
+     asset, independente da Autoridade Próxima. Usa o plano horizontal do
+     mesmo par fornecido pelo cliente — esta etapa não aparece no mobile
+     (regra existente de care.js), então não precisa de variante vertical. */
+  careOrientation: {
+    kind: 'image',
+    ready: true,
+    file: 'authority-listening-desktop',
+    widths: [960, 1536],
+    width: 1536,
+    height: 960,
+    variant: 'listening',
+    alt: 'Dr. Vinicius ouvindo um paciente durante a consulta.',
   },
   /* APROVEITÁVEL (B) — master DSCF5469.jpg (sessão Louvre, casaco/óculos
      escuros, mãos nos bolsos — sem "braços cruzados", diretriz do Brandbook).
