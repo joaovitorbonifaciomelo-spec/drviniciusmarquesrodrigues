@@ -125,7 +125,7 @@ export function initHeroAuthority(mm) {
       .to(el.titleMasks[1], { y: -56, opacity: 0, duration: 1.1, ease: 'inout' }, 0.16)
       .to(el.eyebrow, { y: -24, opacity: 0, duration: 0.9, ease: 'inout' }, 0.06)
       .to(el.foot, { y: -32, opacity: 0, duration: 1, ease: 'inout' }, 0.24)
-      .to([el.toggle, el.hint], { opacity: 0, duration: 0.45 }, 0)
+      .to([el.toggle, el.hint].filter(Boolean), { opacity: 0, duration: 0.45 }, 0)
 
       // 3–4 · o quadro se reduz e ancora à direita; o Marfim aparece
       .fromTo(el.media, { clipPath: 'inset(0px 0px 0px 0px)' }, { clipPath: frame, duration: 3.8, ease: 'inout' }, 0.35)

@@ -51,7 +51,7 @@ function picture(m, { sizes = '100vw', priority = false, decorative = false }) {
 function video(m, { sizes = '100vw', priority = false } = {}) {
   const pw = m.posterWidths || [720, 1080];
   const set = (ext) => pw.map((w) => `${base(m)}-poster-${w}.${ext} ${w}w`).join(', ');
-  return html`<picture class="media__pic media__poster">
+  const poster = html`<picture class="media__pic media__poster">
     <source type="image/avif" srcset="${set('avif')}" sizes="${sizes}">
     <img${attrs({
       src: `${base(m)}-poster-${pw[pw.length - 1]}.jpg`,
@@ -64,7 +64,14 @@ function video(m, { sizes = '100vw', priority = false } = {}) {
       fetchpriority: priority ? 'high' : null,
       decoding: 'async',
     })}>
-  </picture>
+  </picture>`;
+  /* Sem arquivo de vídeo real ainda (`ready: false`): só o pôster estático
+     — nenhuma tag <video> é emitida, então não há nada para tocar, pausar
+     ou suspender, e nenhum estado de carregamento pode deixar o bloco
+     vazio. Isso já é tudo o que scripts/ui/video.js precisa para não
+     tentar carregar/controlar um vídeo inexistente. */
+  if (!m.ready) return poster;
+  return html`${poster}
   <video${attrs({
     class: 'media__video',
     muted: true,
@@ -101,6 +108,11 @@ function scene(m, { decorative = false }) {
 export function mediaFor(key, opts = {}) {
   const m = manifest[key];
   if (!m) throw new Error(`Mídia desconhecida: ${key}`);
+  /* Vídeo com pôster real (foto já aprovada) mas sem arquivo de vídeo
+     ainda: mostra o pôster estático em vez da cena-placeholder — nunca
+     uma legenda de briefing ("VÍDEO · ...") na versão publicada, nunca
+     bloco vazio. Ver content/media.mjs → heroVideo. */
+  if (m.kind === 'video' && m.posterReady) return video(m, opts);
   if (!m.ready) return scene(m, opts);
   return m.kind === 'video' ? video(m, opts) : picture(m, opts);
 }
