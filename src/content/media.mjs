@@ -25,6 +25,7 @@
  *     masters/content/    → articleInfartoJovens
  *     masters/vivenza/    → vivenza, closing (sinalização)
  *     masters/trajectory/ → portrait
+ *     masters/editorial/  → pause (sessão Louvre/Paris)
  *     legacy/             → masters reais já substituídos (preservados)
  *     archive/             → candidatos avaliados e não usados (preservados)
  */
@@ -168,28 +169,30 @@ export const media = {
     alt: 'Retrato editorial do Dr. Vinicius Marques Rodrigues.',
     brief: 'Retrato editorial vertical 4:5 · presença tranquila · pode olhar para a câmera · sem braços cruzados, sem estetoscópio como adereço.',
   },
-  /* FALTANTE (D) — reauditado em 2026-10-01. O par janela/skyline
-     (pause-desktop/mobile) foi movido para `careInterpretation`: é cena
-     de computador/escritório, e por decisão explícita do cliente a Pausa
-     Editorial não pode ter computador, paciente, nem atividade clínica —
-     só silêncio/respiro/espaço negativo/contemplação, sem pose
-     corporativa. Reavaliados contra esse critério e descartados:
-       · DSCF5237/DSCF5177 (sessão Paris/Torre Eiffel): sorriso direto
-         para a câmera, braços cruzados, multidão de turistas ao fundo —
-         o oposto de espaço negativo e postura natural;
-       · "Consulta cardiológica em ambiente acolhedor.png" (acervo novo):
-         tem paciente e contexto clínico evidente;
-       · 2023-09-14.jpg: também é cena de computador.
-     Nenhum candidato do acervo (antigo ou novo) cumpre os critérios.
-     Mantido como placeholder — pendente de captação específica. */
+  /* RESOLVIDO (2026-10-01) — "Homem Elegante em Pátio Clássico.png"
+     (sessão Louvre/Paris, mesmo figurino do `portrait`, mas plano aberto
+     diferente): pátio monumental com grande espaço negativo à esquerda,
+     Dr. Vinicius pequeno no quadro, postura natural encostado num poste
+     — cumpre os critérios que DSCF5237/DSCF5177/"ambiente acolhedor"
+     não cumpriam (ver histórico abaixo no commit anterior).
+
+     MOBILE PROVISÓRIO: o cliente pediu "DSCF5521.jpg" como original
+     vertical para o mobile, mas esse arquivo não existe em nenhum lugar
+     do projeto (busca completa feita em 2026-10-01). Enquanto não for
+     fornecido, `mobile` usa um recorte vertical (4:5) desta MESMA foto
+     — não é a arte-dirigida real que foi pedida, apenas um crop
+     provisório para não deixar a seção sem imagem nenhuma no mobile.
+     Trocar por um `file` próprio assim que DSCF5521.jpg existir. */
   pause: {
     kind: 'image',
-    ready: false,
-    file: 'pausa-horizontal',
-    widths: [960, 1600],
+    ready: true,
+    file: 'pause-editorial-desktop',
+    widths: [960, 1672],
+    width: 1672,
+    height: 940,
+    mobile: { file: 'pause-editorial-mobile', widths: [640, 941] },
     variant: 'pause',
-    alt: 'Dr. Vinicius em silêncio, com grande área de espaço negativo.',
-    brief: 'Horizontal · plano aberto · pessoa pequena/média no quadro · muito espaço negativo · composição arquitetônica forte · postura natural · sem olhar para a câmera · sem computador, sem paciente, sem pose corporativa.',
+    alt: 'Dr. Vinicius em silêncio, em um pátio monumental com grande área de espaço negativo.',
   },
   /* RESOLVIDO (2026-10-01) — acervo novo: uma cena própria para cada
      área, finalmente distinguindo visualmente cardiologia (modelo
