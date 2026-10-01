@@ -287,9 +287,17 @@ export const media = {
      recorte derivado da foto vertical do letreiro (941 px nativo, ainda
      retrato na fonte). Cliente forneceu uma foto nativamente horizontal
      da mesma sinalização (logo + mármore) especificamente para o
-     desktop — `mobile` mantém o recorte antigo (derivado da vertical,
-     já aprovado para esse uso), `file` (desktop) passa a apontar para a
-     nova fonte horizontal, zero upscale (nativa 1448 px). */
+     desktop — `file` (desktop) passa a apontar para a nova fonte
+     horizontal, zero upscale (nativa 1448 px).
+     CORRIGIDO (2026-10-01, 2ª vez) — o derivado mobile ainda estava
+     cropado a 16:9 (941×529) a partir do master vertical nativo
+     (941×1672, 0,56:1) — um crop de ~70% da foto, que depois ainda
+     sofria object-fit: cover de novo dentro do painel (igualmente
+     vertical no mobile), resultando num "zoom" duplo e excessivo
+     (reportado pelo cliente). Regenerado sem crop a partir do master
+     vertical — o painel do Encerramento já é vertical no mobile, então
+     a proporção nativa cabe bem melhor ali, com bem menos recorte
+     residual do object-fit: cover. */
   closing: {
     kind: 'image',
     ready: true,
@@ -297,7 +305,7 @@ export const media = {
     widths: [960, 1448],
     width: 1448,
     height: 814,
-    mobile: { file: 'vivenza-signage-mobile', widths: [640, 941] },
+    mobile: { file: 'vivenza-signage-mobile', widths: [640, 941], width: 941, height: 1672 },
     variant: 'closing',
     alt: '',
   },
