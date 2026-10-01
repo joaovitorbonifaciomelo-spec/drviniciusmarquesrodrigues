@@ -145,18 +145,18 @@ export const media = {
      a 1,9× do master antigo, upscale 1,52×) pelo acervo novo: corredor
      central da Vivenza com DUAS bancadas de recepção enquadrando a linha
      de fuga até a sala de espera ao fundo — a mesma ideia de "caminho/
-     direção/próximo passo", agora em alta resolução nativa (zero upscale,
-     fonte 1536 px) e com perspectiva mais clara que o crop antigo.
-     ATUALIZADO (2026-10-01, 2ª vez) — ganhou par mobile real: mesma cena,
-     captura vertical própria (não um recorte do desktop), zero upscale. */
+     direção/próximo passo".
+     CORRIGIDO (2026-10-01, 2ª vez) — correção pontual do cliente: a foto
+     designada "desktop" não era a correta — a foto certa é a mesma já
+     usada no mobile (captura vertical do corredor). Arquivo único em
+     todos os breakpoints agora, sem par mobile/desktop distinto. */
   careDirection: {
     kind: 'image',
     ready: true,
-    file: 'care-next-step-desktop',
-    widths: [640, 960, 1536],
-    width: 1536,
-    height: 1024,
-    mobile: { file: 'care-next-step-mobile', widths: [640, 960, 1122], width: 1122, height: 1402 },
+    file: 'care-next-step-mobile',
+    widths: [640, 960, 1122],
+    width: 1122,
+    height: 1402,
     variant: 'corridor',
     alt: 'Corredor da Vivenza com bancadas de recepção e sala de espera ao fundo.',
   },
