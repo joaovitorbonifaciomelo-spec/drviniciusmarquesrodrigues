@@ -72,19 +72,21 @@ export const media = {
     variant: 'exam',
     alt: 'Mãos do Dr. Vinicius escrevendo, com o bordado do jaleco visível.',
   },
-  /* RESOLVIDO — master DSC04796.jpg. Perfil junto à janela, luz natural,
-     olhar para fora (concentração/interpretação). Recorte 4:5 único uso
-     (esta etapa não aparece no mobile). */
+  /* ATUALIZADO (2026-10-01) — substitui DSC04796 pela cena de computador/
+     escritório do acervo novo (movida da Pausa Editorial, por decisão
+     explícita: representa melhor análise/interpretação/concentração do
+     que silêncio/respiro — ver `pause` abaixo). Sem par mobile aqui: esta
+     etapa já não aparece no mobile (regra existente de care.js, nada
+     mudou nisso), então só o crop desktop é usado. */
   careInterpretation: {
     kind: 'image',
     ready: true,
-    file: 'cuidado-interpretacao',
-    widths: [640, 960, 1400],
-    width: 1400,
-    height: 1750,
+    file: 'pause-desktop',
+    widths: [960, 1536],
+    width: 1536,
+    height: 864,
     variant: 'desk',
-    alt: 'Dr. Vinicius concentrado, olhando pela janela do consultório.',
-    brief: 'Perfil · concentração · mesa de trabalho · luz de janela.',
+    alt: 'Dr. Vinicius concentrado, trabalhando no computador.',
   },
   /* ATUALIZADO (2026-10-01) — substitui o master DSC04954 pelo acervo
      novo (mesma ideia: explicação com modelo anatômico, paciente fora de
@@ -134,22 +136,28 @@ export const media = {
     alt: 'Retrato editorial do Dr. Vinicius Marques Rodrigues.',
     brief: 'Retrato editorial vertical 4:5 · presença tranquila · pode olhar para a câmera · sem braços cruzados, sem estetoscópio como adereço.',
   },
-  /* RESOLVIDO (2026-10-01) — acervo novo. Par mobile/desktop real (cenas
-     distintas, não o mesmo crop): médico sozinho, janela/skyline, muita
-     respiração visual — o "momento de silêncio" que o placeholder antigo
-     nunca teve (o único candidato disponível antes, pausa editorial.jpg,
-     era um retrato posado turístico sem relação com a cena; ver histórico
-     de auditoria abaixo). */
+  /* FALTANTE (D) — reauditado em 2026-10-01. O par janela/skyline
+     (pause-desktop/mobile) foi movido para `careInterpretation`: é cena
+     de computador/escritório, e por decisão explícita do cliente a Pausa
+     Editorial não pode ter computador, paciente, nem atividade clínica —
+     só silêncio/respiro/espaço negativo/contemplação, sem pose
+     corporativa. Reavaliados contra esse critério e descartados:
+       · DSCF5237/DSCF5177 (sessão Paris/Torre Eiffel): sorriso direto
+         para a câmera, braços cruzados, multidão de turistas ao fundo —
+         o oposto de espaço negativo e postura natural;
+       · "Consulta cardiológica em ambiente acolhedor.png" (acervo novo):
+         tem paciente e contexto clínico evidente;
+       · 2023-09-14.jpg: também é cena de computador.
+     Nenhum candidato do acervo (antigo ou novo) cumpre os critérios.
+     Mantido como placeholder — pendente de captação específica. */
   pause: {
     kind: 'image',
-    ready: true,
-    file: 'pause-desktop',
-    widths: [960, 1536],
-    width: 1536,
-    height: 864,
-    mobile: { file: 'pause-mobile', widths: [640, 960, 1122] },
+    ready: false,
+    file: 'pausa-horizontal',
+    widths: [960, 1600],
     variant: 'pause',
-    alt: 'Dr. Vinicius em silêncio, trabalhando junto à janela com vista para a cidade.',
+    alt: 'Dr. Vinicius em silêncio, com grande área de espaço negativo.',
+    brief: 'Horizontal · plano aberto · pessoa pequena/média no quadro · muito espaço negativo · composição arquitetônica forte · postura natural · sem olhar para a câmera · sem computador, sem paciente, sem pose corporativa.',
   },
   /* RESOLVIDO (2026-10-01) — acervo novo: uma cena própria para cada
      área, finalmente distinguindo visualmente cardiologia (modelo
