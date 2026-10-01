@@ -12,6 +12,13 @@
    ========================================================================== */
 
 html[data-page='bio'] { background: var(--c-azul); }
+/* `body` herda um background opaco (marfim) do global base.css — como
+   `body` não é positioned, seu próprio background pinta por cima de
+   qualquer descendente com z-index negativo (é um passo de pintura
+   separado, depois dos filhos de z-index negativo). Sem isso em
+   transparent, o backdrop desfocado (ver @media 900px abaixo) nunca
+   apareceria atrás do cartão. */
+html[data-page='bio'] body { background: transparent; }
 
 .bio {
   --bm: clamp(1.25rem, 5.4vw, 2.5rem);   /* margem lateral */
@@ -153,7 +160,7 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 1.75rem;
 }
 
 /* Rótulo contextual: aparece perto do topo-direito quando um destino é
@@ -255,6 +262,10 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 .bact { position: relative; --tick-y: 1.42rem; }
 .bact:last-child .bseg { bottom: auto; height: var(--tick-y); }
 
+/* Cada destino agora é um botão de verdade (fundo + borda + cantos
+   arredondados), não só uma linha de texto sublinhada — a Linha de
+   Orientação (bseg/tick) continua existindo, mas do lado de fora do
+   botão, apontando pra ele, em vez de "dentro" do padding. */
 .bact__link {
   position: relative;
   display: grid;
@@ -262,18 +273,22 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   align-items: center;
   column-gap: 0.75rem;
   min-height: 3.625rem;
-  padding: 0.5rem 0 0.5rem var(--indent);
+  margin-left: 1rem;
+  padding: 0.625rem 1.125rem 0.625rem 1rem;
+  border-radius: 1rem;
+  background: rgb(244 240 232 / 0.08);
+  border: 1px solid rgb(244 240 232 / 0.18);
   color: var(--ink);
   transition: opacity 160ms var(--ease-orient), background-color var(--release) var(--ease-orient);
 }
 .bact__tick {
   position: absolute;
-  left: 0;
+  left: -1rem;
   top: var(--tick-y);
-  width: 1.25rem;
+  width: 1rem;
   height: 1px;
   background: var(--ink);
-  opacity: 0.55;
+  opacity: 1;
   transform-origin: left;
   transition: transform var(--release) var(--ease-orient), opacity var(--release);
 }
@@ -317,13 +332,12 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 .bact--primary { --tick-y: 2.4rem; }
 .bact--primary .bact__link {
   min-height: 4.75rem;
-  margin-left: 1rem;
   padding: 0.8125rem 1.125rem 0.8125rem 1rem;
   background: var(--c-azul);
+  border-color: var(--c-azul);
   color: var(--c-marfim);
   box-shadow: 0 8px 28px rgb(15 40 56 / 0.32);
 }
-.bact--primary .bact__tick { left: -1rem; width: 1rem; opacity: 1; }
 .bact--primary .bact__title { font-size: 1.4375rem; text-shadow: none; }
 .bact--primary .bact__detail {
   margin-top: 0.3rem;
@@ -357,7 +371,8 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 .bact.is-intent .bact__go { transform: translateX(3px); opacity: 1; transition-duration: var(--press); }
 .bact.is-intent .bact__stem { transform: scaleX(1); transition-duration: var(--press); }
 .bact:not(.bact--primary).is-intent .bact__link {
-  background-color: rgb(244 240 232 / 0.08);
+  background-color: rgb(244 240 232 / 0.16);
+  border-color: rgb(244 240 232 / 0.3);
   transition-duration: var(--press);
 }
 .bact--primary.is-intent .bact__link { background-color: #0f2838; transition-duration: var(--press); }
@@ -384,8 +399,8 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 
 .bio-foot {
   flex: none;
-  margin-top: 0.875rem;
-  padding-left: var(--indent);
+  margin-top: 1.125rem;
+  text-align: center;
 }
 .bio-registry {
   font-size: 0.625rem;
@@ -448,6 +463,22 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   }
   .bio-decide,
   .bio-foot { max-width: 30rem; }
+
+  /* A margem nas laterais do cartão não fica só marfim liso — ganha o
+     mesmo clima Azul Profundo em volta, bem desfocado (não é o vídeo/
+     foto real ampliado — hoje a cena ainda é o gradiente placeholder;
+     ao trocar por vídeo/pôster real, considerar estender a própria
+     mídia borrada aqui em vez deste gradiente fixo). */
+  html[data-page='bio'] body::before {
+    content: '';
+    position: fixed;
+    inset: -10%;
+    z-index: -1;
+    background:
+      radial-gradient(65% 42% at 74% 30%, #3a5566 0%, transparent 70%),
+      linear-gradient(170deg, #1d3a4c 0%, #163447 44%, #0f2533 100%);
+    filter: blur(90px) saturate(1.15);
+  }
 }
 
 /* ==========================================================================
