@@ -62,6 +62,7 @@ export const media = {
   bioVideo: {
     kind: 'video',
     ready: false,
+    hideBrief: true, // mesma correção do heroVideo — sem legenda de produção na versão publicada
     file: 'bio', // bio-mobile|desktop.webm/.mp4 (1080×1920, 6–10 s, ≤ 2 MB) + bio-poster-720/1080.avif|jpg
     variant: 'bio',
     posterWidths: [720, 1080],

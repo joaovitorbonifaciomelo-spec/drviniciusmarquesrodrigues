@@ -42,7 +42,12 @@ html[data-page='bio'] { background: var(--c-azul); }
    as safe areas de propósito (imersão); só o CONTEÚDO respeita a safe area. */
 
 .bio-stage {
-  position: fixed;
+  /* `absolute` (não `fixed`): confinado ao próprio `.bio`, não ao viewport
+     inteiro — necessário para o teto de largura em telas grandes (ver
+     breakpoint DESKTOP/WIDE abaixo). Sem efeito abaixo dele: `.bio` já
+     preenche o viewport inteiro em mobile/tablet, então o resultado
+     visual é idêntico ao de `fixed` nessas larguras. */
+  position: absolute;
   inset: 0;
   z-index: 0;
   background: var(--c-azul);
@@ -182,7 +187,9 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 .bio-context span::after { content: ''; width: 0.875rem; height: 1px; background: currentColor; }
 
 .bio-toggle {
-  position: fixed;
+  /* `absolute`, mesmo motivo do `.bio-stage` acima — confinado ao cartão,
+     não ao canto do viewport inteiro em telas largas. */
+  position: absolute;
   z-index: 2;
   right: max(var(--bm), calc(var(--bm) - 0.625rem));
   bottom: calc(var(--bottom) + 1rem);
@@ -423,37 +430,24 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   .bio-foot { max-width: 30rem; }
 }
 
-/* ---------------------------------------------------------------- DESKTOP */
-/* Ainda uma tela cinematográfica única — não duas colunas. O enquadramento
-   do filme desloca a figura mais ao centro-direita; texto ancora à
-   esquerda, sempre dentro do mesmo campo visual. */
-
+/* ---------------------------------------------------------------- CARTÃO (telas largas) */
+/* /bio/ é usada só em mobile e tablet (link na bio do Instagram) — não
+   existe um "desktop" de verdade para essa experiência. Em vez de
+   esticar o vídeo vertical e a interface por um monitor inteiro (sobrava
+   um vazio enorme do lado, sem nada desenhado pra ali — reportado pelo
+   cliente), a partir daqui o cartão trava numa largura de tablet e fica
+   centralizado: mesma composição/escala do tablet acima, só numa moldura
+   contida em vez de full-bleed. `.bio-stage`/`.bio-toggle`/`.bsheet` já
+   são `position: absolute` (não `fixed`) exatamente para se confinarem
+   a essa moldura em vez do viewport inteiro. */
 @media (min-width: 900px) {
   .bio {
-    --bm: clamp(3rem, 6vw, 6.5rem);
-    --bio-focal: 64% 32%;
+    max-width: 36rem;
+    margin-inline: auto;
+    --bio-focal: 70% 24%;
   }
-  .bio-main { padding-top: calc(var(--top) + 2rem); padding-bottom: calc(var(--bottom) + 1.5rem); }
-  .bio-wm { --wm-w: clamp(8rem, 8.5vw, 10rem); }
-  .bio-specialties { font-size: 0.75rem; letter-spacing: 0.16em; margin-top: 1rem; }
-  .bio-context { top: calc(var(--top) + 2.15rem); }
-  /* Cabeçalho maior no desktop (wordmark + especialidades em fonte maior)
-     empurra a base segura da nota mais para baixo. */
-  .scene--bio .scene__note { top: calc(var(--top) + 9.5rem); }
-  .bio-decide { max-width: 30rem; }
-  .bio-q { font-size: clamp(2.25rem, 3.4vw, 3.25rem); padding-bottom: 1.375rem; }
-  .bact { --tick-y: 1.6rem; }
-  .bact__link { min-height: 4.25rem; }
-  .bact__title { font-size: 1.5rem; }
-  .bact__detail { font-size: 0.875rem; }
-  .bact--primary { --tick-y: 2.7rem; }
-  .bact--primary .bact__link { min-height: 5.5rem; padding: 1.0625rem 1.375rem 1.0625rem 1.25rem; }
-  .bact--primary .bact__title { font-size: 1.75rem; }
+  .bio-decide,
   .bio-foot { max-width: 30rem; }
-}
-
-@media (min-width: 1440px) {
-  .bio { --bio-focal: 60% 34%; }
 }
 
 /* ==========================================================================
@@ -464,7 +458,10 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
    ========================================================================== */
 
 .bsheet {
-  position: fixed;
+  /* `absolute`, mesmo motivo do `.bio-stage`: confinado ao cartão em telas
+     largas, não ao viewport inteiro (o backdrop não deve escurecer a
+     área fora do cartão). */
+  position: absolute;
   inset: 0;
   z-index: 20;
 }
