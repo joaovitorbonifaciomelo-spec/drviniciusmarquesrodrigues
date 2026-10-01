@@ -6,12 +6,13 @@
  * lado. Uma única grade (.traj) com `order` no mobile e grid-column/row no
  * desktop evita redesenhar a página — só reordena visualmente.
  */
-import { html, lines, ph } from '../../tools/lib/html.mjs';
+import { html, lines } from '../../tools/lib/html.mjs';
 import { layout } from '../components/layout.mjs';
 import { mediaFor } from '../components/media.mjs';
 import { cta } from '../components/ui.mjs';
 import { factRows } from '../sections/doctor.mjs';
 import { site, bookingHref } from '../content/site.mjs';
+import { bio } from '../content/trajectory.mjs';
 
 export default () => [
   {
@@ -28,7 +29,7 @@ export default () => [
           <span class="oline oline--y pintro__line traj__line" data-line="draw" aria-hidden="true"></span>
           <div class="bio__text traj__text">
             <div class="prose" data-reveal="fade">
-              <p>${ph('Biografia editorial — escrever a partir de informações confirmadas pelo Dr. Vinicius (formação, percurso, atuação atual, produção científica quando houver)')}</p>
+              ${bio.map((p) => html`<p>${p}</p>`)}
             </div>
             <h2 class="label bio__label" data-reveal="fade">Formação e atuação</h2>
             ${factRows()}

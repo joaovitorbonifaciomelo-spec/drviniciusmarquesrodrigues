@@ -11,6 +11,23 @@
  * na renderização; `confirm` lista o que validar antes da publicação.
  */
 
+/**
+ * Biografia editorial (página /trajetoria/).
+ *
+ * Escrita só a partir de afirmações CLIENT-REPORTED / VALIDATED em
+ * 04_STRATEGIC-RESEARCH/initial-evidence-audit.md: percurso de formação
+ * (acima), 22 anos de atuação em Goiânia, e os traços recorrentes da
+ * autodescrição do próprio médico (vocação, estudo contínuo, dedicação,
+ * ética, interesse em compartilhar conhecimento com outros médicos).
+ * Não inclui nenhuma história pessoal não transcrita nas fontes do
+ * projeto (ex.: motivação por trás da escolha da cardiologia, influência
+ * familiar) — ver nota de 2026-10-01 no histórico do projeto.
+ */
+export const bio = [
+  'Cardiologista e eletrofisiologista, Dr. Vinicius atua há 22 anos em Goiânia, com atuação em cardiologia clínica, arritmias e eletrofisiologia. Formou-se em Medicina em Petrópolis, seguiu para a Clínica Médica no HCPM, no Rio de Janeiro, e aprofundou-se em cardiologia e eletrofisiologia no INC, complementando a formação com um fellowship no Hospital Clínic, em Barcelona.',
+  'Descreve a medicina como uma vocação sustentada por estudo contínuo e um compromisso ético com cada paciente — e vê valor em compartilhar esse conhecimento também com outros médicos, ao longo da carreira.',
+];
+
 export const trajectory = [
   {
     area: 'Formação médica',
