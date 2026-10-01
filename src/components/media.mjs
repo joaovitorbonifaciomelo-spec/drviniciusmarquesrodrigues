@@ -13,6 +13,15 @@ import { media as manifest } from '../content/media.mjs';
 
 const SHOW_NOTES = !process.env.HIDE_MEDIA_NOTES;
 const base = (m) => `/media/${m.file}`;
+/* Cache-busting: sem isso, trocar o conteúdo de um arquivo mantendo o
+   mesmo nome (comum — ver histórico de correções de imagem) deixa quem
+   já visitou o site preso numa cópia antiga em cache (navegador/CDN),
+   igual ao bug que já existiu com os módulos JS internos (ver
+   tools/build.mjs → copyScripts). Vídeo (`data-src-desktop/mobile`) não
+   é versionado aqui: hoje são placeholders inativos (`ready: false`) e
+   video.js concatena a extensão depois — ver nota lá quando o vídeo real
+   for ativado. */
+const v = () => globalThis.__BUILD__?.version ?? '0';
 
 /** Direção de arte: quando `m.mobile` existe, é um recorte diferente do
  * desktop (não o mesmo crop redimensionado) — troca por <source media>,
@@ -20,7 +29,7 @@ const base = (m) => `/media/${m.file}`;
  * não depende das dimensões intrínsecas da fonte escolhida). */
 function picture(m, { sizes = '100vw', priority = false, decorative = false }) {
   const ws = m.widths || [1200];
-  const set = (mm, ext) => (mm.widths || ws).map((w) => `${base(mm)}-${w}.${ext} ${w}w`).join(', ');
+  const set = (mm, ext) => (mm.widths || ws).map((w) => `${base(mm)}-${w}.${ext}?v=${v()} ${w}w`).join(', ');
   const bp = m.mobile?.breakpoint ?? 767;
   return html`<picture class="media__pic">
     ${m.mobile
@@ -29,7 +38,7 @@ function picture(m, { sizes = '100vw', priority = false, decorative = false }) {
       : ''}
     <source type="image/avif" srcset="${set(m, 'avif')}" sizes="${sizes}">
     <img${attrs({
-      src: `${base(m)}-${ws[ws.length - 1]}.jpg`,
+      src: `${base(m)}-${ws[ws.length - 1]}.jpg?v=${v()}`,
       srcset: set(m, 'jpg'),
       sizes,
       width: m.width,
@@ -50,11 +59,11 @@ function picture(m, { sizes = '100vw', priority = false, decorative = false }) {
  */
 function video(m, { sizes = '100vw', priority = false } = {}) {
   const pw = m.posterWidths || [720, 1080];
-  const set = (ext) => pw.map((w) => `${base(m)}-poster-${w}.${ext} ${w}w`).join(', ');
+  const set = (ext) => pw.map((w) => `${base(m)}-poster-${w}.${ext}?v=${v()} ${w}w`).join(', ');
   return html`<picture class="media__pic media__poster">
     <source type="image/avif" srcset="${set('avif')}" sizes="${sizes}">
     <img${attrs({
-      src: `${base(m)}-poster-${pw[pw.length - 1]}.jpg`,
+      src: `${base(m)}-poster-${pw[pw.length - 1]}.jpg?v=${v()}`,
       srcset: set('jpg'),
       sizes,
       width: m.width,
