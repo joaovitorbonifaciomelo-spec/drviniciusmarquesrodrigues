@@ -15,6 +15,7 @@ export const icon = {
   plus: () => html`<svg class="i i--plus" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path class="i__h" d="M0 8h16" stroke="currentColor" stroke-width="1"/><path class="i__v" d="M8 0v16" stroke="currentColor" stroke-width="1"/></svg>`,
   play: () => html`<svg class="i i--play" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 1.5v9l7.5-4.5z" fill="currentColor"/></svg>`,
   pause: () => html`<svg class="i i--pause" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 1.5v9M9 1.5v9" stroke="currentColor" stroke-width="1.5"/></svg>`,
+  instagram: () => html`<svg class="i i--instagram" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="17.6" cy="6.4" r="0.9" fill="currentColor"/></svg>`,
 };
 
 /** Micro-label em Inter caixa-alta. */

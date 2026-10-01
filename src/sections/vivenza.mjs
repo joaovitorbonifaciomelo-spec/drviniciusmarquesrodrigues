@@ -4,8 +4,9 @@
  * Inter caixa-alta (sem logotipo — a identidade da Vivenza não integra
  * este sistema), fotografia de arquitetura e informação prática.
  *
- * Endereço, telefone e mapa confirmados em 2026-09-27. O mapa só é
- * carregado sob demanda (clique) — privacidade (LGPD) + LCP.
+ * Endereço, telefone e mapa confirmados em 2026-09-27. O mapa carrega
+ * quando a seção se aproxima da viewport (scripts/ui/map.js) — visível
+ * por padrão, sem custo de LCP para quem não chega até aqui.
  */
 import { html, lines } from '../../tools/lib/html.mjs';
 import { vivenza } from '../content/home.mjs';
@@ -62,7 +63,7 @@ export const vivenzaSection = () => {
 
     <div class="vivenza__map" data-reveal="fade">
       ${q
-        ? html`<div class="map" data-map="${encodeURIComponent(q)}"><button class="map__load" type="button" data-map-load>Carregar mapa <span class="map__note">(Google Maps)</span></button></div>`
+        ? html`<div class="map" data-map="${encodeURIComponent(q)}" role="img" aria-label="Mapa de localização — ${vivenza.fullName}"></div>`
         : html`<div class="map map--pending" role="img" aria-label="Mapa indisponível: endereço a confirmar"><span class="map__grid" aria-hidden="true"></span><span class="map__note-pending">Mapa — inserido após confirmação do endereço</span></div>`}
     </div>
   </div>

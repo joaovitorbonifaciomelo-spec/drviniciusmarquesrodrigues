@@ -38,6 +38,7 @@ export const site = {
     whatsapp: { label: ph('WhatsApp'), href: null },
     phone: { label: '(62) 3093-2333', href: 'tel:+556230932333' },
     email: { label: ph('E-mail'), href: null },
+    instagram: { label: ph('Instagram'), href: null },
   },
 
   /**

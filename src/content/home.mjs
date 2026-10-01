@@ -9,8 +9,6 @@
  * Os textos descrevem a forma de cuidar — sem superlativos, sem promessa
  * de resultado, sem comparação.
  */
-import { ph } from '../../tools/lib/html.mjs';
-
 export const hero = {
   eyebrow: ['Cardiologia', 'Arritmias', 'Eletrofisiologia'],
   title: ['Entender a situação.', 'Saber como seguir.'],
@@ -130,10 +128,7 @@ export const vivenza = {
     // Texto de busca do Google Maps (usado no link "Como chegar" e no mapa embutido):
     mapsQuery: 'Vivenza Centro Médico, Av. Portugal, 1148, Sl B3001, Setor Marista, Goiânia - GO, 74150-340',
   },
-  details: [
-    { label: 'Acesso', value: ph('Referência de acesso / estacionamento') },
-    { label: 'Atendimento', value: ph('Dias e horários') },
-  ],
+  details: [{ label: 'Atendimento', value: 'Segunda a sexta, das 8h às 18h' }],
   cta: 'Como chegar',
   call: 'Ligar',
 };

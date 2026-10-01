@@ -90,6 +90,9 @@ const footer = () => html`<footer class="ft" data-header-tone="light">
     <div class="ft__meta">
       <p>${registryLine()}</p>
     </div>
+    ${site.contact.instagram.href
+      ? html`<a class="ft__social" href="${site.contact.instagram.href}" target="_blank" rel="noopener" aria-label="Instagram de ${site.name}">${icon.instagram()}<span class="sr-only"> (abre em nova aba)</span></a>`
+      : ''}
     <div class="ft__legal">
       <p>© ${new Date().getFullYear()} ${site.name}</p>
       <a href="/privacidade/">Política de Privacidade</a>
