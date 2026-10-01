@@ -33,6 +33,23 @@ async function inlineCss(file, seen = new Set()) {
   return parts.join('\n');
 }
 
+/** Copia módulos ES reescrevendo imports relativos com ?v= (cache-busting).
+ * Sem isso, só o <script src="main.js?v=..."> do HTML força atualização —
+ * os módulos que ele importa (./core/*, ./ui/*, ./scenes/*) ficam em uma
+ * URL fixa e o navegador pode servi-los do cache por dias após um deploy. */
+async function copyScripts(srcDir, destDir, version) {
+  for (const file of await walk(srcDir)) {
+    const target = join(destDir, relative(srcDir, file));
+    await mkdir(dirname(target), { recursive: true });
+    if (file.endsWith('.js')) {
+      const code = (await readFile(file, 'utf8')).replace(/from '(\.[^']+\.js)'/g, `from '$1?v=${version}'`);
+      await writeFile(target, code);
+    } else {
+      await cp(file, target);
+    }
+  }
+}
+
 async function walk(dir) {
   const out = [];
   for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -89,7 +106,7 @@ export async function build({ dev = false } = {}) {
   }
 
   // 3. JS + vendor + public
-  await cp(join(SRC, 'scripts'), join(DIST, 'assets/js'), { recursive: true });
+  await copyScripts(join(SRC, 'scripts'), join(DIST, 'assets/js'), version);
   await cp(join(SRC, 'vendor'), join(DIST, 'assets/vendor'), { recursive: true });
   await cp(join(ROOT, 'public'), DIST, { recursive: true });
 

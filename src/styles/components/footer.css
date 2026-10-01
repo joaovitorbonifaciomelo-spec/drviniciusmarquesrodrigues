@@ -74,5 +74,19 @@
 
 @media (min-width: 1024px) {
   .ft { padding-top: var(--s-16); }
-  .ft__grid { padding-top: var(--s-12); }
+  .ft__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gutter);
+    row-gap: var(--s-8);
+    padding-top: var(--s-12);
+    text-align: left;
+    align-items: start;
+  }
+  .ft__brand { grid-column: 1 / 6; justify-self: start; align-self: start; }
+  .ft__nav { grid-column: 7 / 10; }
+  .ft__nav ul { justify-items: start; }
+  .ft__meta { grid-column: 10 / 13; align-self: end; justify-items: start; }
+  .ft__social { grid-column: 1 / 6; justify-self: start; }
+  .ft__legal { justify-content: space-between; text-align: left; }
 }
