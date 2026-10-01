@@ -85,9 +85,13 @@
   .ft {
     padding-top: var(--s-10);
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--gutter);
-    row-gap: var(--s-6);
+    /* Colunas por conteúdo, não por fração igual de 12 — assinatura,
+       navegação e Instagram/legal ficam agrupados e colados à esquerda;
+       a coluna 3 (1fr) é a única folga, empurrando registro/"voltar ao
+       início" para a borda direita. Sem zona solta no meio. */
+    grid-template-columns: auto auto 1fr auto;
+    column-gap: var(--s-8);
+    row-gap: var(--s-5);
     align-items: center;
   }
 
@@ -98,21 +102,28 @@
     display: contents;
   }
 
-  /* Linha 1 — assinatura · navegação · registro */
-  .ft__brand { grid-column: 1 / 5; grid-row: 1; justify-self: start; }
-  .ft__wm { --wm-w: 128px; }
-  .ft__nav { grid-column: 5 / 9; grid-row: 1; justify-self: start; }
-  .ft__nav ul { justify-items: start; gap: 0.3em; }
-  .ft__nav a { font-size: var(--fs-small); }
-  .ft__meta { grid-column: 9 / 13; grid-row: 1; justify-self: start; text-align: left; justify-items: start; }
+  /* Linha 1 — assinatura + navegação coladas à esquerda · registro à direita */
+  .ft__brand { grid-column: 1; grid-row: 1; justify-self: start; }
+  .ft__wm { --wm-w: 112px; }
+  .ft__nav { grid-column: 2; grid-row: 1; justify-self: start; }
+  .ft__nav ul { display: flex; gap: clamp(1.25rem, 2vw, 2.25rem); }
+  .ft__nav a {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    background: none;
+  }
+  .ft__nav a:hover { background: none; text-decoration: underline; text-underline-offset: 3px; }
+  .ft__meta { grid-column: 4; grid-row: 1; justify-self: end; text-align: right; justify-items: end; }
 
   /* Linha divisória — a Linha de Orientação, discreta e funcional */
-  .ft__line { grid-column: 1 / 13; grid-row: 2; width: 100%; opacity: 0.18; }
+  .ft__line { grid-column: 1 / 5; grid-row: 2; width: 100%; opacity: 0.18; }
 
-  /* Linha 2 — Instagram · legal · voltar ao início, nas mesmas colunas da linha 1 */
-  .ft__social { grid-column: 1 / 5; grid-row: 3; justify-self: start; }
+  /* Linha 2 — Instagram + legal colados à esquerda (mesma coluna da navegação) · voltar ao início à direita */
+  .ft__social { grid-column: 1; grid-row: 3; justify-self: start; }
   .ft__legal {
-    grid-column: 5 / 11;
+    grid-column: 2;
     grid-row: 3;
     justify-self: start;
     width: auto;
@@ -122,5 +133,5 @@
     gap: var(--s-3);
     white-space: nowrap;
   }
-  .ft__top { grid-column: 11 / 13; grid-row: 3; justify-self: end; margin: 0; }
+  .ft__top { grid-column: 4; grid-row: 3; justify-self: end; margin: 0; }
 }
