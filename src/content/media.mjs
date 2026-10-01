@@ -93,16 +93,19 @@ export const media = {
     alt: 'Dr. Vinicius ouvindo um paciente durante a consulta.',
   },
   /* ATUALIZADO (2026-10-01) — substitui o master DSC04925 pelo acervo
-     novo (mesma ideia: mãos + caneta + bordado do jaleco), agora com par
-     mobile/desktop real em vez de um único crop reaproveitado. */
+     novo (mesma ideia: mãos + caneta + bordado do jaleco).
+     CORRIGIDO (2026-10-01, 2ª vez) — correção pontual do cliente: a foto
+     designada "desktop" (plano mais aberto) foi trocada pela mesma foto
+     já usada no mobile (plano mais fechado, bordado "Vinicius M.
+     Rodrigues" nítido) — arquivo único em todos os breakpoints agora,
+     sem par mobile/desktop distinto nesta etapa. */
   careDepth: {
     kind: 'image',
     ready: true,
-    file: 'care-depth-desktop',
-    widths: [960, 1536],
-    width: 1536,
-    height: 1024,
-    mobile: { file: 'care-depth-mobile', widths: [640, 960, 1122], width: 1122, height: 1402 },
+    file: 'care-depth-mobile',
+    widths: [640, 960, 1122],
+    width: 1122,
+    height: 1402,
     variant: 'exam',
     alt: 'Mãos do Dr. Vinicius escrevendo, com o bordado do jaleco visível.',
   },
