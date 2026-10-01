@@ -58,25 +58,19 @@ export const media = {
     variant: 'listening',
     alt: 'Dr. Vinicius ouvindo um paciente durante a consulta.',
   },
-  /* RESOLVIDO — acervo real (auditoria 2026-09-26). Master: DSC04925.jpg
-     (assets-src/photos/masters, não versionado). Mãos escrevendo, bordado
-     do jaleco legível, aliança — recorte 16:10 (fx.55 fy.55 z1.0) para que
-     object-fit:cover funcione tanto no 4:5 (desktop/tablet) quanto no
-     16:10 nativo (mobile). Auditoria técnica (2026-09-27): tier de 1900 px
-     adicionado a pedido — é a largura NATIVA do recorte (zero upscale,
-     0,997×); sem ele, o reuso como capa de artigo (tela cheia) upscalava
-     1,88× em monitores retina. Painel pequeno ("Como cuidamos") nunca
-     precisa desse tier; só a capa do artigo o usa. */
+  /* ATUALIZADO (2026-10-01) — substitui o master DSC04925 pelo acervo
+     novo (mesma ideia: mãos + caneta + bordado do jaleco), agora com par
+     mobile/desktop real em vez de um único crop reaproveitado. */
   careDepth: {
     kind: 'image',
     ready: true,
-    file: 'cuidado-profundidade',
-    widths: [640, 960, 1400, 1900],
-    width: 1900,
-    height: 1188,
+    file: 'care-profundidade-desktop',
+    widths: [960, 1536],
+    width: 1536,
+    height: 960,
+    mobile: { file: 'care-profundidade-mobile', widths: [640, 960, 1122] },
     variant: 'exam',
     alt: 'Mãos do Dr. Vinicius escrevendo, com o bordado do jaleco visível.',
-    brief: 'Detalhe · mãos analisando exame real em contexto · profundidade de campo curta · sem ECG decorativo.',
   },
   /* RESOLVIDO — master DSC04796.jpg. Perfil junto à janela, luz natural,
      olhar para fora (concentração/interpretação). Recorte 4:5 único uso
@@ -92,22 +86,21 @@ export const media = {
     alt: 'Dr. Vinicius concentrado, olhando pela janela do consultório.',
     brief: 'Perfil · concentração · mesa de trabalho · luz de janela.',
   },
-  /* APROVEITÁVEL (B) — master DSC04954.jpg. Explicação real a um paciente
-     (fora de foco/de costas), usando um modelo anatômico como ferramenta de
-     ensino — gesto genuíno, não ícone decorativo, mas visualmente presente;
-     recorte pensado para não deixar o modelo dominar o quadro. 16:10, mesmo
-     raciocínio de cover() do careDepth. Mesmo tier de 1900 px (nativo,
-     zero upscale) adicionado pela mesma razão — ver comentário acima. */
+  /* ATUALIZADO (2026-10-01) — substitui o master DSC04954 pelo acervo
+     novo (mesma ideia: explicação com modelo anatômico, paciente fora de
+     foco). Só há uma versão (sem par mobile dedicado) — crop único
+     reaproveitado via object-fit:cover, como antes. Tier de 1400 px
+     upscala 1,25× (fonte nativa permite nitidez até ~1120 px no recorte
+     16:10); aceitável, consistente com a tolerância já usada no projeto. */
   careExplanation: {
     kind: 'image',
     ready: true,
-    file: 'cuidado-explicacao',
-    widths: [640, 960, 1400, 1900],
-    width: 1900,
-    height: 1188,
+    file: 'care-explicacao',
+    widths: [640, 960, 1400],
+    width: 1400,
+    height: 875,
     variant: 'conversation',
     alt: 'Dr. Vinicius explicando algo a um paciente, com um modelo anatômico do coração.',
-    brief: 'Conversa · gesto de explicação · paciente de costas/fora de foco (sem identificar pacientes).',
   },
   /* APROVEITÁVEL COM RESSALVA (B) — reauditado em 2026-09-26, master
      "proximo passo.jpg" (sala de espera/corredor da Vivenza — mesma
