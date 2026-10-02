@@ -231,6 +231,34 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   background: var(--track);
   transform-origin: top;
 }
+/* Um pingo de luz percorre cada segmento em loop contínuo — sugere um
+   trajeto sendo percorrido, não só uma linha estática conectando os
+   botões (pedido do cliente). Puramente ambiente: não depende de toque/
+   hover (isso continua sendo o .bseg__fill, controlado por JS). */
+.bseg::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 22%;
+  background: linear-gradient(180deg, transparent, var(--ink) 50%, transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bseg::after { animation: bseg-travel 3.2s cubic-bezier(.4, 0, .2, 1) infinite; }
+  /* Escalonado por linha: a luz "desce" de um segmento pro próximo em
+     sequência, lendo como um único trajeto contínuo, não 4 piscadas soltas. */
+  .bio-q .bseg::after { animation-delay: 0s; }
+  .bact[data-row='1'] .bseg::after { animation-delay: 0.3s; }
+  .bact[data-row='2'] .bseg::after { animation-delay: 0.6s; }
+  .bact[data-row='3'] .bseg::after { animation-delay: 0.9s; }
+}
+@keyframes bseg-travel {
+  0% { transform: translateY(-40%); opacity: 0; }
+  12% { opacity: 0.9; }
+  85% { opacity: 0.9; }
+  100% { transform: translateY(130%); opacity: 0; }
+}
 .bseg__fill {
   position: absolute;
   inset: 0;
