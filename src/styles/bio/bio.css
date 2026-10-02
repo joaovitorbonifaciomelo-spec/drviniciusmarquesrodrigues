@@ -164,8 +164,11 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 }
 
 /* Rótulo contextual: aparece perto do topo-direito quando um destino é
-   sinalizado (toque/hover/foco) — a "legenda" da cena, não um crop. */
+   sinalizado (toque/hover/foco) — a "legenda" da cena, não um crop.
+   Removido a pedido do cliente (efeito de hover de mouse, pouco sentido
+   numa página usada quase só em touch). */
 .bio-context {
+  display: none;
   position: absolute;
   z-index: 1;
   right: var(--bm);
@@ -269,12 +272,10 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 .bact__link {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  column-gap: 0.75rem;
-  min-height: 3.625rem;
+  min-height: 3.25rem;
   margin-left: 1rem;
-  padding: 0.625rem 1.125rem 0.625rem 1rem;
+  padding: 0.625rem 1.125rem;
   border-radius: 1rem;
   background: rgb(244 240 232 / 0.08);
   border: 1px solid rgb(244 240 232 / 0.18);
@@ -303,18 +304,12 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   text-shadow: 0 1px 16px rgb(22 52 71 / 0.3);
   transition: transform var(--release) var(--ease-orient);
 }
-.bact__detail {
-  display: block;
-  margin-top: 0.2rem;
-  font-size: 0.8125rem;
-  line-height: 1.35;
-  color: var(--muted);
-}
+/* Subtítulo e seta removidos a pedido do cliente — cada botão mostra só
+   o título. Elementos continuam no DOM (bio.mjs) por simplicidade/
+   analytics (dv:navigate lê .bact__title), só não aparecem. */
+.bact__detail,
 .bact__go {
-  display: inline-flex;
-  align-items: center;
-  opacity: 0.6;
-  transition: transform var(--release) var(--ease-orient), opacity var(--release);
+  display: none;
 }
 .bact__stem {
   width: 0.875rem;
@@ -324,31 +319,18 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   transform-origin: right;
   transition: transform var(--release) var(--ease-orient);
 }
-.bact__go .i--arrow { width: 1.375rem; height: 0.75rem; }
-.bact__go .i--out { width: 0.75rem; height: 0.75rem; margin-left: 0.125rem; }
-
 /* Ação principal: BLOCO opaco (no Brandbook, o bloco "cria prioridade") —
    o único elemento que não depende do véu para ter contraste. */
-.bact--primary { --tick-y: 2.4rem; }
+.bact--primary { --tick-y: 1.9rem; }
 .bact--primary .bact__link {
-  min-height: 4.75rem;
-  padding: 0.8125rem 1.125rem 0.8125rem 1rem;
+  min-height: 3.75rem;
+  padding: 0.8125rem 1.125rem;
   background: var(--c-azul);
   border-color: var(--c-azul);
   color: var(--c-marfim);
   box-shadow: 0 8px 28px rgb(15 40 56 / 0.32);
 }
 .bact--primary .bact__title { font-size: 1.4375rem; text-shadow: none; }
-.bact--primary .bact__detail {
-  margin-top: 0.3rem;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--c-azul-20);
-}
-.bact--primary .bact__detail .ph { color: var(--c-azul-40); text-transform: none; letter-spacing: 0.02em; }
-.bact--primary .bact__go { opacity: 1; }
 .bact--primary .bact__link:focus-visible { outline: 2px solid var(--c-marfim); outline-offset: 3px; }
 .bact__link:focus-visible { outline-color: var(--c-marfim); outline-offset: 2px; }
 
