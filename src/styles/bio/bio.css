@@ -231,33 +231,49 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   background: var(--track);
   transform-origin: top;
 }
-/* Um pingo de luz percorre cada segmento em loop contínuo — sugere um
-   trajeto sendo percorrido, não só uma linha estática conectando os
-   botões (pedido do cliente). Puramente ambiente: não depende de toque/
-   hover (isso continua sendo o .bseg__fill, controlado por JS). */
-.bseg::after {
+.bseg__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 200ms var(--ease-orient);
+}
+
+/* Trajeto único: em vez de um pingo de luz por segmento (4 animações
+   soltas), uma única luz percorre a coluna inteira — da pergunta ao
+   último botão — num só movimento contínuo e direcional, em loop.
+   Sobreposta aos .bseg (que continuam sendo o traço estático + o
+   .bseg__fill controlado por toque/hover), alinhada na mesma coluna,
+   só que medida a partir de .bio-decide (o pai comum), não de cada
+   linha isoladamente. */
+/* padding-left descola a coluna inteira (tique + linha + título + botões)
+   da borda esquerda do cartão — pedido do cliente: a linha estava
+   "colada na parede". Desloca tique/linha/texto juntos, como um bloco,
+   pra não desconectar as marcações da linha. */
+.bio-decide { position: relative; padding-left: 0.5rem; }
+.bio-decide::before {
   content: '';
   position: absolute;
   left: 0;
   top: 0;
+  bottom: 0;
   width: 1px;
-  height: 22%;
+  height: 20%;
   background: linear-gradient(180deg, transparent, var(--ink) 50%, transparent);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .bseg::after { animation: bseg-travel 3.2s cubic-bezier(.4, 0, .2, 1) infinite; }
-  /* Escalonado por linha: a luz "desce" de um segmento pro próximo em
-     sequência, lendo como um único trajeto contínuo, não 4 piscadas soltas. */
-  .bio-q .bseg::after { animation-delay: 0s; }
-  .bact[data-row='1'] .bseg::after { animation-delay: 0.3s; }
-  .bact[data-row='2'] .bseg::after { animation-delay: 0.6s; }
-  .bact[data-row='3'] .bseg::after { animation-delay: 0.9s; }
+  .bio-decide::before { animation: bseg-travel 3.6s linear infinite; }
 }
+/* translateY em % é relativo à ALTURA DO PRÓPRIO elemento (20% do pai),
+   não à altura do pai — por isso os valores grandes: -100% (próprio
+   tamanho) = encostado logo acima do topo do pai; 600% = 120% do pai,
+   bem abaixo da base. Entre os dois, cobre o pai inteiro, de cima a
+   baixo, uma vez por ciclo. */
 @keyframes bseg-travel {
-  0% { transform: translateY(-40%); opacity: 0; }
-  12% { opacity: 0.9; }
-  85% { opacity: 0.9; }
-  100% { transform: translateY(130%); opacity: 0; }
+  0% { transform: translateY(-100%); opacity: 0; }
+  8% { opacity: 0.95; }
+  88% { opacity: 0.95; }
+  100% { transform: translateY(600%); opacity: 0; }
 }
 .bseg__fill {
   position: absolute;
@@ -349,10 +365,9 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 }
 /* Ação principal: BLOCO opaco (no Brandbook, o bloco "cria prioridade") —
    o único elemento que não depende do véu para ter contraste. */
-.bact--primary { --tick-y: 1.9rem; }
 .bact--primary .bact__link {
-  min-height: 3.75rem;
-  padding: 0.8125rem 1.125rem;
+  /* min-height e padding NÃO sobrescritos: mesmo tamanho dos outros dois
+     botões (pedido do cliente) — só fundo/sombra/cor mudam. */
   background: var(--c-azul);
   border-color: var(--c-azul);
   color: var(--c-marfim);
