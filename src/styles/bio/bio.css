@@ -158,8 +158,8 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
    arrastaria o bloco inteiro junto, gerando CLS. Fixo na base, imune a isso. */
 .bio-pin {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: var(--bm);
+  right: var(--bm);
   bottom: 1.75rem;
 }
 
@@ -202,7 +202,7 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   position: absolute;
   z-index: 2;
   right: max(var(--bm), calc(var(--bm) - 0.625rem));
-  bottom: calc(var(--bottom) + 1rem);
+  top: calc(var(--top) + 1rem);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -323,19 +323,17 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
      ao mesmo tamanho independentemente da tag. */
   position: relative;
   display: grid;
-  width: 100%;
+  width: calc(100% - 1rem);
   align-items: center;
   text-align: left;
-  min-height: 3.25rem;
+  min-height: 3rem;
   margin-left: 1rem;
-  padding: 0.625rem 1.125rem;
-  border-radius: 1rem;
-  /* Vidro de verdade: fundo translúcido + desfoque do que está atrás
-     (backdrop-filter), não só uma cor sólida com opacidade. */
-  background: rgb(244 240 232 / 0.1);
-  backdrop-filter: blur(14px) saturate(1.3);
-  -webkit-backdrop-filter: blur(14px) saturate(1.3);
-  border: 1px solid rgb(244 240 232 / 0.22);
+  padding: 0.5rem 0;
+  /* Secundário editorial: sem caixa, sem vidro — texto + divisor fino.
+     A área de toque (3rem) continua generosa sem parecer um card. */
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgb(244 240 232 / 0.18);
   color: var(--ink);
   transition: opacity 160ms var(--ease-orient), background-color var(--release) var(--ease-orient);
 }
@@ -376,17 +374,18 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   transform-origin: right;
   transition: transform var(--release) var(--ease-orient);
 }
-/* Ação principal: BLOCO opaco (no Brandbook, o bloco "cria prioridade") —
-   o único elemento que não depende do véu para ter contraste. */
+/* Ação principal: o único bloco preenchido — destaque por peso, não por
+   tamanho. Mesma altura dos secundários, cantos menores, sem vidro. */
 .bact--primary .bact__link {
-  /* min-height e padding NÃO sobrescritos: mesmo tamanho dos outros dois
-     botões (pedido do cliente) — só fundo/sombra/cor mudam. */
-  background: var(--c-azul);
-  border-color: var(--c-azul);
-  color: var(--c-marfim);
-  box-shadow: 0 8px 28px rgb(15 40 56 / 0.32);
+  background: var(--c-marfim);
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0 1.125rem;
+  color: var(--c-azul);
+  box-shadow: 0 6px 22px rgb(8 22 31 / 0.35);
 }
-.bact--primary .bact__title { font-size: 1.4375rem; text-shadow: none; }
+.bact--primary .bact__title { font-size: 1.25rem; text-shadow: none; }
+.bact:not(.bact--primary) .bact__title { font-size: 1.1875rem; }
 .bact--primary .bact__link:focus-visible { outline: 2px solid var(--c-marfim); outline-offset: 3px; }
 .bact__link:focus-visible { outline-color: var(--c-marfim); outline-offset: 2px; }
 
@@ -437,7 +436,7 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 
 .bio-foot {
   flex: none;
-  margin-top: 1.125rem;
+  margin-top: 1.75rem;
   text-align: center;
 }
 .bio-registry {
