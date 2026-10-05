@@ -13,10 +13,23 @@
   --ha-bottom: clamp(4.5rem, 11vh, 7.5rem);
   position: relative;
   height: 100svh;
+  height: 100dvh;
   min-height: 36rem;
   overflow: hidden;
   background: var(--c-azul);
   color: var(--c-marfim);
+}
+/* Continuidade acima do hero: no overscroll/barra do navegador o fundo
+   nunca vira creme — o azul se estende para cima da seção (fora do
+   overflow:hidden do próprio hero, por isso fica no .ha). */
+.ha::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 100lvh;
+  background: var(--c-azul);
 }
 .ha__media { position: absolute; inset: 0; }
 .ha__media-inner { position: absolute; inset: 0; transform-origin: 70% 50%; }

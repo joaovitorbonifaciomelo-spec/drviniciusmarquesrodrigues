@@ -37,6 +37,7 @@ html[data-page='bio'] body { background: transparent; }
   --bio-focal: 74% 26%;
   position: relative;
   min-height: 100svh;
+  min-height: 100dvh;
   color: var(--ink);
   overflow: hidden;
   isolation: isolate;
@@ -130,6 +131,7 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   display: flex;
   flex-direction: column;
   min-height: 100svh;
+  min-height: 100dvh;
   padding: calc(var(--top) + 1rem) var(--bm) calc(var(--bottom) + 0.75rem);
 }
 
