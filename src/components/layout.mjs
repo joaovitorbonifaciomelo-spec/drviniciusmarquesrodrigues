@@ -43,7 +43,7 @@ ${inline
   : html`<link rel="stylesheet" href="/assets/css/${bundle}.css?v=${v()}">`}
 </head>`;
 
-const header = ({ tone }) => html`<header class="hd" data-tone="${tone}" data-hd>
+const header = ({ tone }) => html`<header class="hd" data-tone="${tone}" data-default-tone="${tone}" data-hd>
   <div class="hd__bar">
     <a class="hd__brand" href="/" aria-label="Dr. Vinicius Marques Rodrigues — página inicial">${wordmark({ layout: 'stack', cls: 'hd__wm' })}</a>
     <p class="hd__chapter" aria-hidden="true"><span class="hd__chapter-line"></span><span class="hd__chapter-text" data-chapter-text></span></p>

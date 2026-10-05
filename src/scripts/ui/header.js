@@ -53,7 +53,12 @@ export function initHeader() {
       hd.classList.toggle('is-compact', c);
     }
     const h = hd.getBoundingClientRect().height;
-    let t = sample(window.innerWidth / 2, h / 2, 'data-header-tone')?.dataset.headerTone || 'light';
+    // No topo, o tom é o que o servidor declarou para a página (já pintado
+    // no primeiro frame). Amostrar a cena aqui, na carga, pode pegar um
+    // estado transitório (vindo da /bio/ saía azul sobre o hero azul).
+    let t = window.scrollY < 2
+      ? hd.dataset.defaultTone || 'light'
+      : sample(window.innerWidth / 2, h / 2, 'data-header-tone')?.dataset.headerTone || 'light';
     if (html.classList.contains('menu-open')) t = 'dark';
     if (t !== tone) {
       tone = t;
