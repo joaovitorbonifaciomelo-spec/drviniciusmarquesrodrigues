@@ -328,7 +328,9 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   text-align: left;
   min-height: 3rem;
   margin-left: 1rem;
-  padding: 0.5rem 0;
+  /* Mesmo recuo interno do CTA principal e do título: o texto começa no
+     eixo da coluna de conteúdo (ver .bio-q), não colado na caixa. */
+  padding: 0.5rem 0 0.5rem 1rem;
   /* Secundário editorial: sem caixa, sem vidro — texto + divisor fino.
      A área de toque (3rem) continua generosa sem parecer um card. */
   background: none;
@@ -380,7 +382,7 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   background: var(--c-marfim);
   border: 0;
   border-radius: 0.5rem;
-  padding: 0 1.125rem;
+  padding: 0 1.125rem 0 1rem;
   color: var(--c-azul);
   box-shadow: 0 6px 22px rgb(8 22 31 / 0.35);
 }
