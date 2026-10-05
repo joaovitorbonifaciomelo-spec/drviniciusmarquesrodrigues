@@ -251,31 +251,44 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
    "colada na parede". Desloca tique/linha/texto juntos, como um bloco,
    pra não desconectar as marcações da linha. */
 .bio-decide { position: relative; padding-left: 0.5rem; }
+/* Halo de respiração: luz difusa, alongada, sem ponto duro. Marfim frio
+   (levemente aquecido, nunca branco estourado), opacidade baixa, blur
+   suave — a linha é conduzida, não piscada. */
 .bio-decide::before {
   content: '';
   position: absolute;
-  left: -0.5px;
+  left: -2.5px;
   top: 0;
-  bottom: 0;
-  width: 2px;
-  height: 18%;
-  background: linear-gradient(180deg, transparent, var(--c-marfim) 45%, var(--c-marfim) 55%, transparent);
-  box-shadow: 0 0 6px 1px rgb(244 240 232 / 0.6);
-  border-radius: 2px;
+  width: 6px;
+  height: 34%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgb(232 237 235 / 0.22) 35%,
+    rgb(232 237 235 / 0.38) 50%,
+    rgb(232 237 235 / 0.22) 65%,
+    transparent 100%
+  );
+  filter: blur(2.5px);
+  opacity: 0;
+  pointer-events: none;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .bio-decide::before { animation: bseg-travel 3.4s linear infinite; }
+  .bio-decide::before { animation: bseg-travel 7s cubic-bezier(.45, 0, .35, 1) infinite; }
 }
 /* translateY em % é relativo à ALTURA DO PRÓPRIO elemento (20% do pai),
    não à altura do pai — por isso os valores grandes: -100% (próprio
    tamanho) = encostado logo acima do topo do pai; 600% = 120% do pai,
    bem abaixo da base. Entre os dois, cobre o pai inteiro, de cima a
    baixo, uma vez por ciclo. */
+/* Halo com 34% da altura do pai: -100% = inteiro acima da linha; 400% =
+   inteiro abaixo dela. O fade acontece nas pontas, então a entrada e a
+   saída são delicadas, sem corte visível. */
 @keyframes bseg-travel {
   0% { transform: translateY(-100%); opacity: 0; }
-  8% { opacity: 0.95; }
-  88% { opacity: 0.95; }
-  100% { transform: translateY(600%); opacity: 0; }
+  18% { opacity: 1; }
+  72% { opacity: 1; }
+  100% { transform: translateY(400%); opacity: 0; }
 }
 .bseg__fill {
   position: absolute;
