@@ -322,3 +322,8 @@ html.motion:not(.intro-done) .ha__media-inner { opacity: 0; }
 html.motion.stage:not(.motion-ready) .path__track,
 html.motion.stage:not(.motion-ready) .path__list,
 html.motion.stage:not(.motion-ready) .ha__auth-text { visibility: hidden; }
+
+/* Safari pinta a área de barra de status e a barra de ferramentas com a
+   cor do fundo do documento. Sem isso, o creme do body aparece acima e
+   abaixo do hero — o azul no html mantém a mesma superfície. */
+html[data-page='home'] { background: var(--c-azul); }
