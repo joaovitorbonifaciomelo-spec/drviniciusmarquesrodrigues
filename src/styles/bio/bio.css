@@ -256,22 +256,28 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 /* Halo de respiração: luz difusa, alongada, sem ponto duro. Marfim frio
    (levemente aquecido, nunca branco estourado), opacidade baixa, blur
    suave — a linha é conduzida, não piscada. */
+/* A luz vive DENTRO do traço (mesma largura/eixo de .bseg) — não é mais
+   um halo solto ao lado. Mesma linguagem do hero: base discreta (o
+   próprio .bseg) + um trecho que brilha mais ao passar, sem glow/blur
+   externo. */
 .bio-decide::before {
   content: '';
   position: absolute;
-  left: -2.5px;
+  /* .bio-decide tem padding-left: 0.5rem — .bseg (a linha de verdade)
+     fica no início da CAIXA DE CONTEÚDO, não na borda do padding. Sem
+     este left, a luz ficava 8px à esquerda da linha real. */
+  left: 0.5rem;
   top: 0;
-  width: 6px;
-  height: 34%;
+  width: 1px;
+  height: 26%;
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgb(232 237 235 / 0.22) 35%,
-    rgb(232 237 235 / 0.38) 50%,
-    rgb(232 237 235 / 0.22) 65%,
+    rgb(244 240 232 / 0.45) 42%,
+    rgb(244 240 232 / 0.7) 50%,
+    rgb(244 240 232 / 0.45) 58%,
     transparent 100%
   );
-  filter: blur(2.5px);
   opacity: 0;
   pointer-events: none;
 }
