@@ -1,0 +1,1188 @@
+/* /bio/ — bundle próprio, embutido inline no HTML (CSS crítico).
+   Só o essencial do sistema: tokens, base, assinatura, núcleo de mídia. */
+/* ==========================================================================
+   TOKENS — fonte única de verdade (Brandbook Dr. Vinicius Marques Rodrigues)
+   O JS lê os tokens de motion daqui (scripts/core/tokens.js).
+   ========================================================================== */
+
+/* Newsreader instanciada a partir dos originais (assets-src/fonts, ver README):
+   normal fixa em 500 — único peso usado no estilo normal (59 kB em vez de 129 kB);
+   itálico 400–500. O eixo óptico (opsz) é mantido: títulos grandes ganham desenho de display. */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/newsreader-latin-500-opsz.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/newsreader-latin-italic-400-500-opsz.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Fallbacks métricos aproximados — reduzem salto de layout durante o swap */
+@font-face {
+  font-family: 'Newsreader Fallback';
+  src: local('Georgia');
+  size-adjust: 94%;
+  ascent-override: 98%;
+  descent-override: 26%;
+}
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+}
+
+:root {
+  /* ---- Paleta final ---- */
+  --c-azul: #163447;       /* Azul Profundo — autoridade, estabilidade */
+  --c-marfim: #F4F0E8;     /* Marfim — respiro, proximidade */
+  --c-grafite: #2B2B2B;    /* Grafite — precisão, leitura */
+  --c-mineral: #536B78;    /* Azul Mineral — destaques funcionais */
+  --c-cinza: #B7B0A6;      /* Cinza Quente — apoio, equilíbrio */
+
+  /* ---- Variações tonais (Brandbook p. "Cor") ---- */
+  --c-azul-80: #425A67;  --c-azul-60: #6F7F87;  --c-azul-40: #9BA5A8;  --c-azul-20: #C8CAC8;
+  --c-mineral-80: #73868E; --c-mineral-60: #93A0A5; --c-mineral-40: #B4BBBB; --c-mineral-20: #D4D5D2;
+  --c-grafite-80: #535251; --c-grafite-60: #7B7A77; --c-grafite-40: #A4A19C; --c-grafite-20: #CCC9C2;
+  --c-cinza-80: #C3BDB3;  --c-cinza-60: #CFCAC0;  --c-cinza-40: #DCD6CE;  --c-cinza-20: #E8E3DB;
+
+  /* ---- Papéis (superfície clara, padrão) ---- */
+  --bg: var(--c-marfim);
+  --fg: var(--c-grafite);
+  --fg-strong: var(--c-azul);
+  --fg-muted: var(--c-grafite-80);      /* 6.7:1 sobre Marfim */
+  --fg-quiet: var(--c-grafite-60);      /* 3.8:1 — apenas texto grande */
+  --line: rgb(43 43 43 / 0.2);
+  --line-strong: var(--c-azul);
+
+  /* ---- Tipografia ---- */
+  --font-serif: 'Newsreader', 'Newsreader Fallback', Georgia, serif;
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --fs-display: clamp(2.125rem, min(9.2vw, 1.2rem + 6vw), 7.5rem); /* no mobile: uma frase do hero por linha */
+  --fs-h1: clamp(2.375rem, 1.35rem + 4vw, 6rem);
+  --fs-h1-col: clamp(1.875rem, max(min(8.9vw, 2.375rem), 5.2vw), 5rem); /* h1 em coluna editorial: medido para que cada linha autoral caiba (Newsreader ≈ 9.7 × font-size para 20 caracteres) */
+  --fs-h2: clamp(1.875rem, 1.25rem + 2.4vw, 3.75rem);
+  --fs-h3: clamp(1.375rem, 1.15rem + 0.9vw, 2rem);
+  --fs-lead: clamp(1.0625rem, 0.98rem + 0.36vw, 1.3125rem);
+  --fs-body: clamp(1rem, 0.97rem + 0.12vw, 1.0625rem);
+  --fs-small: 0.875rem;
+  --fs-label: 0.75rem;
+
+  --w-serif: 500;        /* Newsreader — Medium (peso prioritário) */
+  --tracking-display: -0.022em;
+  --tracking-head: -0.015em;
+  --tracking-label: 0.16em;
+
+  /* ---- Espaço — módulo 8 px ---- */
+  --s-1: 0.5rem;  --s-2: 1rem;   --s-3: 1.5rem; --s-4: 2rem;   --s-5: 2.5rem;
+  --s-6: 3rem;    --s-8: 4rem;   --s-10: 5rem;  --s-12: 6rem;  --s-16: 8rem;  --s-20: 10rem;
+
+  --margin: clamp(1.25rem, 5.2vw, 6rem);
+  --gutter: clamp(1rem, 1.7vw, 1.5rem);
+  --section: clamp(6rem, 12vw, 12.5rem);
+  --measure: 36rem;
+
+  --hd-h: 5.5rem;
+  --hd-h-compact: 4rem;
+
+  /* ---- Motion ----
+     orient: chega rápido e assenta devagar — "controlado e inevitável"
+     inout:  deslocamentos espaciais (recortes, cenas)
+     calm:   respiro editorial (muito lento) */
+  --ease-orient: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-calm: cubic-bezier(0.33, 0, 0.15, 1);
+  --dur-1: 160ms;
+  --dur-2: 320ms;
+  --dur-3: 640ms;
+  --dur-4: 1000ms;
+  --dur-5: 1600ms;
+
+  --z-header: 50;
+  --z-menu: 40;
+}
+
+@media (max-width: 1179px) {
+  :root {
+    --hd-h: 4.5rem;
+    --hd-h-compact: 3.75rem;
+  }
+}
+
+/* Superfície profunda — aplicada por contexto (hero, painéis azuis, menu) */
+.surface-dark {
+  --bg: var(--c-azul);
+  --fg: var(--c-marfim);
+  --fg-strong: var(--c-marfim);
+  --fg-muted: var(--c-azul-20);          /* 7:1 sobre Azul Profundo */
+  --fg-quiet: var(--c-azul-40);          /* 5:1 */
+  --line: rgb(244 240 232 / 0.22);
+  --line-strong: var(--c-marfim);
+  color: var(--fg);
+}
+
+/* ==========================================================================
+   BASE — reset, tipografia, utilitários, acessibilidade
+   ========================================================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--c-marfim);
+  scroll-padding-top: var(--hd-h-compact);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.lenis) { scroll-behavior: smooth; }
+}
+
+body {
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+img, picture, video, svg { display: block; max-width: 100%; }
+img, video { height: auto; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; padding: 0; }
+address { font-style: normal; }
+p, h1, h2, h3, h4, li, dd { overflow-wrap: break-word; }
+
+::selection { background: var(--c-azul); color: var(--c-marfim); }
+.surface-dark ::selection { background: var(--c-marfim); color: var(--c-azul); }
+
+/* Foco: a mesma linha fina da marca, com recuo — visível em qualquer superfície */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+:focus:not(:focus-visible) { outline: none; }
+main:focus, [tabindex='-1']:focus { outline: none; }
+
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip {
+  position: fixed;
+  top: var(--s-2);
+  left: var(--s-2);
+  z-index: 100;
+  padding: var(--s-2) var(--s-3);
+  background: var(--c-azul);
+  color: var(--c-marfim);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  transform: translateY(-200%);
+  transition: transform var(--dur-2) var(--ease-orient);
+}
+.skip:focus { transform: none; }
+
+/* ---------- Tipografia ---------- */
+
+.display,
+.h1,
+.h2,
+.h3 {
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-optical-sizing: auto;
+  color: var(--fg-strong);
+  text-wrap: balance;
+}
+.display {
+  font-size: var(--fs-display);
+  line-height: 0.98;
+  letter-spacing: var(--tracking-display);
+}
+.h1 {
+  font-size: var(--fs-h1);
+  line-height: 1.02;
+  letter-spacing: var(--tracking-display);
+}
+.h2 {
+  font-size: var(--fs-h2);
+  line-height: 1.06;
+  letter-spacing: var(--tracking-head);
+}
+.h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--fg-muted);
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+em, .it { font-style: italic; }
+
+/* Linha autoral com máscara (reveal por linha).
+   Folga vertical/horizontal para não cortar descendentes e itálicos. */
+.ln {
+  display: block;
+  overflow: hidden;
+  padding: 0.2em 0.12em 0.14em 0;
+  margin: -0.2em -0.12em -0.14em 0;
+}
+.ln__i { display: block; }
+
+/* Placeholder factual — identificável e discreto */
+.ph {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--c-mineral);
+  background: repeating-linear-gradient(90deg, currentColor 0 3px, transparent 3px 6px) left bottom / 100% 1px no-repeat;
+  padding-bottom: 2px;
+}
+.surface-dark .ph { color: var(--c-azul-40); }
+
+.note {
+  font-size: var(--fs-small);
+  color: var(--fg-muted);
+  padding-left: var(--s-2);
+  border-left: 1px solid var(--line);
+  max-width: var(--measure);
+}
+
+/* ---------- Grid ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding-inline: var(--margin);
+}
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+
+/* ---------- Lenis ---------- */
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+
+/* ---------- Transição entre páginas (View Transitions nativas) ---------- */
+
+@view-transition { navigation: auto; }
+
+.hd { view-transition-name: header; }
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: vt-out 420ms var(--ease-inout) both;
+  }
+  ::view-transition-new(root) {
+    animation: vt-in 720ms var(--ease-orient) 120ms both;
+  }
+}
+@keyframes vt-out { to { opacity: 0; transform: translateY(-2vh); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(3vh); } }
+
+/* ---------- Estados iniciais de reveal (somente com motion confirmada) ---------- */
+
+/* Dentro de um palco ativo (html.motion.stage) quem define os estados é a cena. */
+html.motion [data-reveal='fade']:not(html.motion.stage [data-scene-desktop] *),
+html.motion [data-reveal='row']:not(html.motion.stage [data-scene-desktop] *) {
+  opacity: 0;
+}
+html.motion [data-reveal='lines']:not(html.motion.stage [data-scene-desktop] *) .ln__i,
+html.motion [data-reveal='line']:not(html.motion.stage [data-scene-desktop] *) .ln__i {
+  transform: translateY(130%);
+}
+html.motion [data-reveal='media']:not(html.motion.stage [data-scene-desktop] *) {
+  clip-path: inset(100% 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   ASSINATURA — geometria derivada do SVG oficial (unidades do viewBox 2086×447)
+   --wm-w = largura de "Dr. Vinicius". Todas as outras medidas são proporções
+   fixas dessa largura: a construção nunca se altera, só a configuração.
+   ========================================================================== */
+
+.wm {
+  --wm-w: 150px;
+  position: relative;
+  display: block;
+  flex: none;
+  width: calc(var(--wm-w) * 1.322106);
+  height: calc(var(--wm-w) * 0.286114);
+  color: inherit;
+}
+
+.wm svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+  transform-origin: 0 0;
+  transition: transform var(--dur-3) var(--ease-orient);
+}
+
+/* Principal (empilhada) */
+.wm__name {
+  width: var(--wm-w);
+  height: calc(var(--wm-w) * 0.142214);
+  transform: translateX(calc(var(--wm-w) * 0.162034));
+}
+.wm__sub {
+  width: calc(var(--wm-w) * 1.322106);
+  height: calc(var(--wm-w) * 0.076543);
+  transform: translateY(calc(var(--wm-w) * 0.209571));
+}
+
+/* Horizontal — sobrenome a 80%, alinhado à linha de base do nome */
+.wm[data-layout='row'],
+.hd.is-compact .hd__wm {
+  width: calc(var(--wm-w) * 2.102586);
+  height: calc(var(--wm-w) * 0.145981);
+}
+.wm[data-layout='row'] .wm__name,
+.hd.is-compact .hd__wm .wm__name {
+  transform: none;
+}
+.wm[data-layout='row'] .wm__sub,
+.hd.is-compact .hd__wm .wm__sub {
+  transform: translate(calc(var(--wm-w) * 1.044901), calc(var(--wm-w) * 0.084747)) scale(0.8);
+}
+
+/* ==========================================================================
+   MÍDIA — núcleo (usado pelo site e pela /bio/). Variantes de cena do site
+   ficam em media.css.
+   Imagens/vídeos reais preenchem o recorte (object-fit: cover).
+   "Cenas" são placeholders com direção de arte: tom, direção de luz e
+   briefing de captação. Substituídas via content/media.mjs, sem tocar no CSS.
+   ========================================================================== */
+
+.media__pic,
+.media__pic img,
+.media__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* O vídeo só cobre o pôster quando está tocando — nunca um quadro preto */
+.media__video { opacity: 0; transition: opacity var(--dur-4) var(--ease-calm); }
+.media__video.is-playing { opacity: 1; }
+
+.scene {
+  --scene-bg: var(--c-azul);
+  --scene-note: rgb(244 240 232 / 0.62);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--scene-bg);
+  contain: paint;
+}
+.scene__light {
+  position: absolute;
+  inset: -12%;
+  background: var(--scene-light, none);
+}
+.scene__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.scene__note {
+  position: absolute;
+  left: clamp(0.75rem, 1.4vw, 1.25rem);
+  bottom: clamp(0.75rem, 1.4vw, 1.25rem);
+  max-width: min(34ch, calc(100% - 2rem));
+  padding-left: 0.75rem;
+  border-left: 1px solid currentColor;
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--scene-note);
+  text-wrap: pretty;
+}
+.scene__note b {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+@keyframes scene-drift {
+  from { transform: translate3d(-3%, 0, 0); }
+  to { transform: translate3d(3%, -1.5%, 0); }
+}
+
+/* ==========================================================================
+   /bio/ — UMA TELA IMERSIVA
+   Home: scroll = descoberta. /bio/: toque = decisão.
+
+   O vídeo vertical é o ambiente inteiro (full-bleed, 100svh) — não um
+   recorte ao lado da interface. A UI é desenhada SOBRE o filme: nome e
+   especialidades no topo, a pergunta e três destinos embaixo, sob o
+   polegar. Um véu cinematográfico (não um painel opaco) garante contraste:
+   mais denso nas bordas onde há texto, quase ausente no centro, onde o
+   rosto precisa respirar. Se o vídeo falhar, o pôster sustenta tudo.
+   Reações à intenção (toque, foco, hover) vêm de [data-intent] — bio.js.
+   ========================================================================== */
+
+html[data-page='bio'] { background: var(--c-azul); }
+/* `body` herda um background opaco (marfim) do global base.css — como
+   `body` não é positioned, seu próprio background pinta por cima de
+   qualquer descendente com z-index negativo (é um passo de pintura
+   separado, depois dos filhos de z-index negativo). Sem isso em
+   transparent, o backdrop desfocado (ver @media 900px abaixo) nunca
+   apareceria atrás do cartão. */
+html[data-page='bio'] body { background: transparent; }
+
+.bio {
+  --bm: clamp(1.25rem, 5.4vw, 2.5rem);   /* margem lateral */
+  --indent: 2rem;                         /* da linha ao texto */
+  --ink: var(--c-marfim);                 /* texto sobre o filme: sempre claro */
+  --muted: rgb(244 240 232 / 0.72);
+  --track: rgb(244 240 232 / 0.32);
+  --row-gap: 0.25rem;
+  --press: 80ms;                          /* resposta ao toque: imediata */
+  --release: 280ms;
+  --top: env(safe-area-inset-top, 0px);
+  --bottom: env(safe-area-inset-bottom, 0px);
+  /* Enquadramento do vídeo — token único, sobrescrito por breakpoint.
+     Mobile: Dr. Vinicius no quadrante superior direito (a metade inferior
+     fica limpa para a interface). */
+  --bio-focal: 74% 26%;
+  position: relative;
+  min-height: 100svh;
+  min-height: 100dvh;
+  color: var(--ink);
+  overflow: hidden;
+  isolation: isolate;
+}
+.bio :is(a, button) { -webkit-tap-highlight-color: transparent; }
+.bio .skip { background: var(--c-marfim); color: var(--c-azul); }
+
+/* ---------------------------------------------------------------- PALCO */
+/* O filme É a atmosfera — não um elemento decorativo pequeno. Sangra sob
+   as safe areas de propósito (imersão); só o CONTEÚDO respeita a safe area. */
+
+.bio-stage {
+  /* `absolute` (não `fixed`): confinado ao próprio `.bio`, não ao viewport
+     inteiro — necessário para o teto de largura em telas grandes (ver
+     breakpoint DESKTOP/WIDE abaixo). Sem efeito abaixo dele: `.bio` já
+     preenche o viewport inteiro em mobile/tablet, então o resultado
+     visual é idêntico ao de `fixed` nessas larguras. */
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--c-azul);
+  overflow: hidden;
+}
+.bio-stage__inner { position: absolute; inset: -3%; }
+.bio-stage .media__pic img,
+.bio-stage .media__video { object-position: var(--bio-focal); }
+
+/* Véu: overlay Azul Profundo sutil no todo, mais denso no topo (wordmark)
+   e na base (ações) por um gradiente vertical; o centro — onde está o
+   rosto — permanece o mais transparente possível. */
+.bio-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgb(22 52 71 / 0.58) 0%,
+      rgb(22 52 71 / 0.16) 16%,
+      rgb(22 52 71 / 0.06) 34%,
+      rgb(22 52 71 / 0.1) 48%,
+      rgb(22 52 71 / 0.42) 66%,
+      rgb(22 52 71 / 0.82) 88%,
+      rgb(22 52 71 / 0.92) 100%
+    ),
+    linear-gradient(100deg, rgb(22 52 71 / 0.4) 0%, rgb(22 52 71 / 0) 42%);
+}
+
+/* Placeholder vertical: parede em penumbra, luz de janela, volume da
+   figura no quadrante indicado por --bio-focal. */
+.scene--bio {
+  --scene-bg:
+    radial-gradient(65% 42% at 74% 30%, #3a5566 0%, transparent 70%),
+    linear-gradient(170deg, #1d3a4c 0%, #163447 44%, #0f2533 100%);
+  --scene-light: linear-gradient(97deg, transparent 50%, rgb(244 240 232 / 0.16) 60%, transparent 72%);
+}
+.scene--bio .scene__light { filter: blur(14px); animation: scene-drift 30s var(--ease-inout) infinite alternate; }
+.scene--bio::after {
+  content: '';
+  position: absolute;
+  left: 42%;
+  top: 6%;
+  width: 56%;
+  height: 62%;
+  border-radius: 38% 38% 44% 44% / 30% 30% 36% 36%;
+  background: radial-gradient(60% 55% at 50% 38%, rgb(8 22 31 / 0.55), transparent 72%);
+  filter: blur(22px);
+}
+/* Nota de briefing (só a cena-placeholder, nunca conteúdo real): ancorada
+   logo abaixo do cabeçalho — previsível mesmo quando o bloco de decisão
+   cresce (ex.: título em 2 linhas). Em telas baixas, cede: o conteúdo real
+   tem prioridade e a nota some (permanece documentada em media.mjs). */
+.scene--bio .scene__note {
+  left: 50%;
+  right: auto;
+  top: calc(var(--top, 0px) + 7.25rem);
+  bottom: auto;
+  max-width: min(78vw, 24rem);
+  transform: translateX(-50%);
+}
+@media (max-height: 640px), (max-width: 340px) {
+  .scene--bio .scene__note { display: none; }
+}
+html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
+
+/* ---------------------------------------------------------------- COMPOSIÇÃO */
+
+.bio-main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  min-height: 100dvh;
+  padding: calc(var(--top) + 1rem) var(--bm) calc(var(--bottom) + 0.75rem);
+}
+
+/* Topo — nome + especialidades, integrados ao filme (sem caixa) */
+.bio-top { flex: none; }
+.bio-brand { display: inline-block; color: var(--ink); }
+.bio-wm { --wm-w: clamp(6.5rem, 22vw, 8rem); }
+.bio-specialties {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em 0.6em;
+  margin-top: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bio-specialties__dot { opacity: 0.6; }
+
+/* Bloco de decisão + rodapé: ancorados diretamente à base da tela (não por
+   flex/margin-auto) — a posição não pode depender da altura do cabeçalho.
+   Isso importa de verdade: a troca de fonte (fallback → Newsreader/Inter)
+   muda a altura do topo por alguns pixels, e um ancoramento por auto-margin
+   arrastaria o bloco inteiro junto, gerando CLS. Fixo na base, imune a isso. */
+.bio-pin {
+  position: absolute;
+  left: var(--bm);
+  right: var(--bm);
+  bottom: 1.75rem;
+}
+
+/* Rótulo contextual: aparece perto do topo-direito quando um destino é
+   sinalizado (toque/hover/foco) — a "legenda" da cena, não um crop.
+   Removido a pedido do cliente (efeito de hover de mouse, pouco sentido
+   numa página usada quase só em touch). */
+.bio-context {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  right: var(--bm);
+  top: calc(var(--top) + 1.05rem);
+  height: 1rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-marfim);
+  pointer-events: none;
+  text-align: right;
+}
+.bio-context span {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  opacity: 0;
+  translate: 0 -0.375rem;
+  transition: opacity 180ms var(--ease-orient), translate var(--release) var(--ease-orient);
+}
+.bio-context span::after { content: ''; width: 0.875rem; height: 1px; background: currentColor; }
+
+.bio-toggle {
+  /* `absolute`, mesmo motivo do `.bio-stage` acima — confinado ao cartão,
+     não ao canto do viewport inteiro em telas largas. */
+  position: absolute;
+  z-index: 2;
+  right: max(var(--bm), calc(var(--bm) - 0.625rem));
+  top: calc(var(--top) + 1rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--c-marfim);
+  opacity: 0.7;
+}
+.bio-toggle .i { width: 10px; height: 10px; }
+.bio-toggle__icon { display: inline-flex; }
+.bio-toggle .bio-toggle__icon--play,
+.bio-toggle[aria-pressed='true'] .bio-toggle__icon--pause { display: none; }
+.bio-toggle[aria-pressed='true'] .bio-toggle__icon--play { display: inline-flex; }
+.bio-toggle:focus-visible { outline-color: var(--c-marfim); outline-offset: -6px; opacity: 1; }
+
+/* ---------------------------------------------------------------- DECISÃO */
+
+/* Tronco: um segmento por nó (pergunta + cada destino); o preenchimento
+   claro mostra para onde a linha aponta. Em repouso: a consulta. */
+.bseg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: calc(var(--row-gap) * -1);
+  width: 1px;
+  background: var(--track);
+  transform-origin: top;
+}
+/* Preenchimento em loop, independente de toque/hover: o caminho inteiro
+   (pergunta → Agendar → Como chegar → Acessar o site) enche em sequência,
+   do início ao fim, segura cheio por um instante, desaparece e recomeça
+   — um movimento contínuo e sem fim, não uma resposta a interação. Os
+   4 segmentos usam o MESMO ciclo de 6s (sem delay entre si: são 4
+   @keyframes diferentes, cada um "esperando" a sua vez dentro do mesmo
+   relógio), então a sensação é de um traço único percorrendo tudo. */
+.bseg__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  clip-path: inset(0 0 100% 0);
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Isola o preenchimento animado na própria camada de composição: no
+     Safari real (iOS), um clip-path animado sem isso pode forçar o
+     repaint da linha ESTÁTICA de 1px ao lado a cada quadro, e o hairline
+     (subpixel) acaba antialiasing de forma inconsistente quadro a
+     quadro — lido como "linha quebrada" numa captura de tela. Com a
+     própria camada, o traço parado nunca recalcula por causa do filho
+     animado. */
+  .bseg__fill { will-change: clip-path; }
+  .bseg { transform: translateZ(0); }
+  /* linear (não ease-in-out): cada trecho crescia e freava na própria
+     ponta — na emenda com o próximo segmento (que começava do zero outra
+     vez) aquilo lia como uma pausa. Em velocidade constante, o fim de um
+     trecho e o início do próximo colam sem desacelerar, e o traço lê
+     como um movimento só. Ciclo mais curto (3.6s) = mais rápido também. */
+  .bio-q .bseg__fill { animation: bio-path-q 3.6s linear infinite; }
+  .bact[data-row='1'] .bseg__fill { animation: bio-path-1 3.6s linear infinite; }
+  .bact[data-row='2'] .bseg__fill { animation: bio-path-2 3.6s linear infinite; }
+  .bact[data-row='3'] .bseg__fill { animation: bio-path-3 3.6s linear infinite; }
+}
+/* Só clip-path (nunca opacity junto): no instante exato da virada do
+   loop, 0% e 100% têm o MESMO valor computado — início e fim idênticos,
+   loop sem costura por construção. Duas propriedades mudando juntas na
+   emenda (como era antes, com opacity) é que causava a piscada: nada
+   garante que o navegador resolva clip-path e opacity no mesmo quadro
+   exatamente na virada. Com uma propriedade só, não há essa janela. */
+@keyframes bio-path-q {
+  0% { clip-path: inset(0 0 100% 0); }
+  12% { clip-path: inset(0 0 0% 0); }
+  72% { clip-path: inset(0 0 0% 0); }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+@keyframes bio-path-1 {
+  0%, 12% { clip-path: inset(0 0 100% 0); }
+  32% { clip-path: inset(0 0 0% 0); }
+  72% { clip-path: inset(0 0 0% 0); }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+@keyframes bio-path-2 {
+  0%, 32% { clip-path: inset(0 0 100% 0); }
+  52% { clip-path: inset(0 0 0% 0); }
+  72% { clip-path: inset(0 0 0% 0); }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+@keyframes bio-path-3 {
+  0%, 52% { clip-path: inset(0 0 100% 0); }
+  72% { clip-path: inset(0 0 0% 0); }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+
+/* padding-left descola a coluna inteira (tique + linha + título + botões)
+   da borda esquerda do cartão — pedido do cliente: a linha estava
+   "colada na parede". Desloca tique/linha/texto juntos, como um bloco,
+   pra não desconectar as marcações da linha. */
+.bio-decide { position: relative; padding-left: 0.5rem; }
+
+.bio-q {
+  position: relative;
+  padding: 0 0 0.875rem var(--indent);
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: clamp(1.75rem, 7.6vw, 2.375rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-shadow: 0 1px 24px rgb(22 52 71 / 0.35);
+}
+.bio-q .bseg { top: -0.5rem; bottom: 0; }
+.bio-q__tick {
+  position: absolute;
+  left: 0;
+  top: 0.54em;
+  width: 1.25rem;
+  height: 1px;
+  background: var(--ink);
+}
+
+.bio-actions { display: grid; gap: var(--row-gap); }
+.bact { position: relative; --tick-y: 1.42rem; }
+.bact:last-child .bseg { bottom: auto; height: var(--tick-y); }
+
+/* Cada destino agora é um botão de verdade (fundo + borda + cantos
+   arredondados), não só uma linha de texto sublinhada — a Linha de
+   Orientação (bseg/tick) continua existindo, mas do lado de fora do
+   botão, apontando pra ele, em vez de "dentro" do padding. */
+.bact__link {
+  /* width: 100% — "Como chegar" é um <button> (abre o painel local), os
+     outros dois são <a>; <button> tem comportamento de largura próprio
+     no navegador e não estica para preencher o pai só com display: grid
+     (diferença real medida: 151px vs 366px). width: 100% força os três
+     ao mesmo tamanho independentemente da tag. */
+  position: relative;
+  display: grid;
+  width: calc(100% - 1rem);
+  align-items: center;
+  text-align: left;
+  min-height: 3rem;
+  margin-left: 1rem;
+  /* Mesmo recuo interno do CTA principal e do título: o texto começa no
+     eixo da coluna de conteúdo (ver .bio-q), não colado na caixa. */
+  padding: 0.5rem 0 0.5rem 1rem;
+  /* Secundário editorial: sem caixa, sem vidro — texto + divisor fino.
+     A área de toque (3rem) continua generosa sem parecer um card. */
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgb(244 240 232 / 0.18);
+  color: var(--ink);
+  transition: opacity 160ms var(--ease-orient), background-color var(--release) var(--ease-orient), color var(--release) var(--ease-orient);
+}
+.bact__tick {
+  position: absolute;
+  left: -1rem;
+  top: var(--tick-y);
+  width: 1rem;
+  height: 1px;
+  background: var(--ink);
+  opacity: 1;
+  transform-origin: left;
+  transition: transform var(--release) var(--ease-orient), opacity var(--release);
+}
+.bact__text { display: block; min-width: 0; }
+.bact__title {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: 1.3125rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 16px rgb(22 52 71 / 0.3);
+  transition: transform var(--release) var(--ease-orient);
+}
+/* Subtítulo e seta removidos a pedido do cliente — cada botão mostra só
+   o título. Elementos continuam no DOM (bio.mjs) por simplicidade/
+   analytics (dv:navigate lê .bact__title), só não aparecem. */
+.bact__detail,
+.bact__go {
+  display: none;
+}
+.bact__stem {
+  width: 0.875rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--release) var(--ease-orient);
+}
+/* Ação principal: o único bloco preenchido — destaque por peso, não por
+   tamanho. Mesma altura dos secundários, cantos menores, sem vidro. */
+.bact--primary .bact__link {
+  background: var(--c-marfim);
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0 1.125rem 0 1rem;
+  color: var(--c-azul);
+  box-shadow: 0 6px 22px rgb(8 22 31 / 0.35);
+}
+.bact--primary .bact__title { font-size: 1.25rem; text-shadow: none; }
+.bact:not(.bact--primary) .bact__title { font-size: 1.1875rem; }
+.bact--primary .bact__link:focus-visible { outline: 2px solid var(--c-marfim); outline-offset: 3px; }
+.bact__link:focus-visible { outline-color: var(--c-marfim); outline-offset: 2px; }
+
+/* ---------------------------------------------------------------- INTENÇÃO */
+/* Tudo reage junto e rápido; nada espera. A linha (.bseg__fill) NÃO
+   reage mais a toque/hover — ela só vive no loop automático acima; o
+   que responde ao toque é só o botão em si (contraste, tique, seta). */
+
+/* 2. o destino responde; os outros cedem contraste */
+.bio[data-intent] .bact:not(.is-intent):not(.bact--primary) .bact__link { opacity: 0.55; }
+.bio[data-intent] .bact--primary:not(.is-intent) .bact__link { background-color: var(--c-azul-80); }
+.bact.is-intent .bact__tick { transform: scaleX(1.3); opacity: 1; transition-duration: var(--press); }
+.bact--primary.is-intent .bact__tick { transform: none; }
+.bact.is-intent .bact__title { transform: translateX(3px); transition-duration: var(--press); }
+.bact.is-intent .bact__go { transform: translateX(3px); opacity: 1; transition-duration: var(--press); }
+.bact.is-intent .bact__stem { transform: scaleX(1); transition-duration: var(--press); }
+.bact:not(.bact--primary).is-intent .bact__link {
+  background-color: rgb(244 240 232 / 0.16);
+  border-color: rgb(244 240 232 / 0.3);
+  transition-duration: var(--press);
+}
+/* Fundo e texto invertem JUNTOS (mesmo padrão do .cta--light em
+   controls.css) — só trocar o fundo pra um azul escuro mantendo o texto
+   em --c-azul (também escuro) deixava o botão quase ilegível bem no
+   instante do toque/hover: exatamente o "título some" visto no vídeo do
+   cliente ao voltar pro /bio/ com o cursor sobre "Agendar". */
+.bact--primary.is-intent .bact__link { background-color: #0f2838; color: var(--c-marfim); transition-duration: var(--press); }
+
+/* 3. o filme responde: enquadramento muda discretamente, a legenda aparece */
+.bio[data-intent='consultation'] .bio-stage__inner { transform: scale(1.035); }
+.bio[data-intent='location'] .bio-stage__inner { transform: translate3d(-1.5%, 0, 0) scale(1.05); }
+.bio[data-intent='website'] .bio-stage__inner { transform: translate3d(0, -1.5%, 0) scale(1.02); }
+.bio-stage__inner { transition: transform 560ms var(--ease-orient); }
+.bio[data-intent='consultation'] .bio-context [data-for='consultation'],
+.bio[data-intent='location'] .bio-context [data-for='location'],
+.bio[data-intent='website'] .bio-context [data-for='website'] {
+  opacity: 1;
+  translate: 0 0;
+  transition-duration: var(--press), var(--press);
+}
+
+/* Sem JS: o próprio destino ainda responde ao toque */
+.bact__link:active .bact__title { transform: translateX(3px); transition-duration: var(--press); }
+.bact__link:active .bact__stem { transform: scaleX(1); transition-duration: var(--press); }
+
+/* ---------------------------------------------------------------- RODAPÉ */
+/* Mínimo: registro profissional (quando houver) + direitos reservados. */
+
+.bio-foot {
+  flex: none;
+  margin-top: 1.75rem;
+  text-align: center;
+}
+.bio-registry {
+  font-size: 0.625rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.bio-registry .registry__item { white-space: nowrap; }
+.bio-registry .registry__spec { color: var(--muted); }
+.bio-copy {
+  margin-top: 0.125rem;
+  font-size: 0.625rem;
+  line-height: 1.5;
+  color: rgb(244 240 232 / 0.52);
+}
+
+/* ---------------------------------------------------------------- CHEGADA */
+/* Sem esconder nada: o filme assenta e a linha desce até a ação principal
+   (≈ 1 s). O conteúdo está legível e clicável desde o 1º quadro. */
+
+/* :not(.bio-drawn) — a chegada toca uma única vez na vida da página. Sem
+   essa trava, um retorno ao /bio/ (voltando do WhatsApp/Maps, app
+   suspenso e retomado) pode fazer o Safari mobile repintar os elementos
+   no estado "ainda não desenhado" (scale 0) por um quadro antes de
+   corrigir — a linha lia como "quebrada" numa das ações. bio.js marca
+   html.bio-drawn depois que a sequência termina — mesmo padrão do
+   html.intro-done usado no site principal (hero-authority.css). */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.bio-drawn) .scene--bio,
+  html:not(.bio-drawn) .bio-stage__inner > .media__pic { animation: bio-arrive 1.6s var(--ease-calm) both; }
+  html:not(.bio-drawn) .bio-q .bseg { animation: bio-draw 320ms var(--ease-orient) 360ms both; }
+  html:not(.bio-drawn) .bact .bseg { animation: bio-draw 300ms var(--ease-orient) both; }
+  html:not(.bio-drawn) .bact[data-row='1'] .bseg { animation-delay: 620ms; }
+  html:not(.bio-drawn) .bact[data-row='2'] .bseg { animation-delay: 700ms; }
+  html:not(.bio-drawn) .bact[data-row='3'] .bseg { animation-delay: 780ms; }
+  html:not(.bio-drawn) .bact__tick { animation: bio-tick 260ms var(--ease-orient) both; }
+  html:not(.bio-drawn) .bact[data-row='1'] .bact__tick { animation-delay: 700ms; }
+  html:not(.bio-drawn) .bact[data-row='2'] .bact__tick { animation-delay: 780ms; }
+  html:not(.bio-drawn) .bact[data-row='3'] .bact__tick { animation-delay: 860ms; }
+}
+@keyframes bio-arrive { from { transform: scale(1.05); } to { transform: none; } }
+@keyframes bio-draw { from { scale: 1 0; } to { scale: 1 1; } }
+@keyframes bio-tick { from { scale: 0 1; } to { scale: 1 1; } }
+
+/* ---------------------------------------------------------------- TABLET */
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .bio { --bio-focal: 70% 24%; }
+  .bio-decide,
+  .bio-foot { max-width: 30rem; }
+}
+
+/* ---------------------------------------------------------------- CARTÃO (telas largas) */
+/* /bio/ é usada só em mobile e tablet (link na bio do Instagram) — não
+   existe um "desktop" de verdade para essa experiência. Em vez de
+   esticar o vídeo vertical e a interface por um monitor inteiro (sobrava
+   um vazio enorme do lado, sem nada desenhado pra ali — reportado pelo
+   cliente), a partir daqui o cartão trava numa largura de tablet e fica
+   centralizado: mesma composição/escala do tablet acima, só numa moldura
+   contida em vez de full-bleed. `.bio-stage`/`.bio-toggle`/`.bsheet` já
+   são `position: absolute` (não `fixed`) exatamente para se confinarem
+   a essa moldura em vez do viewport inteiro. */
+@media (min-width: 900px) {
+  .bio {
+    max-width: 36rem;
+    margin-inline: auto;
+    --bio-focal: 70% 24%;
+  }
+  .bio-decide,
+  .bio-foot { max-width: 30rem; }
+
+  /* A margem nas laterais do cartão não fica só marfim liso — ganha o
+     mesmo clima Azul Profundo em volta, bem desfocado (não é o vídeo/
+     foto real ampliado — hoje a cena ainda é o gradiente placeholder;
+     ao trocar por vídeo/pôster real, considerar estender a própria
+     mídia borrada aqui em vez deste gradiente fixo). */
+  html[data-page='bio'] body::before {
+    content: '';
+    position: fixed;
+    inset: -10%;
+    z-index: -1;
+    background:
+      radial-gradient(65% 42% at 74% 30%, #3a5566 0%, transparent 70%),
+      linear-gradient(170deg, #1d3a4c 0%, #163447 44%, #0f2533 100%);
+    filter: blur(90px) saturate(1.15);
+  }
+}
+
+/* ==========================================================================
+   BOTTOM SHEET — "Como chegar"
+   Não é navegação: é uma resposta local, imediata, à mesma pergunta que a
+   /bio/ já organiza. Sobe do rodapé (mobile) ou flutua como um painel
+   elevado próximo dele (desktop) — nunca uma segunda página.
+   ========================================================================== */
+
+.bsheet {
+  /* `absolute`, mesmo motivo do `.bio-stage`: confinado ao cartão em telas
+     largas, não ao viewport inteiro (o backdrop não deve escurecer a
+     área fora do cartão). */
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+}
+.bsheet[hidden] { display: block; visibility: hidden; }
+.bsheet.is-open, .bsheet.is-closing { visibility: visible; }
+
+.bsheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(15 32 43 / 0.55);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity var(--release) var(--ease-orient);
+}
+.bsheet.is-open .bsheet__backdrop { opacity: 1; }
+
+.bsheet__panel {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(100%, 30rem);
+  max-height: min(86svh, 42rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--c-marfim);
+  color: var(--c-grafite);
+  border-radius: 1.375rem 1.375rem 0 0;
+  box-shadow: 0 -12px 48px rgb(15 32 43 / 0.28);
+  padding: 0.75rem 1.5rem calc(var(--bottom) + 1.5rem);
+  transform: translate(-50%, 100%);
+  transition: transform 420ms var(--ease-orient);
+  outline: none;
+}
+.bsheet.is-open .bsheet__panel { transform: translate(-50%, 0); }
+
+.bsheet__handle {
+  display: block;
+  width: 2.25rem;
+  height: 3px;
+  margin: 0 auto 1.25rem;
+  border-radius: 999px;
+  background: rgb(43 43 43 / 0.2);
+}
+.bsheet__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--c-grafite-80);
+}
+.bsheet__close:hover { color: var(--c-azul); }
+
+.bsheet__label { color: var(--c-mineral); }
+.bsheet__brand {
+  margin-top: 0.5rem;
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: 1.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--c-azul);
+}
+
+.bsheet__block {
+  position: relative;
+  margin-top: 1.375rem;
+  padding-left: 1rem;
+}
+.bsheet__rule { position: absolute; left: 0; top: 0.15em; height: calc(100% - 0.3em); color: rgb(22 52 71 / 0.2); }
+.bsheet__address { font-size: 0.9375rem; line-height: 1.55; color: var(--c-grafite); }
+.bsheet__phone {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--c-azul);
+  text-decoration: underline;
+  text-decoration-color: rgb(22 52 71 / 0.3);
+  text-underline-offset: 3px;
+}
+
+.bsheet__map {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-top: 1.25rem;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  background: var(--c-cinza-20);
+}
+.bsheet__map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(0.5) contrast(0.96); }
+.bsheet__map--pending { display: grid; place-items: center; }
+.bsheet__map--pending::after {
+  content: 'Mapa — inserido após confirmação do endereço';
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-mineral);
+}
+
+.bsheet__actions {
+  display: grid;
+  gap: 0.625rem;
+  margin-top: 1.375rem;
+}
+.bsheet__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 3.25rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.bsheet__cta .i { width: 0.9375rem; height: auto; }
+.bsheet__cta--primary { background: var(--c-azul); color: var(--c-marfim); }
+.bsheet__cta--primary[aria-disabled] { opacity: 0.5; }
+.bsheet__cta--ghost { border: 1px solid rgb(22 52 71 / 0.25); color: var(--c-azul); }
+.bsheet__cta:focus-visible { outline: 2px solid var(--c-azul); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bsheet__panel { transition-duration: 90ms; }
+  .bsheet__backdrop { transition-duration: 90ms; }
+}
+
+/* Desktop: painel elevado, não uma gaveta edge-to-edge */
+@media (min-width: 900px) {
+  .bsheet__panel {
+    bottom: 1.5rem;
+    border-radius: 1.375rem;
+    padding: 1rem 1.75rem 1.75rem;
+  }
+  .bsheet__handle { display: none; }
+}
+
+html.sheet-open { overflow: hidden; }
+

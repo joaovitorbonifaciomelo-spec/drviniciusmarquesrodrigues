@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="pt-BR" class="no-js" data-page="bio">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dr. Vinicius Marques Rodrigues — Agendar, como chegar, site</title>
+<meta name="description" content="Agendar uma consulta, como chegar à Vivenza ou acessar o site do Dr. Vinicius Marques Rodrigues.">
+<link rel="canonical" href="https://www.exemplo.com.br/bio/">
+<meta name="theme-color" content="#163447">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Dr. Vinicius Marques Rodrigues — Agendar, como chegar, site">
+<meta property="og:description" content="Agendar uma consulta, como chegar à Vivenza ou acessar o site do Dr. Vinicius Marques Rodrigues.">
+<meta property="og:url" content="https://www.exemplo.com.br/bio/">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/newsreader-latin-500-opsz.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+<script>(function(d){var h=d.documentElement;h.classList.replace('no-js','js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){h.classList.add('motion');setTimeout(function(){if(!window.__motionReady)h.classList.remove('motion')},4000)}var m=matchMedia('(min-width: 1024px) and (min-height: 560px) and (prefers-reduced-motion: no-preference)'),f=function(){h.classList.toggle('stage',m.matches)};f();m.addEventListener&&m.addEventListener('change',f)}catch(e){}})(document)</script>
+<style>/* /bio/ — bundle próprio, embutido inline no HTML (CSS crítico).
+   Só o essencial do sistema: tokens, base, assinatura, núcleo de mídia. */
+/* ==========================================================================
+   TOKENS — fonte única de verdade (Brandbook Dr. Vinicius Marques Rodrigues)
+   O JS lê os tokens de motion daqui (scripts/core/tokens.js).
+   ========================================================================== */
+
+/* Newsreader instanciada a partir dos originais (assets-src/fonts, ver README):
+   normal fixa em 500 — único peso usado no estilo normal (59 kB em vez de 129 kB);
+   itálico 400–500. O eixo óptico (opsz) é mantido: títulos grandes ganham desenho de display. */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/newsreader-latin-500-opsz.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/newsreader-latin-italic-400-500-opsz.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Fallbacks métricos aproximados — reduzem salto de layout durante o swap */
+@font-face {
+  font-family: 'Newsreader Fallback';
+  src: local('Georgia');
+  size-adjust: 94%;
+  ascent-override: 98%;
+  descent-override: 26%;
+}
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+}
+
+:root {
+  /* ---- Paleta final ---- */
+  --c-azul: #163447;       /* Azul Profundo — autoridade, estabilidade */
+  --c-marfim: #F4F0E8;     /* Marfim — respiro, proximidade */
+  --c-grafite: #2B2B2B;    /* Grafite — precisão, leitura */
+  --c-mineral: #536B78;    /* Azul Mineral — destaques funcionais */
+  --c-cinza: #B7B0A6;      /* Cinza Quente — apoio, equilíbrio */
+
+  /* ---- Variações tonais (Brandbook p. "Cor") ---- */
+  --c-azul-80: #425A67;  --c-azul-60: #6F7F87;  --c-azul-40: #9BA5A8;  --c-azul-20: #C8CAC8;
+  --c-mineral-80: #73868E; --c-mineral-60: #93A0A5; --c-mineral-40: #B4BBBB; --c-mineral-20: #D4D5D2;
+  --c-grafite-80: #535251; --c-grafite-60: #7B7A77; --c-grafite-40: #A4A19C; --c-grafite-20: #CCC9C2;
+  --c-cinza-80: #C3BDB3;  --c-cinza-60: #CFCAC0;  --c-cinza-40: #DCD6CE;  --c-cinza-20: #E8E3DB;
+
+  /* ---- Papéis (superfície clara, padrão) ---- */
+  --bg: var(--c-marfim);
+  --fg: var(--c-grafite);
+  --fg-strong: var(--c-azul);
+  --fg-muted: var(--c-grafite-80);      /* 6.7:1 sobre Marfim */
+  --fg-quiet: var(--c-grafite-60);      /* 3.8:1 — apenas texto grande */
+  --line: rgb(43 43 43 / 0.2);
+  --line-strong: var(--c-azul);
+
+  /* ---- Tipografia ---- */
+  --font-serif: 'Newsreader', 'Newsreader Fallback', Georgia, serif;
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --fs-display: clamp(2.125rem, min(9.2vw, 1.2rem + 6vw), 7.5rem); /* no mobile: uma frase do hero por linha */
+  --fs-h1: clamp(2.375rem, 1.35rem + 4vw, 6rem);
+  --fs-h1-col: clamp(1.875rem, max(min(8.9vw, 2.375rem), 5.2vw), 5rem); /* h1 em coluna editorial: medido para que cada linha autoral caiba (Newsreader ≈ 9.7 × font-size para 20 caracteres) */
+  --fs-h2: clamp(1.875rem, 1.25rem + 2.4vw, 3.75rem);
+  --fs-h3: clamp(1.375rem, 1.15rem + 0.9vw, 2rem);
+  --fs-lead: clamp(1.0625rem, 0.98rem + 0.36vw, 1.3125rem);
+  --fs-body: clamp(1rem, 0.97rem + 0.12vw, 1.0625rem);
+  --fs-small: 0.875rem;
+  --fs-label: 0.75rem;
+
+  --w-serif: 500;        /* Newsreader — Medium (peso prioritário) */
+  --tracking-display: -0.022em;
+  --tracking-head: -0.015em;
+  --tracking-label: 0.16em;
+
+  /* ---- Espaço — módulo 8 px ---- */
+  --s-1: 0.5rem;  --s-2: 1rem;   --s-3: 1.5rem; --s-4: 2rem;   --s-5: 2.5rem;
+  --s-6: 3rem;    --s-8: 4rem;   --s-10: 5rem;  --s-12: 6rem;  --s-16: 8rem;  --s-20: 10rem;
+
+  --margin: clamp(1.25rem, 5.2vw, 6rem);
+  --gutter: clamp(1rem, 1.7vw, 1.5rem);
+  --section: clamp(6rem, 12vw, 12.5rem);
+  --measure: 36rem;
+
+  --hd-h: 5.5rem;
+  --hd-h-compact: 4rem;
+
+  /* ---- Motion ----
+     orient: chega rápido e assenta devagar — "controlado e inevitável"
+     inout:  deslocamentos espaciais (recortes, cenas)
+     calm:   respiro editorial (muito lento) */
+  --ease-orient: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-calm: cubic-bezier(0.33, 0, 0.15, 1);
+  --dur-1: 160ms;
+  --dur-2: 320ms;
+  --dur-3: 640ms;
+  --dur-4: 1000ms;
+  --dur-5: 1600ms;
+
+  --z-header: 50;
+  --z-menu: 40;
+}
+
+@media (max-width: 1179px) {
+  :root {
+    --hd-h: 4.5rem;
+    --hd-h-compact: 3.75rem;
+  }
+}
+
+/* Superfície profunda — aplicada por contexto (hero, painéis azuis, menu) */
+.surface-dark {
+  --bg: var(--c-azul);
+  --fg: var(--c-marfim);
+  --fg-strong: var(--c-marfim);
+  --fg-muted: var(--c-azul-20);          /* 7:1 sobre Azul Profundo */
+  --fg-quiet: var(--c-azul-40);          /* 5:1 */
+  --line: rgb(244 240 232 / 0.22);
+  --line-strong: var(--c-marfim);
+  color: var(--fg);
+}
+
+/* ==========================================================================
+   BASE — reset, tipografia, utilitários, acessibilidade
+   ========================================================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--c-marfim);
+  scroll-padding-top: var(--hd-h-compact);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.lenis) { scroll-behavior: smooth; }
+}
+
+body {
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+img, picture, video, svg { display: block; max-width: 100%; }
+img, video { height: auto; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; padding: 0; }
+address { font-style: normal; }
+p, h1, h2, h3, h4, li, dd { overflow-wrap: break-word; }
+
+::selection { background: var(--c-azul); color: var(--c-marfim); }
+.surface-dark ::selection { background: var(--c-marfim); color: var(--c-azul); }
+
+/* Foco: a mesma linha fina da marca, com recuo — visível em qualquer superfície */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+:focus:not(:focus-visible) { outline: none; }
+main:focus, [tabindex='-1']:focus { outline: none; }
+
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip {
+  position: fixed;
+  top: var(--s-2);
+  left: var(--s-2);
+  z-index: 100;
+  padding: var(--s-2) var(--s-3);
+  background: var(--c-azul);
+  color: var(--c-marfim);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  transform: translateY(-200%);
+  transition: transform var(--dur-2) var(--ease-orient);
+}
+.skip:focus { transform: none; }
+
+/* ---------- Tipografia ---------- */
+
+.display,
+.h1,
+.h2,
+.h3 {
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-optical-sizing: auto;
+  color: var(--fg-strong);
+  text-wrap: balance;
+}
+.display {
+  font-size: var(--fs-display);
+  line-height: 0.98;
+  letter-spacing: var(--tracking-display);
+}
+.h1 {
+  font-size: var(--fs-h1);
+  line-height: 1.02;
+  letter-spacing: var(--tracking-display);
+}
+.h2 {
+  font-size: var(--fs-h2);
+  line-height: 1.06;
+  letter-spacing: var(--tracking-head);
+}
+.h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--fg-muted);
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+em, .it { font-style: italic; }
+
+/* Linha autoral com máscara (reveal por linha).
+   Folga vertical/horizontal para não cortar descendentes e itálicos. */
+.ln {
+  display: block;
+  overflow: hidden;
+  padding: 0.2em 0.12em 0.14em 0;
+  margin: -0.2em -0.12em -0.14em 0;
+}
+.ln__i { display: block; }
+
+/* Placeholder factual — identificável e discreto */
+.ph {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--c-mineral);
+  background: repeating-linear-gradient(90deg, currentColor 0 3px, transparent 3px 6px) left bottom / 100% 1px no-repeat;
+  padding-bottom: 2px;
+}
+.surface-dark .ph { color: var(--c-azul-40); }
+
+.note {
+  font-size: var(--fs-small);
+  color: var(--fg-muted);
+  padding-left: var(--s-2);
+  border-left: 1px solid var(--line);
+  max-width: var(--measure);
+}
+
+/* ---------- Grid ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding-inline: var(--margin);
+}
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+
+/* ---------- Lenis ---------- */
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+
+/* ---------- Transição entre páginas (View Transitions nativas) ---------- */
+
+@view-transition { navigation: auto; }
+
+.hd { view-transition-name: header; }
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: vt-out 420ms var(--ease-inout) both;
+  }
+  ::view-transition-new(root) {
+    animation: vt-in 720ms var(--ease-orient) 120ms both;
+  }
+}
+@keyframes vt-out { to { opacity: 0; transform: translateY(-2vh); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(3vh); } }
+
+/* ---------- Estados iniciais de reveal (somente com motion confirmada) ---------- */
+
+/* Dentro de um palco ativo (html.motion.stage) quem define os estados é a cena. */
+html.motion [data-reveal='fade']:not(html.motion.stage [data-scene-desktop] *),
+html.motion [data-reveal='row']:not(html.motion.stage [data-scene-desktop] *) {
+  opacity: 0;
+}
+html.motion [data-reveal='lines']:not(html.motion.stage [data-scene-desktop] *) .ln__i,
+html.motion [data-reveal='line']:not(html.motion.stage [data-scene-desktop] *) .ln__i {
+  transform: translateY(130%);
+}
+html.motion [data-reveal='media']:not(html.motion.stage [data-scene-desktop] *) {
+  clip-path: inset(100% 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   ASSINATURA — geometria derivada do SVG oficial (unidades do viewBox 2086×447)
+   --wm-w = largura de "Dr. Vinicius". Todas as outras medidas são proporções
+   fixas dessa largura: a construção nunca se altera, só a configuração.
+   ========================================================================== */
+
+.wm {
+  --wm-w: 150px;
+  position: relative;
+  display: block;
+  flex: none;
+  width: calc(var(--wm-w) * 1.322106);
+  height: calc(var(--wm-w) * 0.286114);
+  color: inherit;
+}
+
+.wm svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+  transform-origin: 0 0;
+  transition: transform var(--dur-3) var(--ease-orient);
+}
+
+/* Principal (empilhada) */
+.wm__name {
+  width: var(--wm-w);
+  height: calc(var(--wm-w) * 0.142214);
+  transform: translateX(calc(var(--wm-w) * 0.162034));
+}
+.wm__sub {
+  width: calc(var(--wm-w) * 1.322106);
+  height: calc(var(--wm-w) * 0.076543);
+  transform: translateY(calc(var(--wm-w) * 0.209571));
+}
+
+/* Horizontal — sobrenome a 80%, alinhado à linha de base do nome */
+.wm[data-layout='row'],
+.hd.is-compact .hd__wm {
+  width: calc(var(--wm-w) * 2.102586);
+  height: calc(var(--wm-w) * 0.145981);
+}
+.wm[data-layout='row'] .wm__name,
+.hd.is-compact .hd__wm .wm__name {
+  transform: none;
+}
+.wm[data-layout='row'] .wm__sub,
+.hd.is-compact .hd__wm .wm__sub {
+  transform: translate(calc(var(--wm-w) * 1.044901), calc(var(--wm-w) * 0.084747)) scale(0.8);
+}
+
+/* ==========================================================================
+   MÍDIA — núcleo (usado pelo site e pela /bio/). Variantes de cena do site
+   ficam em media.css.
+   Imagens/vídeos reais preenchem o recorte (object-fit: cover).
+   "Cenas" são placeholders com direção de arte: tom, direção de luz e
+   briefing de captação. Substituídas via content/media.mjs, sem tocar no CSS.
+   ========================================================================== */
+
+.media__pic,
+.media__pic img,
+.media__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* O vídeo só cobre o pôster quando está tocando — nunca um quadro preto */
+.media__video { opacity: 0; transition: opacity var(--dur-4) var(--ease-calm); }
+.media__video.is-playing { opacity: 1; }
+
+.scene {
+  --scene-bg: var(--c-azul);
+  --scene-note: rgb(244 240 232 / 0.62);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--scene-bg);
+  contain: paint;
+}
+.scene__light {
+  position: absolute;
+  inset: -12%;
+  background: var(--scene-light, none);
+}
+.scene__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.scene__note {
+  position: absolute;
+  left: clamp(0.75rem, 1.4vw, 1.25rem);
+  bottom: clamp(0.75rem, 1.4vw, 1.25rem);
+  max-width: min(34ch, calc(100% - 2rem));
+  padding-left: 0.75rem;
+  border-left: 1px solid currentColor;
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--scene-note);
+  text-wrap: pretty;
+}
+.scene__note b {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+@keyframes scene-drift {
+  from { transform: translate3d(-3%, 0, 0); }
+  to { transform: translate3d(3%, -1.5%, 0); }
+}
+
+/* ==========================================================================
+   /bio/ — UMA TELA IMERSIVA
+   Home: scroll = descoberta. /bio/: toque = decisão.
+
+   O vídeo vertical é o ambiente inteiro (full-bleed, 100svh) — não um
+   recorte ao lado da interface. A UI é desenhada SOBRE o filme: nome e
+   especialidades no topo, a pergunta e três destinos embaixo, sob o
+   polegar. Um véu cinematográfico (não um painel opaco) garante contraste:
+   mais denso nas bordas onde há texto, quase ausente no centro, onde o
+   rosto precisa respirar. Se o vídeo falhar, o pôster sustenta tudo.
+   Reações à intenção (toque, foco, hover) vêm de [data-intent] — bio.js.
+   ========================================================================== */
+
+html[data-page='bio'] { background: var(--c-azul); }
+/* `body` herda um background opaco (marfim) do global base.css — como
+   `body` não é positioned, seu próprio background pinta por cima de
+   qualquer descendente com z-index negativo (é um passo de pintura
+   separado, depois dos filhos de z-index negativo). Sem isso em
+   transparent, o backdrop desfocado (ver @media 900px abaixo) nunca
+   apareceria atrás do cartão. */
+html[data-page='bio'] body { background: transparent; }
+
+.bio {
+  --bm: clamp(1.25rem, 5.4vw, 2.5rem);   /* margem lateral */
+  --indent: 2rem;                         /* da linha ao texto */
+  --ink: var(--c-marfim);                 /* texto sobre o filme: sempre claro */
+  --muted: rgb(244 240 232 / 0.72);
+  --track: rgb(244 240 232 / 0.32);
+  --row-gap: 0.25rem;
+  --press: 80ms;                          /* resposta ao toque: imediata */
+  --release: 280ms;
+  --top: env(safe-area-inset-top, 0px);
+  --bottom: env(safe-area-inset-bottom, 0px);
+  /* Enquadramento do vídeo — token único, sobrescrito por breakpoint.
+     Mobile: Dr. Vinicius no quadrante superior direito (a metade inferior
+     fica limpa para a interface). */
+  --bio-focal: 74% 26%;
+  position: relative;
+  min-height: 100svh;
+  min-height: 100dvh;
+  color: var(--ink);
+  overflow: hidden;
+  isolation: isolate;
+}
+.bio :is(a, button) { -webkit-tap-highlight-color: transparent; }
+.bio .skip { background: var(--c-marfim); color: var(--c-azul); }
+
+/* ---------------------------------------------------------------- PALCO */
+/* O filme É a atmosfera — não um elemento decorativo pequeno. Sangra sob
+   as safe areas de propósito (imersão); só o CONTEÚDO respeita a safe area. */
+
+.bio-stage {
+  /* `absolute` (não `fixed`): confinado ao próprio `.bio`, não ao viewport
+     inteiro — necessário para o teto de largura em telas grandes (ver
+     breakpoint DESKTOP/WIDE abaixo). Sem efeito abaixo dele: `.bio` já
+     preenche o viewport inteiro em mobile/tablet, então o resultado
+     visual é idêntico ao de `fixed` nessas larguras. */
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--c-azul);
+  overflow: hidden;
+}
+.bio-stage__inner { position: absolute; inset: -3%; }
+.bio-stage .media__pic img,
+.bio-stage .media__video { object-position: var(--bio-focal); }
+
+/* Véu: overlay Azul Profundo sutil no todo, mais denso no topo (wordmark)
+   e na base (ações) por um gradiente vertical; o centro — onde está o
+   rosto — permanece o mais transparente possível. */
+.bio-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgb(22 52 71 / 0.58) 0%,
+      rgb(22 52 71 / 0.16) 16%,
+      rgb(22 52 71 / 0.06) 34%,
+      rgb(22 52 71 / 0.1) 48%,
+      rgb(22 52 71 / 0.42) 66%,
+      rgb(22 52 71 / 0.82) 88%,
+      rgb(22 52 71 / 0.92) 100%
+    ),
+    linear-gradient(100deg, rgb(22 52 71 / 0.4) 0%, rgb(22 52 71 / 0) 42%);
+}
+
+/* Placeholder vertical: parede em penumbra, luz de janela, volume da
+   figura no quadrante indicado por --bio-focal. */
+.scene--bio {
+  --scene-bg:
+    radial-gradient(65% 42% at 74% 30%, #3a5566 0%, transparent 70%),
+    linear-gradient(170deg, #1d3a4c 0%, #163447 44%, #0f2533 100%);
+  --scene-light: linear-gradient(97deg, transparent 50%, rgb(244 240 232 / 0.16) 60%, transparent 72%);
+}
+.scene--bio .scene__light { filter: blur(14px); animation: scene-drift 30s var(--ease-inout) infinite alternate; }
+.scene--bio::after {
+  content: '';
+  position: absolute;
+  left: 42%;
+  top: 6%;
+  width: 56%;
+  height: 62%;
+  border-radius: 38% 38% 44% 44% / 30% 30% 36% 36%;
+  background: radial-gradient(60% 55% at 50% 38%, rgb(8 22 31 / 0.55), transparent 72%);
+  filter: blur(22px);
+}
+/* Nota de briefing (só a cena-placeholder, nunca conteúdo real): ancorada
+   logo abaixo do cabeçalho — previsível mesmo quando o bloco de decisão
+   cresce (ex.: título em 2 linhas). Em telas baixas, cede: o conteúdo real
+   tem prioridade e a nota some (permanece documentada em media.mjs). */
+.scene--bio .scene__note {
+  left: 50%;
+  right: auto;
+  top: calc(var(--top, 0px) + 7.25rem);
+  bottom: auto;
+  max-width: min(78vw, 24rem);
+  transform: translateX(-50%);
+}
+@media (max-height: 640px), (max-width: 340px) {
+  .scene--bio .scene__note { display: none; }
+}
+html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
+
+/* ---------------------------------------------------------------- COMPOSIÇÃO */
+
+.bio-main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  min-height: 100dvh;
+  padding: calc(var(--top) + 1rem) var(--bm) calc(var(--bottom) + 0.75rem);
+}
+
+/* Topo — nome + especialidades, integrados ao filme (sem caixa) */
+.bio-top { flex: none; }
+.bio-brand { display: inline-block; color: var(--ink); }
+.bio-wm { --wm-w: clamp(6.5rem, 22vw, 8rem); }
+.bio-specialties {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em 0.6em;
+  margin-top: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bio-specialties__dot { opacity: 0.6; }
+
+/* Bloco de decisão + rodapé: ancorados diretamente à base da tela (não por
+   flex/margin-auto) — a posição não pode depender da altura do cabeçalho.
+   Isso importa de verdade: a troca de fonte (fallback → Newsreader/Inter)
+   muda a altura do topo por alguns pixels, e um ancoramento por auto-margin
+   arrastaria o bloco inteiro junto, gerando CLS. Fixo na base, imune a isso. */
+.bio-pin {
+  position: absolute;
+  left: var(--bm);
+  right: var(--bm);
+  bottom: 1.75rem;
+}
+
+/* Rótulo contextual: aparece perto do topo-direito quando um destino é
+   sinalizado (toque/hover/foco) — a "legenda" da cena, não um crop.
+   Removido a pedido do cliente (efeito de hover de mouse, pouco sentido
+   numa página usada quase só em touch). */
+.bio-context {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  right: var(--bm);
+  top: calc(var(--top) + 1.05rem);
+  height: 1rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-marfim);
+  pointer-events: none;
+  text-align: right;
+}
+.bio-context span {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  opacity: 0;
+  translate: 0 -0.375rem;
+  transition: opacity 180ms var(--ease-orient), translate var(--release) var(--ease-orient);
+}
+.bio-context span::after { content: ''; width: 0.875rem; height: 1px; background: currentColor; }
+
+.bio-toggle {
+  /* `absolute`, mesmo motivo do `.bio-stage` acima — confinado ao cartão,
+     não ao canto do viewport inteiro em telas largas. */
+  position: absolute;
+  z-index: 2;
+  right: max(var(--bm), calc(var(--bm) - 0.625rem));
+  top: calc(var(--top) + 1rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--c-marfim);
+  opacity: 0.7;
+}
+.bio-toggle .i { width: 10px; height: 10px; }
+.bio-toggle__icon { display: inline-flex; }
+.bio-toggle .bio-toggle__icon--play,
+.bio-toggle[aria-pressed='true'] .bio-toggle__icon--pause { display: none; }
+.bio-toggle[aria-pressed='true'] .bio-toggle__icon--play { display: inline-flex; }
+.bio-toggle:focus-visible { outline-color: var(--c-marfim); outline-offset: -6px; opacity: 1; }
+
+/* ---------------------------------------------------------------- DECISÃO */
+
+/* Tronco: um segmento por nó (pergunta + cada destino); o preenchimento
+   claro mostra para onde a linha aponta. Em repouso: a consulta. */
+.bseg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: calc(var(--row-gap) * -1);
+  width: 1px;
+  background: var(--track);
+  transform-origin: top;
+}
+/* Preenchimento em loop, independente de toque/hover: o caminho inteiro
+   (pergunta → Agendar → Como chegar → Acessar o site) enche em sequência,
+   do início ao fim, segura cheio por um instante, desaparece e recomeça
+   — um movimento contínuo e sem fim, não uma resposta a interação. Os
+   4 segmentos usam o MESMO ciclo de 6s (sem delay entre si: são 4
+   @keyframes diferentes, cada um "esperando" a sua vez dentro do mesmo
+   relógio), então a sensação é de um traço único percorrendo tudo. */
+.bseg__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  clip-path: inset(0 0 100% 0);
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Isola o preenchimento animado na própria camada de composição: no
+     Safari real (iOS), um clip-path animado sem isso pode forçar o
+     repaint da linha ESTÁTICA de 1px ao lado a cada quadro, e o hairline
+     (subpixel) acaba antialiasing de forma inconsistente quadro a
+     quadro — lido como "linha quebrada" numa captura de tela. Com a
+     própria camada, o traço parado nunca recalcula por causa do filho
+     animado. */
+  .bseg__fill { will-change: clip-path; }
+  .bseg { transform: translateZ(0); }
+  /* linear (não ease-in-out): cada trecho crescia e freava na própria
+     ponta — na emenda com o próximo segmento (que começava do zero outra
+     vez) aquilo lia como uma pausa. Em velocidade constante, o fim de um
+     trecho e o início do próximo colam sem desacelerar, e o traço lê
+     como um movimento só. Ciclo mais curto (3.6s) = mais rápido também. */
+  .bio-q .bseg__fill { animation: bio-path-q 3.6s linear infinite; }
+  .bact[data-row='1'] .bseg__fill { animation: bio-path-1 3.6s linear infinite; }
+  .bact[data-row='2'] .bseg__fill { animation: bio-path-2 3.6s linear infinite; }
+  .bact[data-row='3'] .bseg__fill { animation: bio-path-3 3.6s linear infinite; }
+}
+/* Só clip-path (nunca opacity junto): no instante exato da virada do
+   loop, 0% e 100% têm o MESMO valor computado — início e fim idênticos,
+   loop sem costura por construção. Duas propriedades mudando juntas na
+   emenda (como era antes, com opacity) é que causava a piscada: nada
+   garante que o navegador resolva clip-path e opacity no mesmo quadro
+   exatamente na virada. Com uma propriedade só, não há essa janela. */
+@keyframes bio-path-q {
+  0% { clip-path: inset(0 0 100% 0); }
+  12% { clip-path: inset(0 0 0% 0); }
+  72% { clip-path: inset(0 0 0% 0); }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+@keyframes bio-path-1 {
+  0%, 12% { clip-path: inset(0 0 100% 0); }
+  32% { clip-path: inset(0 0 0% 0); }
+  72% { clip-path: inset(0 0 0% 0); }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+@keyframes bio-path-2 {
+  0%, 32% { clip-path: inset(0 0 100% 0); }
+  52% { clip-path: inset(0 0 0% 0); }
+  72% { clip-path: inset(0 0 0% 0); }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+@keyframes bio-path-3 {
+  0%, 52% { clip-path: inset(0 0 100% 0); }
+  72% { clip-path: inset(0 0 0% 0); }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+
+/* padding-left descola a coluna inteira (tique + linha + título + botões)
+   da borda esquerda do cartão — pedido do cliente: a linha estava
+   "colada na parede". Desloca tique/linha/texto juntos, como um bloco,
+   pra não desconectar as marcações da linha. */
+.bio-decide { position: relative; padding-left: 0.5rem; }
+
+.bio-q {
+  position: relative;
+  padding: 0 0 0.875rem var(--indent);
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: clamp(1.75rem, 7.6vw, 2.375rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-shadow: 0 1px 24px rgb(22 52 71 / 0.35);
+}
+.bio-q .bseg { top: -0.5rem; bottom: 0; }
+.bio-q__tick {
+  position: absolute;
+  left: 0;
+  top: 0.54em;
+  width: 1.25rem;
+  height: 1px;
+  background: var(--ink);
+}
+
+.bio-actions { display: grid; gap: var(--row-gap); }
+.bact { position: relative; --tick-y: 1.42rem; }
+.bact:last-child .bseg { bottom: auto; height: var(--tick-y); }
+
+/* Cada destino agora é um botão de verdade (fundo + borda + cantos
+   arredondados), não só uma linha de texto sublinhada — a Linha de
+   Orientação (bseg/tick) continua existindo, mas do lado de fora do
+   botão, apontando pra ele, em vez de "dentro" do padding. */
+.bact__link {
+  /* width: 100% — "Como chegar" é um <button> (abre o painel local), os
+     outros dois são <a>; <button> tem comportamento de largura próprio
+     no navegador e não estica para preencher o pai só com display: grid
+     (diferença real medida: 151px vs 366px). width: 100% força os três
+     ao mesmo tamanho independentemente da tag. */
+  position: relative;
+  display: grid;
+  width: calc(100% - 1rem);
+  align-items: center;
+  text-align: left;
+  min-height: 3rem;
+  margin-left: 1rem;
+  /* Mesmo recuo interno do CTA principal e do título: o texto começa no
+     eixo da coluna de conteúdo (ver .bio-q), não colado na caixa. */
+  padding: 0.5rem 0 0.5rem 1rem;
+  /* Secundário editorial: sem caixa, sem vidro — texto + divisor fino.
+     A área de toque (3rem) continua generosa sem parecer um card. */
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgb(244 240 232 / 0.18);
+  color: var(--ink);
+  transition: opacity 160ms var(--ease-orient), background-color var(--release) var(--ease-orient), color var(--release) var(--ease-orient);
+}
+.bact__tick {
+  position: absolute;
+  left: -1rem;
+  top: var(--tick-y);
+  width: 1rem;
+  height: 1px;
+  background: var(--ink);
+  opacity: 1;
+  transform-origin: left;
+  transition: transform var(--release) var(--ease-orient), opacity var(--release);
+}
+.bact__text { display: block; min-width: 0; }
+.bact__title {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: 1.3125rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 16px rgb(22 52 71 / 0.3);
+  transition: transform var(--release) var(--ease-orient);
+}
+/* Subtítulo e seta removidos a pedido do cliente — cada botão mostra só
+   o título. Elementos continuam no DOM (bio.mjs) por simplicidade/
+   analytics (dv:navigate lê .bact__title), só não aparecem. */
+.bact__detail,
+.bact__go {
+  display: none;
+}
+.bact__stem {
+  width: 0.875rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--release) var(--ease-orient);
+}
+/* Ação principal: o único bloco preenchido — destaque por peso, não por
+   tamanho. Mesma altura dos secundários, cantos menores, sem vidro. */
+.bact--primary .bact__link {
+  background: var(--c-marfim);
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0 1.125rem 0 1rem;
+  color: var(--c-azul);
+  box-shadow: 0 6px 22px rgb(8 22 31 / 0.35);
+}
+.bact--primary .bact__title { font-size: 1.25rem; text-shadow: none; }
+.bact:not(.bact--primary) .bact__title { font-size: 1.1875rem; }
+.bact--primary .bact__link:focus-visible { outline: 2px solid var(--c-marfim); outline-offset: 3px; }
+.bact__link:focus-visible { outline-color: var(--c-marfim); outline-offset: 2px; }
+
+/* ---------------------------------------------------------------- INTENÇÃO */
+/* Tudo reage junto e rápido; nada espera. A linha (.bseg__fill) NÃO
+   reage mais a toque/hover — ela só vive no loop automático acima; o
+   que responde ao toque é só o botão em si (contraste, tique, seta). */
+
+/* 2. o destino responde; os outros cedem contraste */
+.bio[data-intent] .bact:not(.is-intent):not(.bact--primary) .bact__link { opacity: 0.55; }
+.bio[data-intent] .bact--primary:not(.is-intent) .bact__link { background-color: var(--c-azul-80); }
+.bact.is-intent .bact__tick { transform: scaleX(1.3); opacity: 1; transition-duration: var(--press); }
+.bact--primary.is-intent .bact__tick { transform: none; }
+.bact.is-intent .bact__title { transform: translateX(3px); transition-duration: var(--press); }
+.bact.is-intent .bact__go { transform: translateX(3px); opacity: 1; transition-duration: var(--press); }
+.bact.is-intent .bact__stem { transform: scaleX(1); transition-duration: var(--press); }
+.bact:not(.bact--primary).is-intent .bact__link {
+  background-color: rgb(244 240 232 / 0.16);
+  border-color: rgb(244 240 232 / 0.3);
+  transition-duration: var(--press);
+}
+/* Fundo e texto invertem JUNTOS (mesmo padrão do .cta--light em
+   controls.css) — só trocar o fundo pra um azul escuro mantendo o texto
+   em --c-azul (também escuro) deixava o botão quase ilegível bem no
+   instante do toque/hover: exatamente o "título some" visto no vídeo do
+   cliente ao voltar pro /bio/ com o cursor sobre "Agendar". */
+.bact--primary.is-intent .bact__link { background-color: #0f2838; color: var(--c-marfim); transition-duration: var(--press); }
+
+/* 3. o filme responde: enquadramento muda discretamente, a legenda aparece */
+.bio[data-intent='consultation'] .bio-stage__inner { transform: scale(1.035); }
+.bio[data-intent='location'] .bio-stage__inner { transform: translate3d(-1.5%, 0, 0) scale(1.05); }
+.bio[data-intent='website'] .bio-stage__inner { transform: translate3d(0, -1.5%, 0) scale(1.02); }
+.bio-stage__inner { transition: transform 560ms var(--ease-orient); }
+.bio[data-intent='consultation'] .bio-context [data-for='consultation'],
+.bio[data-intent='location'] .bio-context [data-for='location'],
+.bio[data-intent='website'] .bio-context [data-for='website'] {
+  opacity: 1;
+  translate: 0 0;
+  transition-duration: var(--press), var(--press);
+}
+
+/* Sem JS: o próprio destino ainda responde ao toque */
+.bact__link:active .bact__title { transform: translateX(3px); transition-duration: var(--press); }
+.bact__link:active .bact__stem { transform: scaleX(1); transition-duration: var(--press); }
+
+/* ---------------------------------------------------------------- RODAPÉ */
+/* Mínimo: registro profissional (quando houver) + direitos reservados. */
+
+.bio-foot {
+  flex: none;
+  margin-top: 1.75rem;
+  text-align: center;
+}
+.bio-registry {
+  font-size: 0.625rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.bio-registry .registry__item { white-space: nowrap; }
+.bio-registry .registry__spec { color: var(--muted); }
+.bio-copy {
+  margin-top: 0.125rem;
+  font-size: 0.625rem;
+  line-height: 1.5;
+  color: rgb(244 240 232 / 0.52);
+}
+
+/* ---------------------------------------------------------------- CHEGADA */
+/* Sem esconder nada: o filme assenta e a linha desce até a ação principal
+   (≈ 1 s). O conteúdo está legível e clicável desde o 1º quadro. */
+
+/* :not(.bio-drawn) — a chegada toca uma única vez na vida da página. Sem
+   essa trava, um retorno ao /bio/ (voltando do WhatsApp/Maps, app
+   suspenso e retomado) pode fazer o Safari mobile repintar os elementos
+   no estado "ainda não desenhado" (scale 0) por um quadro antes de
+   corrigir — a linha lia como "quebrada" numa das ações. bio.js marca
+   html.bio-drawn depois que a sequência termina — mesmo padrão do
+   html.intro-done usado no site principal (hero-authority.css). */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.bio-drawn) .scene--bio,
+  html:not(.bio-drawn) .bio-stage__inner > .media__pic { animation: bio-arrive 1.6s var(--ease-calm) both; }
+  html:not(.bio-drawn) .bio-q .bseg { animation: bio-draw 320ms var(--ease-orient) 360ms both; }
+  html:not(.bio-drawn) .bact .bseg { animation: bio-draw 300ms var(--ease-orient) both; }
+  html:not(.bio-drawn) .bact[data-row='1'] .bseg { animation-delay: 620ms; }
+  html:not(.bio-drawn) .bact[data-row='2'] .bseg { animation-delay: 700ms; }
+  html:not(.bio-drawn) .bact[data-row='3'] .bseg { animation-delay: 780ms; }
+  html:not(.bio-drawn) .bact__tick { animation: bio-tick 260ms var(--ease-orient) both; }
+  html:not(.bio-drawn) .bact[data-row='1'] .bact__tick { animation-delay: 700ms; }
+  html:not(.bio-drawn) .bact[data-row='2'] .bact__tick { animation-delay: 780ms; }
+  html:not(.bio-drawn) .bact[data-row='3'] .bact__tick { animation-delay: 860ms; }
+}
+@keyframes bio-arrive { from { transform: scale(1.05); } to { transform: none; } }
+@keyframes bio-draw { from { scale: 1 0; } to { scale: 1 1; } }
+@keyframes bio-tick { from { scale: 0 1; } to { scale: 1 1; } }
+
+/* ---------------------------------------------------------------- TABLET */
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .bio { --bio-focal: 70% 24%; }
+  .bio-decide,
+  .bio-foot { max-width: 30rem; }
+}
+
+/* ---------------------------------------------------------------- CARTÃO (telas largas) */
+/* /bio/ é usada só em mobile e tablet (link na bio do Instagram) — não
+   existe um "desktop" de verdade para essa experiência. Em vez de
+   esticar o vídeo vertical e a interface por um monitor inteiro (sobrava
+   um vazio enorme do lado, sem nada desenhado pra ali — reportado pelo
+   cliente), a partir daqui o cartão trava numa largura de tablet e fica
+   centralizado: mesma composição/escala do tablet acima, só numa moldura
+   contida em vez de full-bleed. `.bio-stage`/`.bio-toggle`/`.bsheet` já
+   são `position: absolute` (não `fixed`) exatamente para se confinarem
+   a essa moldura em vez do viewport inteiro. */
+@media (min-width: 900px) {
+  .bio {
+    max-width: 36rem;
+    margin-inline: auto;
+    --bio-focal: 70% 24%;
+  }
+  .bio-decide,
+  .bio-foot { max-width: 30rem; }
+
+  /* A margem nas laterais do cartão não fica só marfim liso — ganha o
+     mesmo clima Azul Profundo em volta, bem desfocado (não é o vídeo/
+     foto real ampliado — hoje a cena ainda é o gradiente placeholder;
+     ao trocar por vídeo/pôster real, considerar estender a própria
+     mídia borrada aqui em vez deste gradiente fixo). */
+  html[data-page='bio'] body::before {
+    content: '';
+    position: fixed;
+    inset: -10%;
+    z-index: -1;
+    background:
+      radial-gradient(65% 42% at 74% 30%, #3a5566 0%, transparent 70%),
+      linear-gradient(170deg, #1d3a4c 0%, #163447 44%, #0f2533 100%);
+    filter: blur(90px) saturate(1.15);
+  }
+}
+
+/* ==========================================================================
+   BOTTOM SHEET — "Como chegar"
+   Não é navegação: é uma resposta local, imediata, à mesma pergunta que a
+   /bio/ já organiza. Sobe do rodapé (mobile) ou flutua como um painel
+   elevado próximo dele (desktop) — nunca uma segunda página.
+   ========================================================================== */
+
+.bsheet {
+  /* `absolute`, mesmo motivo do `.bio-stage`: confinado ao cartão em telas
+     largas, não ao viewport inteiro (o backdrop não deve escurecer a
+     área fora do cartão). */
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+}
+.bsheet[hidden] { display: block; visibility: hidden; }
+.bsheet.is-open, .bsheet.is-closing { visibility: visible; }
+
+.bsheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(15 32 43 / 0.55);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity var(--release) var(--ease-orient);
+}
+.bsheet.is-open .bsheet__backdrop { opacity: 1; }
+
+.bsheet__panel {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(100%, 30rem);
+  max-height: min(86svh, 42rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--c-marfim);
+  color: var(--c-grafite);
+  border-radius: 1.375rem 1.375rem 0 0;
+  box-shadow: 0 -12px 48px rgb(15 32 43 / 0.28);
+  padding: 0.75rem 1.5rem calc(var(--bottom) + 1.5rem);
+  transform: translate(-50%, 100%);
+  transition: transform 420ms var(--ease-orient);
+  outline: none;
+}
+.bsheet.is-open .bsheet__panel { transform: translate(-50%, 0); }
+
+.bsheet__handle {
+  display: block;
+  width: 2.25rem;
+  height: 3px;
+  margin: 0 auto 1.25rem;
+  border-radius: 999px;
+  background: rgb(43 43 43 / 0.2);
+}
+.bsheet__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--c-grafite-80);
+}
+.bsheet__close:hover { color: var(--c-azul); }
+
+.bsheet__label { color: var(--c-mineral); }
+.bsheet__brand {
+  margin-top: 0.5rem;
+  font-family: var(--font-serif);
+  font-weight: var(--w-serif);
+  font-size: 1.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--c-azul);
+}
+
+.bsheet__block {
+  position: relative;
+  margin-top: 1.375rem;
+  padding-left: 1rem;
+}
+.bsheet__rule { position: absolute; left: 0; top: 0.15em; height: calc(100% - 0.3em); color: rgb(22 52 71 / 0.2); }
+.bsheet__address { font-size: 0.9375rem; line-height: 1.55; color: var(--c-grafite); }
+.bsheet__phone {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--c-azul);
+  text-decoration: underline;
+  text-decoration-color: rgb(22 52 71 / 0.3);
+  text-underline-offset: 3px;
+}
+
+.bsheet__map {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-top: 1.25rem;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  background: var(--c-cinza-20);
+}
+.bsheet__map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(0.5) contrast(0.96); }
+.bsheet__map--pending { display: grid; place-items: center; }
+.bsheet__map--pending::after {
+  content: 'Mapa — inserido após confirmação do endereço';
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-mineral);
+}
+
+.bsheet__actions {
+  display: grid;
+  gap: 0.625rem;
+  margin-top: 1.375rem;
+}
+.bsheet__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 3.25rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.bsheet__cta .i { width: 0.9375rem; height: auto; }
+.bsheet__cta--primary { background: var(--c-azul); color: var(--c-marfim); }
+.bsheet__cta--primary[aria-disabled] { opacity: 0.5; }
+.bsheet__cta--ghost { border: 1px solid rgb(22 52 71 / 0.25); color: var(--c-azul); }
+.bsheet__cta:focus-visible { outline: 2px solid var(--c-azul); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bsheet__panel { transition-duration: 90ms; }
+  .bsheet__backdrop { transition-duration: 90ms; }
+}
+
+/* Desktop: painel elevado, não uma gaveta edge-to-edge */
+@media (min-width: 900px) {
+  .bsheet__panel {
+    bottom: 1.5rem;
+    border-radius: 1.375rem;
+    padding: 1rem 1.75rem 1.75rem;
+  }
+  .bsheet__handle { display: none; }
+}
+
+html.sheet-open { overflow: hidden; }
+
+</style>
+</head>
+<body>
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="wm-name" viewBox="267.39 0 1558.99 221.71"><path fill="currentColor" d="M440.817 110.188C440.817 78.3953 432.572 54.6002 416.084 38.8027C399.595 22.9064 375.405 14.9583 343.514 14.9583H306.933V6.07218H351.956C377.528 6.07218 399.249 10.0216 417.12 17.9203C435.09 25.8191 448.765 37.3217 458.145 52.4281C467.623 67.4357 472.362 85.6522 472.362 107.078C472.362 131.465 467.179 151.903 456.812 168.392C446.445 184.782 432.325 197.124 414.455 205.417C396.682 213.711 376.54 217.858 354.029 217.858H306.933V208.972H348.845C368.197 208.972 384.735 205.664 398.46 199.049C412.184 192.434 422.649 181.869 429.857 167.355C437.163 152.841 440.817 133.785 440.817 110.188ZM267.389 217.858V213.563L293.9 207.343V16.4393L267.389 10.3671V6.07218H324.409V217.858H267.389ZM593.935 63.5357C598.28 63.5357 601.735 64.7699 604.303 67.2382C606.87 69.7066 608.153 73.113 608.153 77.4573C608.153 82.6902 606.524 86.9358 603.266 90.194C600.106 93.3535 596.058 94.9333 591.122 94.9333C588.949 94.9333 586.728 94.6865 584.457 94.1928C582.285 93.6004 579.965 93.0573 577.496 92.5637C575.028 91.9713 572.263 91.675 569.202 91.675C566.339 91.675 563.624 92.2181 561.057 93.3042C558.49 94.2915 555.972 95.6738 553.504 97.451C551.035 99.2282 548.468 101.351 545.802 103.819V97.3029C553.207 89.5029 559.428 83.332 564.463 78.7902C569.597 74.2484 573.892 70.8914 577.348 68.7193C580.804 66.5471 583.815 65.1648 586.382 64.5724C588.949 63.8813 591.467 63.5357 593.935 63.5357ZM547.58 90.4902V209.416L571.72 213.859V217.858H499.15V213.859L520.329 209.416V91.0826C519.045 90.2928 517.466 89.3054 515.59 88.1206C513.714 86.9358 511.393 85.5041 508.629 83.8257C505.963 82.0484 502.803 80.0244 499.15 77.7535V75.0876L546.987 61.6104H547.58V90.4902ZM635.457 179.499C641.579 179.499 646.565 181.474 650.415 185.424C654.365 189.373 656.34 194.26 656.34 200.086C656.34 205.812 654.365 210.7 650.415 214.748C646.565 218.697 641.579 220.672 635.457 220.672C629.434 220.672 624.448 218.697 620.499 214.748C616.55 210.7 614.575 205.812 614.575 200.086C614.575 194.26 616.55 189.373 620.499 185.424C624.547 181.474 629.533 179.499 635.457 179.499ZM749.287 16.7355L726.183 10.3671V6.07218H808.38V10.3671L781.425 16.4393L854.588 184.091H850.885L911.755 17.476L883.616 10.3671V6.07218H944.189V10.3671L921.53 17.9203L845.405 220.82H839.778L749.287 16.7355ZM987.303 39.8394C981.083 39.8394 976.146 37.7166 972.493 33.471C968.939 29.2254 967.161 24.4862 967.161 19.2532C967.161 14.0203 968.939 9.52789 972.493 5.77598C976.146 1.92533 981.083 1.23082e-07 987.303 1.23082e-07C993.523 1.23082e-07 998.312 1.92533 1001.67 5.77598C1005.12 9.52789 1006.85 14.0203 1006.85 19.2532C1006.85 24.4862 1005.12 29.2254 1001.67 33.471C998.312 37.7166 993.523 39.8394 987.303 39.8394ZM1003.3 61.6104V90.4902V209.416L1024.48 213.859V217.858H954.869V213.859L976.047 209.416V91.0826C974.961 90.3915 973.332 89.3548 971.16 87.9725C968.988 86.5902 966.47 85.0105 963.607 83.2332C960.842 81.456 957.93 79.6294 954.869 77.7535V75.0876L1002.71 61.6104H1003.3ZM1090.64 90.4902V209.416L1111.82 213.859V217.858H1042.21V213.859L1063.39 209.416V91.0826C1061.81 90.0953 1059.54 88.713 1056.58 86.9358C1053.71 85.0598 1048.92 81.9991 1042.21 77.7535V75.0876L1090.05 61.6104H1090.64V90.4902ZM1138.03 213.859L1159.36 209.416V114.187C1159.36 107.571 1158.17 102.042 1155.8 97.5991C1153.53 93.1561 1150.03 89.8485 1145.29 87.6763C1140.55 85.4054 1134.43 84.27 1126.92 84.27C1119.12 84.27 1111.67 85.356 1104.56 87.5282C1097.55 89.6016 1091.73 91.7738 1087.08 94.0447L1085.16 90.9345C1092.86 85.2079 1099.53 80.518 1105.15 76.8649C1110.88 73.2117 1115.96 70.3978 1120.41 68.4231C1124.85 66.4484 1129.05 65.1155 1133 64.4243C1136.95 63.6344 1141.14 63.2395 1145.58 63.2395C1160.1 63.2395 1170.56 67.1395 1176.98 74.9395C1183.4 82.6408 1186.61 94.8839 1186.61 111.669V209.416L1207.79 213.859V217.858H1138.03V213.859ZM1257.46 39.8394C1251.24 39.8394 1246.3 37.7166 1242.65 33.471C1239.1 29.2254 1237.32 24.4862 1237.32 19.2532C1237.32 14.0203 1239.1 9.52789 1242.65 5.77598C1246.3 1.92533 1251.24 1.23082e-07 1257.46 1.23082e-07C1263.68 1.23082e-07 1268.47 1.92533 1271.83 5.77598C1275.28 9.52789 1277.01 14.0203 1277.01 19.2532C1277.01 24.4862 1275.28 29.2254 1271.83 33.471C1268.47 37.7166 1263.68 39.8394 1257.46 39.8394ZM1273.46 61.6104V90.4902V209.416L1294.64 213.859V217.858H1225.03V213.859L1246.21 209.416V91.0826C1245.12 90.3915 1243.49 89.3548 1241.32 87.9725C1239.15 86.5902 1236.63 85.0105 1233.77 83.2332C1231 81.456 1228.09 79.6294 1225.03 77.7535V75.0876L1272.86 61.6104H1273.46ZM1394.27 63.2395C1403.75 63.2395 1411.5 64.2268 1417.52 66.2015C1423.64 68.1762 1428.13 70.7927 1431 74.0509C1433.86 77.3092 1435.29 80.8636 1435.29 84.7143C1435.29 87.775 1434.65 90.4409 1433.37 92.7118C1432.18 94.9827 1430.45 96.7105 1428.18 97.8953C1426.01 99.0801 1423.35 99.6726 1420.19 99.6726C1419.4 99.6726 1418.16 98.7346 1416.48 96.8586C1414.81 94.8839 1412.73 92.5143 1410.26 89.7497C1407.89 86.8864 1405.18 84.0231 1402.12 81.1598C1399.06 78.2965 1395.8 75.9269 1392.34 74.0509C1388.89 72.0762 1385.28 71.0889 1381.53 71.0889C1374.32 71.0889 1367.96 73.1623 1362.43 77.3092C1356.9 81.456 1352.55 87.8738 1349.39 96.5624C1346.33 105.152 1344.8 116.211 1344.8 129.737C1344.8 146.226 1346.78 159.654 1350.73 170.021C1354.68 180.289 1360.5 187.793 1368.2 192.532C1375.9 197.272 1385.43 199.641 1396.79 199.641C1404.69 199.641 1412.29 198.012 1419.59 194.754C1426.9 191.397 1432.97 186.362 1437.81 179.648L1440.03 181.277C1434.21 191.051 1428.28 198.851 1422.26 204.677C1416.34 210.403 1410.12 214.55 1403.6 217.117C1397.08 219.586 1389.97 220.82 1382.27 220.82C1369.93 220.82 1358.77 217.957 1348.8 212.23C1338.93 206.405 1331.08 197.864 1325.25 186.608C1319.53 175.254 1316.66 161.283 1316.66 144.696C1316.66 132.847 1318.59 121.987 1322.44 112.113C1326.29 102.141 1331.72 93.5016 1338.73 86.1953C1345.74 78.8889 1353.94 73.2611 1363.32 69.3117C1372.79 65.2636 1383.11 63.2395 1394.27 63.2395ZM1490.88 39.8394C1484.66 39.8394 1479.73 37.7166 1476.07 33.471C1472.52 29.2254 1470.74 24.4862 1470.74 19.2532C1470.74 14.0203 1472.52 9.52789 1476.07 5.77598C1479.73 1.92533 1484.66 1.23082e-07 1490.88 1.23082e-07C1497.1 1.23082e-07 1501.89 1.92533 1505.25 5.77598C1508.71 9.52789 1510.43 14.0203 1510.43 19.2532C1510.43 24.4862 1508.71 29.2254 1505.25 33.471C1501.89 37.7166 1497.1 39.8394 1490.88 39.8394ZM1506.88 61.6104V90.4902V209.416L1528.06 213.859V217.858H1458.45V213.859L1479.63 209.416V91.0826C1478.54 90.3915 1476.91 89.3548 1474.74 87.9725C1472.57 86.5902 1470.05 85.0105 1467.19 83.2332C1464.42 81.456 1461.51 79.6294 1458.45 77.7535V75.0876L1506.29 61.6104H1506.88ZM1591.41 171.206C1591.41 177.821 1592.54 183.35 1594.81 187.793C1597.18 192.236 1600.74 195.593 1605.48 197.864C1610.21 200.036 1616.34 201.122 1623.84 201.122C1631.64 201.122 1639 199.938 1645.91 197.568C1652.92 195.198 1658.69 192.582 1663.24 189.718L1665.61 192.977C1657.81 198.703 1651.09 203.393 1645.46 207.046C1639.84 210.7 1634.8 213.563 1630.36 215.636C1625.91 217.611 1621.67 218.944 1617.62 219.635C1613.67 220.425 1609.47 220.82 1605.03 220.82C1590.71 220.82 1580.3 216.92 1573.78 209.12C1567.36 201.32 1564.16 189.027 1564.16 172.242V78.1978L1537.79 73.4585V67.6825L1592.89 65.0167L1591.41 78.1978V171.206ZM1656.27 221.708V193.569V78.1978L1629.91 73.4585V67.6825L1685.01 65.0167L1683.53 78.1978V202.9C1684.41 203.294 1685.85 203.887 1687.82 204.677C1689.8 205.467 1691.97 206.355 1694.34 207.343C1696.71 208.231 1699.03 209.169 1701.3 210.157C1703.57 211.045 1705.49 211.786 1707.07 212.378V215.636L1657.02 221.708H1656.27ZM1782.84 63.2395C1789.55 63.2395 1795.63 63.98 1801.06 65.461C1806.49 66.8433 1812.06 68.9661 1817.79 71.8294L1822.38 112.409H1817.79L1798.69 71.9775L1810.24 85.3067C1804.91 79.5801 1799.97 75.5813 1795.43 73.3104C1790.98 70.9408 1785.55 69.756 1779.14 69.756C1770.55 69.756 1763.88 71.7307 1759.14 75.6801C1754.4 79.6294 1752.03 85.356 1752.03 92.8599C1752.03 96.908 1752.82 100.66 1754.4 104.116C1755.98 107.571 1759.24 111.027 1764.18 114.483C1769.21 117.84 1776.92 121.542 1787.28 125.59C1794.98 128.552 1801.35 131.761 1806.39 135.217C1811.52 138.673 1815.52 142.375 1818.38 146.325C1821.35 150.175 1823.42 154.372 1824.6 158.913C1825.79 163.356 1826.38 168.145 1826.38 173.279C1826.38 182.659 1823.76 190.953 1818.53 198.16C1813.4 205.269 1806.58 210.848 1798.09 214.896C1789.6 218.845 1780.27 220.82 1770.1 220.82C1762.6 220.82 1755.84 220.079 1749.81 218.598C1743.79 217.117 1738.01 214.896 1732.48 211.934L1724.04 165.282H1729.23L1753.81 213.415L1746.41 205.565C1748.97 207.441 1751.64 209.021 1754.4 210.305C1757.27 211.489 1760.18 212.427 1763.14 213.119C1766.2 213.711 1769.26 214.007 1772.32 214.007C1780.62 214.007 1788.12 211.588 1794.84 206.75C1801.55 201.813 1804.91 194.408 1804.91 184.535C1804.91 180.783 1804.31 177.327 1803.13 174.168C1801.94 171.008 1799.97 168.046 1797.21 165.282C1794.44 162.418 1790.69 159.654 1785.95 156.988C1781.21 154.322 1775.24 151.656 1768.03 148.99C1758.45 145.337 1750.95 141.289 1745.52 136.846C1740.09 132.403 1736.24 127.466 1733.97 122.036C1731.79 116.606 1730.71 110.632 1730.71 104.116C1730.71 95.3282 1733.13 87.9231 1737.96 81.9003C1742.8 75.7788 1749.17 71.1383 1757.07 67.9787C1764.97 64.8192 1773.56 63.2395 1782.84 63.2395Z"/></symbol>
+  <symbol id="wm-sub" viewBox="14.78 326.72 2061.15 119.33"><path fill="currentColor" d="M14.7777 328.242H26.1378L65.2144 422.068H66.1611L105.238 328.242H116.598V435.952H107.341V349.016H106.5L70.1581 435.952H61.2173L24.8756 349.016H24.0341V435.952H14.7777V328.242ZM175.013 435.952H164.705L203.886 328.242H214.405L253.587 435.952H243.278L209.514 341.022H208.777L175.013 435.952ZM182.428 394.667H235.863V403.503H182.428V394.667ZM301.667 435.952V328.242H336.431C344.075 328.242 350.456 329.627 355.575 332.397C360.729 335.132 364.603 338.936 367.198 343.809C369.828 348.648 371.143 354.205 371.143 360.481C371.143 366.758 369.828 372.297 367.198 377.101C364.603 381.904 360.747 385.656 355.628 388.356C350.509 391.055 344.162 392.405 336.589 392.405H306.979V383.412H336.326C341.936 383.412 346.599 382.483 350.316 380.625C354.067 378.766 356.855 376.119 358.678 372.683C360.536 369.247 361.465 365.18 361.465 360.481C361.465 355.783 360.536 351.681 358.678 348.175C356.82 344.633 354.015 341.899 350.263 339.97C346.547 338.042 341.848 337.078 336.168 337.078H311.502V435.952H301.667ZM349.159 387.356L375.666 435.952H364.305L338.062 387.356H349.159ZM465.058 402.293H475.997L489.777 420.543L492.091 423.593L509.026 446.05H498.086L485.674 429.483L483.465 426.538L465.058 402.293ZM513.023 382.097C513.023 393.317 511.024 403.082 507.027 411.391C503.03 419.666 497.525 426.082 490.513 430.64C483.536 435.163 475.506 437.425 466.425 437.425C457.344 437.425 449.297 435.163 442.285 430.64C435.308 426.082 429.821 419.666 425.823 411.391C421.861 403.082 419.88 393.317 419.88 382.097C419.88 370.877 421.861 361.13 425.823 352.855C429.821 344.546 435.325 338.129 442.338 333.606C449.35 329.048 457.379 326.769 466.425 326.769C475.506 326.769 483.536 329.048 490.513 333.606C497.525 338.129 503.03 344.546 507.027 352.855C511.024 361.13 513.023 370.877 513.023 382.097ZM503.451 382.097C503.451 372.455 501.838 364.198 498.612 357.326C495.386 350.419 490.986 345.142 485.411 341.495C479.836 337.849 473.508 336.026 466.425 336.026C459.378 336.026 453.067 337.849 447.492 341.495C441.917 345.142 437.499 350.401 434.238 357.273C431.013 364.145 429.4 372.42 429.4 382.097C429.4 391.739 431.013 399.996 434.238 406.868C437.464 413.741 441.864 419.017 447.439 422.699C453.014 426.345 459.343 428.169 466.425 428.169C473.508 428.169 479.836 426.345 485.411 422.699C491.021 419.052 495.439 413.793 498.665 406.921C501.89 400.014 503.486 391.739 503.451 382.097ZM638.218 328.242H648.053V399.558C648.053 406.886 646.334 413.443 642.898 419.228C639.462 424.978 634.676 429.519 628.541 432.849C622.44 436.145 615.34 437.793 607.24 437.793C599.176 437.793 592.076 436.128 585.94 432.797C579.804 429.466 575.018 424.925 571.582 419.175C568.146 413.425 566.428 406.886 566.428 399.558V328.242H576.263V398.874C576.263 404.589 577.543 409.691 580.102 414.179C582.662 418.632 586.256 422.138 590.884 424.697C595.547 427.257 600.999 428.537 607.24 428.537C613.481 428.537 618.934 427.257 623.597 424.697C628.26 422.138 631.854 418.632 634.378 414.179C636.938 409.691 638.218 404.589 638.218 398.874V328.242ZM706.257 435.952V328.242H768.738V337.078H716.092V377.627H765.424V386.462H716.092V427.117H769.789V435.952H706.257ZM882.296 355.17C881.7 349.174 879.053 344.406 874.355 340.864C869.657 337.323 863.749 335.552 856.631 335.552C851.617 335.552 847.199 336.411 843.378 338.129C839.591 339.847 836.611 342.232 834.437 345.282C832.298 348.297 831.229 351.733 831.229 355.59C831.229 358.43 831.842 360.92 833.069 363.058C834.297 365.197 835.944 367.038 838.013 368.581C840.117 370.088 842.431 371.386 844.955 372.473C847.515 373.56 850.092 374.471 852.687 375.207L864.047 378.468C867.483 379.415 870.919 380.625 874.355 382.097C877.791 383.57 880.929 385.428 883.769 387.672C886.644 389.881 888.941 392.598 890.659 395.824C892.412 399.015 893.288 402.854 893.288 407.342C893.288 413.092 891.798 418.264 888.818 422.857C885.838 427.45 881.56 431.096 875.985 433.796C870.41 436.461 863.731 437.793 855.947 437.793C848.619 437.793 842.256 436.583 836.856 434.164C831.456 431.71 827.214 428.326 824.129 424.014C821.043 419.701 819.308 414.705 818.922 409.025H829.02C829.37 413.267 830.773 416.861 833.227 419.806C835.681 422.752 838.872 424.996 842.799 426.538C846.726 428.046 851.109 428.8 855.947 428.8C861.312 428.8 866.08 427.906 870.253 426.117C874.46 424.294 877.756 421.77 880.14 418.544C882.559 415.283 883.769 411.497 883.769 407.184C883.769 403.538 882.822 400.487 880.929 398.033C879.036 395.543 876.388 393.457 872.987 391.774C869.621 390.091 865.712 388.601 861.259 387.304L848.374 383.517C839.924 380.993 833.367 377.504 828.704 373.051C824.041 368.598 821.709 362.918 821.709 356.011C821.709 350.226 823.252 345.142 826.337 340.759C829.458 336.341 833.665 332.905 838.96 330.451C844.289 327.961 850.267 326.717 856.894 326.717C863.591 326.717 869.516 327.944 874.67 330.398C879.825 332.853 883.909 336.236 886.925 340.549C889.975 344.826 891.605 349.7 891.816 355.17H882.296ZM1017.85 435.952V328.242H1052.61C1060.26 328.242 1066.64 329.627 1071.76 332.397C1076.91 335.132 1080.79 338.936 1083.38 343.809C1086.01 348.648 1087.32 354.205 1087.32 360.481C1087.32 366.758 1086.01 372.297 1083.38 377.101C1080.79 381.904 1076.93 385.656 1071.81 388.356C1066.69 391.055 1060.34 392.405 1052.77 392.405H1023.16V383.412H1052.51C1058.12 383.412 1062.78 382.483 1066.5 380.625C1070.25 378.766 1073.04 376.119 1074.86 372.683C1076.72 369.247 1077.65 365.18 1077.65 360.481C1077.65 355.783 1076.72 351.681 1074.86 348.175C1073 344.633 1070.2 341.899 1066.45 339.97C1062.73 338.042 1058.03 337.078 1052.35 337.078H1027.68V435.952H1017.85ZM1065.34 387.356L1091.85 435.952H1080.49L1054.24 387.356H1065.34ZM1229.2 382.097C1229.2 393.317 1227.21 403.082 1223.21 411.391C1219.21 419.666 1213.71 426.082 1206.7 430.64C1199.72 435.163 1191.69 437.425 1182.61 437.425C1173.53 437.425 1165.48 435.163 1158.47 430.64C1151.49 426.082 1146 419.666 1142.01 411.391C1138.04 403.082 1136.06 393.317 1136.06 382.097C1136.06 370.877 1138.04 361.13 1142.01 352.855C1146 344.546 1151.51 338.129 1158.52 333.606C1165.53 329.048 1173.56 326.769 1182.61 326.769C1191.69 326.769 1199.72 329.048 1206.7 333.606C1213.71 338.129 1219.21 344.546 1223.21 352.855C1227.21 361.13 1229.2 370.877 1229.2 382.097ZM1219.63 382.097C1219.63 372.455 1218.02 364.198 1214.79 357.326C1211.57 350.419 1207.17 345.142 1201.59 341.495C1196.02 337.849 1189.69 336.026 1182.61 336.026C1175.56 336.026 1169.25 337.849 1163.67 341.495C1158.1 345.142 1153.68 350.401 1150.42 357.273C1147.19 364.145 1145.58 372.42 1145.58 382.097C1145.58 391.739 1147.19 399.996 1150.42 406.868C1153.65 413.741 1158.05 419.017 1163.62 422.699C1169.2 426.345 1175.53 428.169 1182.61 428.169C1189.69 428.169 1196.02 426.345 1201.59 422.699C1207.2 419.052 1211.62 413.793 1214.85 406.921C1218.07 400.014 1219.67 391.739 1219.63 382.097ZM1314.17 435.952H1282.61V328.242H1316.06C1326.33 328.242 1335.12 330.381 1342.41 334.658C1349.74 338.936 1355.35 345.072 1359.24 353.066C1363.13 361.06 1365.08 370.649 1365.08 381.834C1365.08 393.124 1363.08 402.819 1359.08 410.918C1355.12 418.982 1349.33 425.171 1341.73 429.483C1334.15 433.796 1324.97 435.952 1314.17 435.952ZM1292.45 427.117H1313.59C1322.84 427.117 1330.59 425.294 1336.83 421.647C1343.07 418.001 1347.76 412.794 1350.88 406.027C1354 399.26 1355.56 391.196 1355.56 381.834C1355.52 372.543 1353.98 364.549 1350.93 357.852C1347.91 351.155 1343.43 346.018 1337.47 342.442C1331.54 338.866 1324.21 337.078 1315.48 337.078H1292.45V427.117ZM1418.53 435.952V328.242H1453.3C1460.94 328.242 1467.32 329.627 1472.44 332.397C1477.6 335.132 1481.47 338.936 1484.07 343.809C1486.7 348.648 1488.01 354.205 1488.01 360.481C1488.01 366.758 1486.7 372.297 1484.07 377.101C1481.47 381.904 1477.61 385.656 1472.49 388.356C1467.38 391.055 1461.03 392.405 1453.46 392.405H1423.85V383.412H1453.19C1458.8 383.412 1463.47 382.483 1467.18 380.625C1470.93 378.766 1473.72 376.119 1475.55 372.683C1477.4 369.247 1478.33 365.18 1478.33 360.481C1478.33 355.783 1477.4 351.681 1475.55 348.175C1473.69 344.633 1470.88 341.899 1467.13 339.97C1463.41 338.042 1458.72 337.078 1453.04 337.078H1428.37V435.952H1418.53ZM1466.03 387.356L1492.53 435.952H1481.17L1454.93 387.356H1466.03ZM1551.42 328.242V435.952H1541.59V328.242H1551.42ZM1684.2 361.901C1683.22 358.325 1681.78 354.977 1679.89 351.856C1678 348.701 1675.65 345.948 1672.84 343.599C1670.07 341.215 1666.86 339.357 1663.22 338.024C1659.61 336.692 1655.57 336.026 1651.12 336.026C1644.11 336.026 1637.83 337.849 1632.29 341.495C1626.75 345.142 1622.37 350.401 1619.15 357.273C1615.95 364.145 1614.36 372.42 1614.36 382.097C1614.36 391.739 1615.97 399.996 1619.2 406.868C1622.42 413.741 1626.84 419.017 1632.45 422.699C1638.1 426.345 1644.55 428.169 1651.81 428.169C1658.43 428.169 1664.29 426.696 1669.37 423.751C1674.46 420.806 1678.42 416.598 1681.26 411.128C1684.13 405.659 1685.54 399.155 1685.46 391.616L1688.62 392.616H1654.12V383.78H1695.04V392.616C1695.04 401.802 1693.18 409.744 1689.46 416.44C1685.75 423.137 1680.64 428.309 1674.16 431.955C1667.67 435.602 1660.22 437.425 1651.81 437.425C1642.41 437.425 1634.19 435.163 1627.14 430.64C1620.09 426.082 1614.6 419.666 1610.68 411.391C1606.79 403.082 1604.84 393.317 1604.84 382.097C1604.84 373.647 1605.96 366.021 1608.21 359.219C1610.45 352.417 1613.62 346.597 1617.73 341.758C1621.86 336.92 1626.75 333.221 1632.4 330.661C1638.04 328.067 1644.28 326.769 1651.12 326.769C1657.01 326.769 1662.39 327.698 1667.27 329.557C1672.18 331.415 1676.49 333.975 1680.21 337.235C1683.96 340.461 1687.03 344.195 1689.41 348.438C1691.83 352.645 1693.46 357.133 1694.3 361.901H1684.2ZM1820.86 328.242H1830.7V399.558C1830.7 406.886 1828.98 413.443 1825.54 419.228C1822.11 424.978 1817.32 429.519 1811.19 432.849C1805.09 436.145 1797.99 437.793 1789.89 437.793C1781.82 437.793 1774.72 436.128 1768.59 432.797C1762.45 429.466 1757.66 424.925 1754.23 419.175C1750.79 413.425 1749.07 406.886 1749.07 399.558V328.242H1758.91V398.874C1758.91 404.589 1760.19 409.691 1762.75 414.179C1765.31 418.632 1768.9 422.138 1773.53 424.697C1778.19 427.257 1783.64 428.537 1789.89 428.537C1796.13 428.537 1801.58 427.257 1806.24 424.697C1810.91 422.138 1814.5 418.632 1817.02 414.179C1819.58 409.691 1820.86 404.589 1820.86 398.874V328.242ZM1888.9 435.952V328.242H1951.38V337.078H1898.74V377.627H1948.07V386.462H1898.74V427.117H1952.43V435.952H1888.9ZM2064.94 355.17C2064.35 349.174 2061.7 344.406 2057 340.864C2052.3 337.323 2046.39 335.552 2039.28 335.552C2034.26 335.552 2029.84 336.411 2026.02 338.129C2022.24 339.847 2019.26 342.232 2017.08 345.282C2014.94 348.297 2013.87 351.733 2013.87 355.59C2013.87 358.43 2014.49 360.92 2015.71 363.058C2016.94 365.197 2018.59 367.038 2020.66 368.581C2022.76 370.088 2025.08 371.386 2027.6 372.473C2030.16 373.56 2032.74 374.471 2035.33 375.207L2046.69 378.468C2050.13 379.415 2053.56 380.625 2057 382.097C2060.44 383.57 2063.57 385.428 2066.41 387.672C2069.29 389.881 2071.59 392.598 2073.3 395.824C2075.06 399.015 2075.93 402.854 2075.93 407.342C2075.93 413.092 2074.44 418.264 2071.46 422.857C2068.48 427.45 2064.21 431.096 2058.63 433.796C2053.06 436.461 2046.38 437.793 2038.59 437.793C2031.26 437.793 2024.9 436.583 2019.5 434.164C2014.1 431.71 2009.86 428.326 2006.77 424.014C2003.69 419.701 2001.95 414.705 2001.57 409.025H2011.67C2012.02 413.267 2013.42 416.861 2015.87 419.806C2018.33 422.752 2021.52 424.996 2025.44 426.538C2029.37 428.046 2033.75 428.8 2038.59 428.8C2043.96 428.8 2048.73 427.906 2052.9 426.117C2057.11 424.294 2060.4 421.77 2062.79 418.544C2065.2 415.283 2066.41 411.497 2066.41 407.184C2066.41 403.538 2065.47 400.487 2063.57 398.033C2061.68 395.543 2059.03 393.457 2055.63 391.774C2052.27 390.091 2048.36 388.601 2043.9 387.304L2031.02 383.517C2022.57 380.993 2016.01 377.504 2011.35 373.051C2006.69 368.598 2004.35 362.918 2004.35 356.011C2004.35 350.226 2005.9 345.142 2008.98 340.759C2012.1 336.341 2016.31 332.905 2021.61 330.451C2026.93 327.961 2032.91 326.717 2039.54 326.717C2046.24 326.717 2052.16 327.944 2057.32 330.398C2062.47 332.853 2066.55 336.236 2069.57 340.549C2072.62 344.826 2074.25 349.7 2074.46 355.17H2064.94Z"/></symbol>
+</svg>
+<div class="bio" id="top" tabindex="-1" data-bio>
+<a class="skip" href="#acoes">Pular para as ações</a>
+
+<div class="bio-stage" data-video-host aria-hidden="true">
+  <div class="bio-stage__inner"><div class="scene scene--bio" aria-hidden="true" data-placeholder-media="bio">
+    <span class="scene__light" aria-hidden="true"></span>
+    <span class="scene__grain" aria-hidden="true"></span>
+    
+  </div></div>
+  <span class="bio-veil" aria-hidden="true"></span>
+</div>
+
+<main class="bio-main">
+
+  <header class="bio-top">
+    <a class="bio-brand" href="/" aria-label="Dr. Vinicius Marques Rodrigues — site" data-dest="website" data-dest-at="brand"><span class="wm bio-wm" data-layout="stack" role="img" aria-label="Dr. Vinicius Marques Rodrigues">
+  <svg class="wm__name" viewBox="0 0 1558.99 221.71" aria-hidden="true" focusable="false"><use href="#wm-name" width="1558.99" height="221.71"/></svg>
+  <svg class="wm__sub" viewBox="0 0 2061.15 119.33" aria-hidden="true" focusable="false"><use href="#wm-sub" width="2061.15" height="119.33"/></svg>
+</span></a>
+    <p class="bio-specialties" aria-label="Especialidades">
+      <span>Cardiologia</span><span class="bio-specialties__dot" aria-hidden="true">•</span><span>Arritmias</span><span class="bio-specialties__dot" aria-hidden="true">•</span><span>Eletrofisiologia</span>
+    </p>
+  </header>
+
+  <p class="bio-context" aria-hidden="true">
+    <span data-for="consultation">Agendamento</span><span data-for="location">Vivenza</span><span data-for="website">Site completo</span>
+  </p>
+
+  <div class="bio-pin">
+    <section class="bio-decide" id="acoes" aria-labelledby="bio-q" tabindex="-1">
+      <h1 class="bio-q" id="bio-q"><span class="bseg" aria-hidden="true"><span class="bseg__fill"></span></span><span class="bio-q__tick" aria-hidden="true"></span>Como posso ajudar?</h1>
+      <nav aria-label="Ações">
+        <ul class="bio-actions"><li class="bact bact--primary" data-row="1"><span class="bseg" aria-hidden="true"><span class="bseg__fill"></span></span><a class="bact__link" href="https://wa.me/5562999667661" data-dest="consultation" data-dest-at="actions">
+    <span class="bact__tick" aria-hidden="true"></span>
+    <span class="bact__text">
+      <span class="bact__title">Agendar uma consulta</span>
+      <span class="bact__detail">Agendamento online</span>
+    </span>
+    <span class="bact__go" aria-hidden="true"><span class="bact__stem"></span><svg class="i i--out" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M1.5 12.5 12.5 1.5M4.5 1.5h8v8" fill="none" stroke="currentColor" stroke-width="1"/></svg></span>
+    <span class="sr-only"> (abre o agendamento)</span></a></li><li class="bact" data-row="2"><span class="bseg" aria-hidden="true"><span class="bseg__fill"></span></span><button type="button" class="bact__link" data-dest="location" data-dest-at="actions" data-sheet-open="location" aria-haspopup="dialog" aria-expanded="false" aria-controls="sheet-location">
+    <span class="bact__tick" aria-hidden="true"></span>
+    <span class="bact__text">
+      <span class="bact__title">Como chegar</span>
+      <span class="bact__detail">Vivenza</span>
+    </span>
+    <span class="bact__go" aria-hidden="true"><span class="bact__stem"></span><svg class="i i--arrow" viewBox="0 0 24 12" aria-hidden="true" focusable="false"><path d="M0 6h22.5M17.5 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1"/></svg></span>
+    </button></li><li class="bact" data-row="3"><span class="bseg" aria-hidden="true"><span class="bseg__fill"></span></span><a class="bact__link" href="/" data-dest="website" data-dest-at="actions">
+    <span class="bact__tick" aria-hidden="true"></span>
+    <span class="bact__text">
+      <span class="bact__title">Acessar o site</span>
+      <span class="bact__detail">Atuação, trajetória e conteúdos</span>
+    </span>
+    <span class="bact__go" aria-hidden="true"><span class="bact__stem"></span><svg class="i i--arrow" viewBox="0 0 24 12" aria-hidden="true" focusable="false"><path d="M0 6h22.5M17.5 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1"/></svg></span>
+    </a></li></ul>
+      </nav>
+    </section>
+
+    <footer class="bio-foot">
+      <p class="bio-registry"><span class="registry"><span class="registry__item">CRM/GO 10224</span><span class="registry__sep" aria-hidden="true"> · </span><span class="registry__item">RQE 5073 <span class="registry__spec">Cardiologia</span></span><span class="registry__sep" aria-hidden="true"> · </span><span class="registry__item">RQE 9036 <span class="registry__spec">Eletrofisiologia</span></span></span></p>
+      <p class="bio-copy">© 2026 Dr. Vinicius Marques Rodrigues. Todos os direitos reservados.</p>
+    </footer>
+  </div>
+
+</main>
+
+<button class="bio-toggle" type="button" data-video-toggle aria-pressed="false">
+  <span class="bio-toggle__icon bio-toggle__icon--pause"><svg class="i i--pause" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 1.5v9M9 1.5v9" stroke="currentColor" stroke-width="1.5"/></svg></span>
+  <span class="bio-toggle__icon bio-toggle__icon--play"><svg class="i i--play" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 1.5v9l7.5-4.5z" fill="currentColor"/></svg></span>
+  <span class="sr-only" data-video-toggle-label>Pausar vídeo</span>
+</button>
+
+<div class="bsheet" id="sheet-location" data-sheet="location" hidden>
+  <div class="bsheet__backdrop" data-sheet-close aria-hidden="true"></div>
+  <div class="bsheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheet-location-title" tabindex="-1">
+    <span class="bsheet__handle" aria-hidden="true"></span>
+    <button class="bsheet__close" type="button" data-sheet-close aria-label="Fechar">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M1.5 1.5l13 13M14.5 1.5l-13 13" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+    </button>
+
+    <p class="label bsheet__label">Como chegar</p>
+    <h2 class="bsheet__brand" id="sheet-location-title">Vivenza Centro Médico</h2>
+
+    <div class="bsheet__block">
+      <span class="oline oline--y bsheet__rule" aria-hidden="true"></span>
+      <address class="bsheet__address">Ed. Órion Business and Health<br>Av. Portugal, nº 1148 — Sl. B3001<br>Setor Marista, Goiânia — GO, 74150-340</address>
+      <a class="bsheet__phone" href="tel:+556230932333" data-dest="phone" data-dest-at="sheet">(62) 3093-2333</a>
+    </div>
+
+    <div class="bsheet__map" data-sheet-map data-maps-query="Vivenza%20Centro%20M%C3%A9dico%2C%20Av.%20Portugal%2C%201148%2C%20Sl%20B3001%2C%20Setor%20Marista%2C%20Goi%C3%A2nia%20-%20GO%2C%2074150-340"></div>
+
+    <div class="bsheet__actions">
+      <a class="bsheet__cta bsheet__cta--primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=Vivenza%20Centro%20M%C3%A9dico%2C%20Av.%20Portugal%2C%201148%2C%20Sl%20B3001%2C%20Setor%20Marista%2C%20Goi%C3%A2nia%20-%20GO%2C%2074150-340" target="_blank" rel="noopener" data-dest="location" data-dest-at="sheet-maps"><span>Abrir no Google Maps</span><svg class="i i--out" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M1.5 12.5 12.5 1.5M4.5 1.5h8v8" fill="none" stroke="currentColor" stroke-width="1"/></svg><span class="sr-only"> (abre em nova aba)</span></a>
+      <a class="bsheet__cta bsheet__cta--ghost" href="tel:+556230932333" data-dest="phone" data-dest-at="sheet-call"><span>Ligar</span><svg class="i i--arrow" viewBox="0 0 24 12" aria-hidden="true" focusable="false"><path d="M0 6h22.5M17.5 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1"/></svg></a>
+    </div>
+  </div>
+</div>
+
+</div>
+<script type="module" src="/assets/js/bio.js?v=mux8gq7l"></script>
+</body>
+</html>
