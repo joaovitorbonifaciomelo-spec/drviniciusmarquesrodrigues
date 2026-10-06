@@ -247,6 +247,15 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   clip-path: inset(0 0 100% 0);
 }
 @media (prefers-reduced-motion: no-preference) {
+  /* Isola o preenchimento animado na própria camada de composição: no
+     Safari real (iOS), um clip-path animado sem isso pode forçar o
+     repaint da linha ESTÁTICA de 1px ao lado a cada quadro, e o hairline
+     (subpixel) acaba antialiasing de forma inconsistente quadro a
+     quadro — lido como "linha quebrada" numa captura de tela. Com a
+     própria camada, o traço parado nunca recalcula por causa do filho
+     animado. */
+  .bseg__fill { will-change: clip-path; }
+  .bseg { transform: translateZ(0); }
   /* linear (não ease-in-out): cada trecho crescia e freava na própria
      ponta — na emenda com o próximo segmento (que começava do zero outra
      vez) aquilo lia como uma pausa. Em velocidade constante, o fim de um
