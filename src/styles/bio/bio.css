@@ -241,63 +241,51 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   transition: clip-path 200ms var(--ease-orient);
 }
 
-/* Trajeto único: em vez de um pingo de luz por segmento (4 animações
-   soltas), uma única luz percorre a coluna inteira — da pergunta ao
-   último botão — num só movimento contínuo e direcional, em loop.
-   Sobreposta aos .bseg (que continuam sendo o traço estático + o
-   .bseg__fill controlado por toque/hover), alinhada na mesma coluna,
-   só que medida a partir de .bio-decide (o pai comum), não de cada
-   linha isoladamente. */
+/* A animação é o PRÓPRIO traço, não uma camada separada: ::after nasce
+   dentro de cada .bseg (nunca existe fora dele, então nunca aparece nos
+   vãos entre os botões) e é só uma variação de brilho sobre o traço-base
+   — sem largura extra, sem blur, sem glow por trás. Cada segmento tem
+   sua própria animação, com atraso crescente pra sensação de um único
+   pulso de luz descendo o caminho inteiro. */
+.bseg::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 36%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgb(244 240 232 / 0.55) 42%,
+    rgb(244 240 232 / 0.85) 50%,
+    rgb(244 240 232 / 0.55) 58%,
+    transparent 100%
+  );
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bseg::after { animation: bseg-pulse 2.6s ease-in-out infinite; }
+  .bio-q .bseg::after { animation-delay: 0s; }
+  .bact[data-row='1'] .bseg::after { animation-delay: 0.5s; }
+  .bact[data-row='2'] .bseg::after { animation-delay: 1s; }
+  .bact[data-row='3'] .bseg::after { animation-delay: 1.5s; }
+}
+/* translateY em % é relativo à altura do PRÓPRIO ::after (36% do seu
+   .bseg) — por isso os valores grandes: -100% = encostado acima do
+   início do segmento; 380% cobre o segmento inteiro até sair por baixo. */
+@keyframes bseg-pulse {
+  0% { transform: translateY(-100%); opacity: 0; }
+  22% { opacity: 1; }
+  78% { opacity: 1; }
+  100% { transform: translateY(380%); opacity: 0; }
+}
+
 /* padding-left descola a coluna inteira (tique + linha + título + botões)
    da borda esquerda do cartão — pedido do cliente: a linha estava
    "colada na parede". Desloca tique/linha/texto juntos, como um bloco,
    pra não desconectar as marcações da linha. */
 .bio-decide { position: relative; padding-left: 0.5rem; }
-/* Halo de respiração: luz difusa, alongada, sem ponto duro. Marfim frio
-   (levemente aquecido, nunca branco estourado), opacidade baixa, blur
-   suave — a linha é conduzida, não piscada. */
-/* A luz vive DENTRO do traço (mesma largura/eixo de .bseg) — não é mais
-   um halo solto ao lado. Mesma linguagem do hero: base discreta (o
-   próprio .bseg) + um trecho que brilha mais ao passar, sem glow/blur
-   externo. */
-.bio-decide::before {
-  content: '';
-  position: absolute;
-  /* .bio-decide tem padding-left: 0.5rem — .bseg (a linha de verdade)
-     fica no início da CAIXA DE CONTEÚDO, não na borda do padding. Sem
-     este left, a luz ficava 8px à esquerda da linha real. */
-  left: 0.5rem;
-  top: 0;
-  width: 1px;
-  height: 26%;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgb(244 240 232 / 0.45) 42%,
-    rgb(244 240 232 / 0.7) 50%,
-    rgb(244 240 232 / 0.45) 58%,
-    transparent 100%
-  );
-  opacity: 0;
-  pointer-events: none;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .bio-decide::before { animation: bseg-travel 7s cubic-bezier(.45, 0, .35, 1) infinite; }
-}
-/* translateY em % é relativo à ALTURA DO PRÓPRIO elemento (20% do pai),
-   não à altura do pai — por isso os valores grandes: -100% (próprio
-   tamanho) = encostado logo acima do topo do pai; 600% = 120% do pai,
-   bem abaixo da base. Entre os dois, cobre o pai inteiro, de cima a
-   baixo, uma vez por ciclo. */
-/* Halo com 34% da altura do pai: -100% = inteiro acima da linha; 400% =
-   inteiro abaixo dela. O fade acontece nas pontas, então a entrada e a
-   saída são delicadas, sem corte visível. */
-@keyframes bseg-travel {
-  0% { transform: translateY(-100%); opacity: 0; }
-  18% { opacity: 1; }
-  72% { opacity: 1; }
-  100% { transform: translateY(400%); opacity: 0; }
-}
 .bseg__fill {
   position: absolute;
   inset: 0;
