@@ -257,29 +257,38 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   .bact[data-row='2'] .bseg__fill { animation: bio-path-2 3.6s linear infinite; }
   .bact[data-row='3'] .bseg__fill { animation: bio-path-3 3.6s linear infinite; }
 }
+/* Só clip-path (nunca opacity junto): no instante exato da virada do
+   loop, 0% e 100% têm o MESMO valor computado — início e fim idênticos,
+   loop sem costura por construção. Duas propriedades mudando juntas na
+   emenda (como era antes, com opacity) é que causava a piscada: nada
+   garante que o navegador resolva clip-path e opacity no mesmo quadro
+   exatamente na virada. Com uma propriedade só, não há essa janela. */
 @keyframes bio-path-q {
-  0% { clip-path: inset(0 0 100% 0); opacity: 1; }
+  0% { clip-path: inset(0 0 100% 0); }
   12% { clip-path: inset(0 0 0% 0); }
-  84% { clip-path: inset(0 0 0% 0); opacity: 1; }
-  100% { clip-path: inset(0 0 0% 0); opacity: 0; }
+  72% { clip-path: inset(0 0 0% 0); }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
 }
 @keyframes bio-path-1 {
-  0%, 12% { clip-path: inset(0 0 100% 0); opacity: 1; }
+  0%, 12% { clip-path: inset(0 0 100% 0); }
   32% { clip-path: inset(0 0 0% 0); }
-  84% { clip-path: inset(0 0 0% 0); opacity: 1; }
-  100% { clip-path: inset(0 0 0% 0); opacity: 0; }
+  72% { clip-path: inset(0 0 0% 0); }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
 }
 @keyframes bio-path-2 {
-  0%, 32% { clip-path: inset(0 0 100% 0); opacity: 1; }
+  0%, 32% { clip-path: inset(0 0 100% 0); }
   52% { clip-path: inset(0 0 0% 0); }
-  84% { clip-path: inset(0 0 0% 0); opacity: 1; }
-  100% { clip-path: inset(0 0 0% 0); opacity: 0; }
+  72% { clip-path: inset(0 0 0% 0); }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
 }
 @keyframes bio-path-3 {
-  0%, 52% { clip-path: inset(0 0 100% 0); opacity: 1; }
+  0%, 52% { clip-path: inset(0 0 100% 0); }
   72% { clip-path: inset(0 0 0% 0); }
-  84% { clip-path: inset(0 0 0% 0); opacity: 1; }
-  100% { clip-path: inset(0 0 0% 0); opacity: 0; }
+  88% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
 }
 
 /* padding-left descola a coluna inteira (tique + linha + título + botões)
