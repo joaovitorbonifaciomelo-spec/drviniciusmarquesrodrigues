@@ -233,52 +233,18 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   background: var(--track);
   transform-origin: top;
 }
+/* Mesmo mecanismo do site (percurso da Autoridade Próxima): a linha não
+   "brilha passando" — ela PREENCHE. Em repouso, .bact[data-row='1']
+   abaixo já mostra um preenchimento parcial até o tique (aponta pra
+   "Agendar consulta" por padrão); ao tocar/passar o mouse num destino,
+   bio.js marca data-intent-row no .bio e o preenchimento avança até lá
+   (ver regras mais abaixo). Sem elemento/ animação separada por cima. */
 .bseg__fill {
   position: absolute;
   inset: 0;
   background: var(--ink);
   clip-path: inset(0 0 100% 0);
-  transition: clip-path 200ms var(--ease-orient);
-}
-
-/* A animação é o PRÓPRIO traço, não uma camada separada: ::after nasce
-   dentro de cada .bseg (nunca existe fora dele, então nunca aparece nos
-   vãos entre os botões) e é só uma variação de brilho sobre o traço-base
-   — sem largura extra, sem blur, sem glow por trás. Cada segmento tem
-   sua própria animação, com atraso crescente pra sensação de um único
-   pulso de luz descendo o caminho inteiro. */
-.bseg::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 1px;
-  height: 36%;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgb(244 240 232 / 0.55) 42%,
-    rgb(244 240 232 / 0.85) 50%,
-    rgb(244 240 232 / 0.55) 58%,
-    transparent 100%
-  );
-  opacity: 0;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .bseg::after { animation: bseg-pulse 2.6s ease-in-out infinite; }
-  .bio-q .bseg::after { animation-delay: 0s; }
-  .bact[data-row='1'] .bseg::after { animation-delay: 0.5s; }
-  .bact[data-row='2'] .bseg::after { animation-delay: 1s; }
-  .bact[data-row='3'] .bseg::after { animation-delay: 1.5s; }
-}
-/* translateY em % é relativo à altura do PRÓPRIO ::after (36% do seu
-   .bseg) — por isso os valores grandes: -100% = encostado acima do
-   início do segmento; 380% cobre o segmento inteiro até sair por baixo. */
-@keyframes bseg-pulse {
-  0% { transform: translateY(-100%); opacity: 0; }
-  22% { opacity: 1; }
-  78% { opacity: 1; }
-  100% { transform: translateY(380%); opacity: 0; }
+  transition: clip-path 260ms var(--ease-orient);
 }
 
 /* padding-left descola a coluna inteira (tique + linha + título + botões)
@@ -286,13 +252,6 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
    "colada na parede". Desloca tique/linha/texto juntos, como um bloco,
    pra não desconectar as marcações da linha. */
 .bio-decide { position: relative; padding-left: 0.5rem; }
-.bseg__fill {
-  position: absolute;
-  inset: 0;
-  background: var(--ink);
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 200ms var(--ease-orient);
-}
 
 .bio-q {
   position: relative;
