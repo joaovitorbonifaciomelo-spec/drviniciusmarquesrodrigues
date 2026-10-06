@@ -357,7 +357,7 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   border: 0;
   border-bottom: 1px solid rgb(244 240 232 / 0.18);
   color: var(--ink);
-  transition: opacity 160ms var(--ease-orient), background-color var(--release) var(--ease-orient);
+  transition: opacity 160ms var(--ease-orient), background-color var(--release) var(--ease-orient), color var(--release) var(--ease-orient);
 }
 .bact__tick {
   position: absolute;
@@ -429,7 +429,12 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   border-color: rgb(244 240 232 / 0.3);
   transition-duration: var(--press);
 }
-.bact--primary.is-intent .bact__link { background-color: #0f2838; transition-duration: var(--press); }
+/* Fundo e texto invertem JUNTOS (mesmo padrão do .cta--light em
+   controls.css) — só trocar o fundo pra um azul escuro mantendo o texto
+   em --c-azul (também escuro) deixava o botão quase ilegível bem no
+   instante do toque/hover: exatamente o "título some" visto no vídeo do
+   cliente ao voltar pro /bio/ com o cursor sobre "Agendar". */
+.bact--primary.is-intent .bact__link { background-color: #0f2838; color: var(--c-marfim); transition-duration: var(--press); }
 
 /* 3. o filme responde: enquadramento muda discretamente, a legenda aparece */
 .bio[data-intent='consultation'] .bio-stage__inner { transform: scale(1.035); }
