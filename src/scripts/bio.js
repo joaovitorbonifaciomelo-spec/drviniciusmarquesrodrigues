@@ -14,6 +14,20 @@ import { initVideo } from './ui/video.js';
 window.__motionReady = true; // a página não depende de html.motion (ver layout.mjs)
 initVideo({ defer: true });
 
+/* A sequência de chegada (bio.css: bio-arrive/bio-draw/bio-tick) só deve
+ * tocar uma vez na vida da página. html.bio-drawn trava isso (mesmo
+ * padrão do html.intro-done no site principal) — sem essa marca, um
+ * retorno ao /bio/ vindo de segundo plano (voltar do WhatsApp/Maps com o
+ * app suspenso) pode fazer o Safari repintar os elementos no estado
+ * inicial da animação por um quadro antes de corrigir, e a linha lê
+ * como "quebrada" numa das ações. 1.8s cobre a chegada mais longa
+ * (bio-arrive, 1.6s) com folga; se a aba já estava em segundo plano
+ * nesse intervalo, o timer só dispara quando ela volta — mas a marca já
+ * está salva no estado da página (bfcache preserva isso), então um
+ * retorno depois desse ponto nunca mais reexecuta a animação.
+ */
+setTimeout(() => document.documentElement.classList.add('bio-drawn'), 1800);
+
 /* ---------------------------------------------------------------- 2. intenção */
 
 const root = document.querySelector('[data-bio]');

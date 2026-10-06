@@ -465,18 +465,25 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 /* Sem esconder nada: o filme assenta e a linha desce até a ação principal
    (≈ 1 s). O conteúdo está legível e clicável desde o 1º quadro. */
 
+/* :not(.bio-drawn) — a chegada toca uma única vez na vida da página. Sem
+   essa trava, um retorno ao /bio/ (voltando do WhatsApp/Maps, app
+   suspenso e retomado) pode fazer o Safari mobile repintar os elementos
+   no estado "ainda não desenhado" (scale 0) por um quadro antes de
+   corrigir — a linha lia como "quebrada" numa das ações. bio.js marca
+   html.bio-drawn depois que a sequência termina — mesmo padrão do
+   html.intro-done usado no site principal (hero-authority.css). */
 @media (prefers-reduced-motion: no-preference) {
-  .scene--bio,
-  .bio-stage__inner > .media__pic { animation: bio-arrive 1.6s var(--ease-calm) both; }
-  .bio-q .bseg { animation: bio-draw 320ms var(--ease-orient) 360ms both; }
-  .bact .bseg { animation: bio-draw 300ms var(--ease-orient) both; }
-  .bact[data-row='1'] .bseg { animation-delay: 620ms; }
-  .bact[data-row='2'] .bseg { animation-delay: 700ms; }
-  .bact[data-row='3'] .bseg { animation-delay: 780ms; }
-  .bact__tick { animation: bio-tick 260ms var(--ease-orient) both; }
-  .bact[data-row='1'] .bact__tick { animation-delay: 700ms; }
-  .bact[data-row='2'] .bact__tick { animation-delay: 780ms; }
-  .bact[data-row='3'] .bact__tick { animation-delay: 860ms; }
+  html:not(.bio-drawn) .scene--bio,
+  html:not(.bio-drawn) .bio-stage__inner > .media__pic { animation: bio-arrive 1.6s var(--ease-calm) both; }
+  html:not(.bio-drawn) .bio-q .bseg { animation: bio-draw 320ms var(--ease-orient) 360ms both; }
+  html:not(.bio-drawn) .bact .bseg { animation: bio-draw 300ms var(--ease-orient) both; }
+  html:not(.bio-drawn) .bact[data-row='1'] .bseg { animation-delay: 620ms; }
+  html:not(.bio-drawn) .bact[data-row='2'] .bseg { animation-delay: 700ms; }
+  html:not(.bio-drawn) .bact[data-row='3'] .bseg { animation-delay: 780ms; }
+  html:not(.bio-drawn) .bact__tick { animation: bio-tick 260ms var(--ease-orient) both; }
+  html:not(.bio-drawn) .bact[data-row='1'] .bact__tick { animation-delay: 700ms; }
+  html:not(.bio-drawn) .bact[data-row='2'] .bact__tick { animation-delay: 780ms; }
+  html:not(.bio-drawn) .bact[data-row='3'] .bact__tick { animation-delay: 860ms; }
 }
 @keyframes bio-arrive { from { transform: scale(1.05); } to { transform: none; } }
 @keyframes bio-draw { from { scale: 1 0; } to { scale: 1 1; } }
