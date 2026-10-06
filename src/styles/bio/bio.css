@@ -233,18 +233,48 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   background: var(--track);
   transform-origin: top;
 }
-/* Mesmo mecanismo do site (percurso da Autoridade Próxima): a linha não
-   "brilha passando" — ela PREENCHE. Em repouso, .bact[data-row='1']
-   abaixo já mostra um preenchimento parcial até o tique (aponta pra
-   "Agendar consulta" por padrão); ao tocar/passar o mouse num destino,
-   bio.js marca data-intent-row no .bio e o preenchimento avança até lá
-   (ver regras mais abaixo). Sem elemento/ animação separada por cima. */
+/* Preenchimento em loop, independente de toque/hover: o caminho inteiro
+   (pergunta → Agendar → Como chegar → Acessar o site) enche em sequência,
+   do início ao fim, segura cheio por um instante, desaparece e recomeça
+   — um movimento contínuo e sem fim, não uma resposta a interação. Os
+   4 segmentos usam o MESMO ciclo de 6s (sem delay entre si: são 4
+   @keyframes diferentes, cada um "esperando" a sua vez dentro do mesmo
+   relógio), então a sensação é de um traço único percorrendo tudo. */
 .bseg__fill {
   position: absolute;
   inset: 0;
   background: var(--ink);
   clip-path: inset(0 0 100% 0);
-  transition: clip-path 260ms var(--ease-orient);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bio-q .bseg__fill { animation: bio-path-q 6s ease-in-out infinite; }
+  .bact[data-row='1'] .bseg__fill { animation: bio-path-1 6s ease-in-out infinite; }
+  .bact[data-row='2'] .bseg__fill { animation: bio-path-2 6s ease-in-out infinite; }
+  .bact[data-row='3'] .bseg__fill { animation: bio-path-3 6s ease-in-out infinite; }
+}
+@keyframes bio-path-q {
+  0% { clip-path: inset(0 0 100% 0); opacity: 1; }
+  12% { clip-path: inset(0 0 0% 0); }
+  84% { clip-path: inset(0 0 0% 0); opacity: 1; }
+  100% { clip-path: inset(0 0 0% 0); opacity: 0; }
+}
+@keyframes bio-path-1 {
+  0%, 12% { clip-path: inset(0 0 100% 0); opacity: 1; }
+  32% { clip-path: inset(0 0 0% 0); }
+  84% { clip-path: inset(0 0 0% 0); opacity: 1; }
+  100% { clip-path: inset(0 0 0% 0); opacity: 0; }
+}
+@keyframes bio-path-2 {
+  0%, 32% { clip-path: inset(0 0 100% 0); opacity: 1; }
+  52% { clip-path: inset(0 0 0% 0); }
+  84% { clip-path: inset(0 0 0% 0); opacity: 1; }
+  100% { clip-path: inset(0 0 0% 0); opacity: 0; }
+}
+@keyframes bio-path-3 {
+  0%, 52% { clip-path: inset(0 0 100% 0); opacity: 1; }
+  72% { clip-path: inset(0 0 0% 0); }
+  84% { clip-path: inset(0 0 0% 0); opacity: 1; }
+  100% { clip-path: inset(0 0 0% 0); opacity: 0; }
 }
 
 /* padding-left descola a coluna inteira (tique + linha + título + botões)
@@ -265,7 +295,6 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   text-shadow: 0 1px 24px rgb(22 52 71 / 0.35);
 }
 .bio-q .bseg { top: -0.5rem; bottom: 0; }
-.bio-q .bseg__fill { clip-path: inset(0 0 0 0); }
 .bio-q__tick {
   position: absolute;
   left: 0;
@@ -360,14 +389,9 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 .bact__link:focus-visible { outline-color: var(--c-marfim); outline-offset: 2px; }
 
 /* ---------------------------------------------------------------- INTENÇÃO */
-/* Tudo reage junto e rápido; nada espera. */
-
-/* 1. a linha se redireciona para o destino escolhido */
-.bact[data-row='1'] .bseg__fill { clip-path: inset(0 0 calc(100% - var(--tick-y)) 0); }
-.bio[data-intent-row='2'] .bact[data-row='1'] .bseg__fill,
-.bio[data-intent-row='3'] .bact:is([data-row='1'], [data-row='2']) .bseg__fill { clip-path: inset(0 0 0 0); }
-.bio[data-intent-row='2'] .bact[data-row='2'] .bseg__fill,
-.bio[data-intent-row='3'] .bact[data-row='3'] .bseg__fill { clip-path: inset(0 0 calc(100% - var(--tick-y)) 0); }
+/* Tudo reage junto e rápido; nada espera. A linha (.bseg__fill) NÃO
+   reage mais a toque/hover — ela só vive no loop automático acima; o
+   que responde ao toque é só o botão em si (contraste, tique, seta). */
 
 /* 2. o destino responde; os outros cedem contraste */
 .bio[data-intent] .bact:not(.is-intent):not(.bact--primary) .bact__link { opacity: 0.55; }
