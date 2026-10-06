@@ -247,10 +247,15 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   clip-path: inset(0 0 100% 0);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .bio-q .bseg__fill { animation: bio-path-q 6s ease-in-out infinite; }
-  .bact[data-row='1'] .bseg__fill { animation: bio-path-1 6s ease-in-out infinite; }
-  .bact[data-row='2'] .bseg__fill { animation: bio-path-2 6s ease-in-out infinite; }
-  .bact[data-row='3'] .bseg__fill { animation: bio-path-3 6s ease-in-out infinite; }
+  /* linear (não ease-in-out): cada trecho crescia e freava na própria
+     ponta — na emenda com o próximo segmento (que começava do zero outra
+     vez) aquilo lia como uma pausa. Em velocidade constante, o fim de um
+     trecho e o início do próximo colam sem desacelerar, e o traço lê
+     como um movimento só. Ciclo mais curto (3.6s) = mais rápido também. */
+  .bio-q .bseg__fill { animation: bio-path-q 3.6s linear infinite; }
+  .bact[data-row='1'] .bseg__fill { animation: bio-path-1 3.6s linear infinite; }
+  .bact[data-row='2'] .bseg__fill { animation: bio-path-2 3.6s linear infinite; }
+  .bact[data-row='3'] .bseg__fill { animation: bio-path-3 3.6s linear infinite; }
 }
 @keyframes bio-path-q {
   0% { clip-path: inset(0 0 100% 0); opacity: 1; }
