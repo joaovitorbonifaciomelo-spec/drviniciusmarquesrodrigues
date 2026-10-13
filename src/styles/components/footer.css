@@ -81,6 +81,19 @@
 }
 .ft__legal a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 
+/* Crédito da agência — texto + selo, sem o sublinhado dos links legais
+   (a marca já carrega o próprio peso visual). */
+.ft__credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4375rem;
+  color: inherit;
+  text-decoration: none;
+  transition: opacity var(--dur-3) var(--ease-orient);
+}
+.ft__credit:hover { opacity: 0.68; }
+.ft__credit-mark { flex: none; width: auto; height: 0.8125rem; color: var(--c-azul); }
+
 @media (min-width: 1024px) {
   .ft {
     padding-top: var(--s-10);

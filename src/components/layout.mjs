@@ -8,6 +8,7 @@ import { html, raw, attrs, text } from '../../tools/lib/html.mjs';
 import { site, bookingHref } from '../content/site.mjs';
 import { wordmark, wordmarkSprite } from './wordmark.mjs';
 import { cta, icon } from './ui.mjs';
+import { bonifacioMark, BONIFACIO_URL } from './bonifacio-mark.mjs';
 
 const v = () => globalThis.__BUILD__?.version ?? '0';
 
@@ -95,6 +96,9 @@ const footer = () => html`<footer class="ft" data-header-tone="light">
     <div class="ft__legal">
       <p>© ${new Date().getFullYear()} ${site.name}</p>
       <a href="/privacidade/">Política de Privacidade</a>
+      <a class="ft__credit" href="${BONIFACIO_URL}" target="_blank" rel="noopener" aria-label="Desenvolvido por Bonifácio (abre em nova aba)">
+        <span>Desenvolvido por</span>${bonifacioMark({ cls: 'ft__credit-mark' })}
+      </a>
     </div>
   </div>
 </footer>`;

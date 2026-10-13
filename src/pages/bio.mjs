@@ -17,6 +17,7 @@ import { bareLayout, registryLine } from '../components/layout.mjs';
 import { wordmark } from '../components/wordmark.mjs';
 import { mediaFor } from '../components/media.mjs';
 import { icon } from '../components/ui.mjs';
+import { bonifacioMark, BONIFACIO_URL } from '../components/bonifacio-mark.mjs';
 import { bio } from '../content/bio.mjs';
 import { site } from '../content/site.mjs';
 
@@ -126,6 +127,9 @@ const body = () => html`<div class="bio" id="top" tabindex="-1" data-bio>
     <footer class="bio-foot">
       <p class="bio-registry">${registryLine()}</p>
       <p class="bio-copy">© ${new Date().getFullYear()} ${site.name}. Todos os direitos reservados.</p>
+      <a class="bio-credit" href="${BONIFACIO_URL}" target="_blank" rel="noopener" aria-label="Desenvolvido por Bonifácio (abre em nova aba)">
+        <span>Desenvolvido por</span>${bonifacioMark({ cls: 'bio-credit-mark' })}
+      </a>
     </footer>
   </div>
 
