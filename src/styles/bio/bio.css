@@ -32,9 +32,10 @@ html[data-page='bio'] body { background: transparent; }
   --top: env(safe-area-inset-top, 0px);
   --bottom: env(safe-area-inset-bottom, 0px);
   /* Enquadramento do vídeo — token único, sobrescrito por breakpoint.
-     Mobile: Dr. Vinicius no quadrante superior direito (a metade inferior
-     fica limpa para a interface). */
-  --bio-focal: 74% 26%;
+     O vídeo real é uma montagem com planos centrados: no celular (tela
+     mais estreita que 9:16) o corte é nas laterais, então x no centro;
+     y alto para os rostos ficarem acima da interface. */
+  --bio-focal: 50% 26%;
   position: relative;
   min-height: 100svh;
   min-height: 100dvh;
@@ -503,7 +504,8 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
    html.intro-done usado no site principal (hero-authority.css). */
 @media (prefers-reduced-motion: no-preference) {
   html:not(.bio-drawn) .scene--bio,
-  html:not(.bio-drawn) .bio-stage__inner > .media__pic { animation: bio-arrive 1.6s var(--ease-calm) both; }
+  html:not(.bio-drawn) .bio-stage__inner > .media__pic,
+  html:not(.bio-drawn) .bio-stage__inner > .media__video { animation: bio-arrive 1.6s var(--ease-calm) both; }
   html:not(.bio-drawn) .bio-q .bseg { animation: bio-draw 320ms var(--ease-orient) 360ms both; }
   html:not(.bio-drawn) .bact .bseg { animation: bio-draw 300ms var(--ease-orient) both; }
   html:not(.bio-drawn) .bact[data-row='1'] .bseg { animation-delay: 620ms; }
@@ -521,7 +523,7 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
 /* ---------------------------------------------------------------- TABLET */
 
 @media (min-width: 600px) and (max-width: 899px) {
-  .bio { --bio-focal: 70% 24%; }
+  .bio { --bio-focal: 50% 24%; }
   .bio-decide,
   .bio-foot { max-width: 30rem; }
 }
@@ -540,7 +542,7 @@ html.video-paused .scene--bio .scene__light { animation-play-state: paused; }
   .bio {
     max-width: 36rem;
     margin-inline: auto;
-    --bio-focal: 70% 24%;
+    --bio-focal: 50% 24%;
   }
   .bio-decide,
   .bio-foot { max-width: 30rem; }

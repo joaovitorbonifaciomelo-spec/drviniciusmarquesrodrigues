@@ -4,7 +4,7 @@
  *    com { defer: true } só começa a baixar depois do load, em tempo ocioso;
  *  · não carrega com movimento reduzido, economia de dados ou rede lenta
  *    (2G/3G) — a experiência continua completa com o pôster;
- *  · fonte por viewport (mobile/desktop), WebM + MP4;
+ *  · fonte por orientação da tela (vertical/horizontal), WebM VP9 + MP4 H.264;
  *  · só cobre o pôster quando está de fato tocando (.is-playing); erro → pôster;
  *  · toca apenas quando visível e quando nenhuma cena o suspendeu;
  *  · botão Pausar/Reproduzir (WCAG 2.2.2) — também controla a cena
@@ -36,16 +36,33 @@ export function canStream() {
   return !c.saveData && !/(^|-)(2g|3g)$/.test(c.effectiveType || '');
 }
 
+/* `codecs` no type: um navegador que aceita o contêiner WebM mas não VP9
+   descarta a fonte na hora, sem baixar nada, e passa direto pro MP4. */
+const FORMATS = [
+  ['webm', 'video/webm; codecs="vp9"'],
+  ['mp4', 'video/mp4; codecs="avc1.640029"'],
+];
+
 function load(video) {
-  const base = window.innerWidth >= 768 ? video.dataset.srcDesktop : video.dataset.srcMobile;
-  for (const [ext, type] of [['webm', 'video/webm'], ['mp4', 'video/mp4']]) {
+  const { srcDesktop, srcMobile, mobileQuery, v } = video.dataset;
+  // Mesma query do <source media> do pôster (components/media.mjs).
+  const base = mobileQuery && matchMedia(mobileQuery).matches ? srcMobile : srcDesktop;
+  const sources = FORMATS.map(([ext, type]) => {
     const s = document.createElement('source');
-    s.src = `${base}.${ext}`;
+    s.src = `${base}.${ext}${v ? `?v=${v}` : ''}`;
     s.type = type;
-    video.appendChild(s);
-  }
+    return video.appendChild(s);
+  });
+  // Uma fonte que falha (formato recusado, 404) só passa a vez à próxima;
+  // o vídeo sai de cena — e o pôster fica — só se a última também falhar
+  // ou se o próprio arquivo escolhido não decodificar.
+  const fail = () => {
+    video.remove();
+    if (state.video === video) state.video = null;
+  };
+  sources[sources.length - 1].addEventListener('error', fail, { once: true });
+  video.addEventListener('error', fail, { once: true });
   video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });
-  video.addEventListener('error', () => video.remove(), { once: true, capture: true });
   video.preload = 'auto';
   video.load();
   video.addEventListener('canplay', sync, { once: true });

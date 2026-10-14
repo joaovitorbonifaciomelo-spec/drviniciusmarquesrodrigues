@@ -17,11 +17,16 @@ const base = (m) => `/media/${m.file}`;
    mesmo nome (comum — ver histórico de correções de imagem) deixa quem
    já visitou o site preso numa cópia antiga em cache (navegador/CDN),
    igual ao bug que já existiu com os módulos JS internos (ver
-   tools/build.mjs → copyScripts). Vídeo (`data-src-desktop/mobile`) não
-   é versionado aqui: hoje são placeholders inativos (`ready: false`) e
-   video.js concatena a extensão depois — ver nota lá quando o vídeo real
-   for ativado. */
+   tools/build.mjs → copyScripts). No vídeo a versão vai em `data-v`,
+   porque video.js concatena a extensão depois do nome. */
 const v = () => globalThis.__BUILD__?.version ?? '0';
+
+/* Vídeo com recorte vertical próprio: escolhido pela ORIENTAÇÃO da tela,
+   não pela largura — o vídeo cobre a tela inteira (object-fit: cover), e
+   um 16:9 num tablet em pé (768×1024) mostraria só ~42% da largura.
+   A mesma query decide o pôster (<source media>) e a fonte (video.js lê
+   `data-mobile-query`), senão a troca pôster→vídeo mudaria de quadro. */
+const VIDEO_MOBILE_QUERY = '(max-aspect-ratio: 1/1)';
 
 /** Direção de arte: quando `m.mobile` existe, é um recorte diferente do
  * desktop (não o mesmo crop redimensionado) — troca por <source media>,
@@ -59,12 +64,18 @@ function picture(m, { sizes = '100vw', priority = false, decorative = false }) {
  */
 function video(m, { sizes = '100vw', priority = false } = {}) {
   const pw = m.posterWidths || [720, 1080];
-  const set = (ext) => pw.map((w) => `${base(m)}-poster-${w}.${ext}?v=${v()} ${w}w`).join(', ');
+  const set = (mm, ext) =>
+    (mm.posterWidths || pw).map((w) => `${base(mm)}-poster-${w}.${ext}?v=${v()} ${w}w`).join(', ');
+  const mob = m.mobile;
   return html`<picture class="media__pic media__poster">
-    <source type="image/avif" srcset="${set('avif')}" sizes="${sizes}">
+    ${mob
+      ? html`<source media="${VIDEO_MOBILE_QUERY}" type="image/avif" srcset="${set(mob, 'avif')}" sizes="100vw">
+    <source media="${VIDEO_MOBILE_QUERY}" srcset="${set(mob, 'jpg')}" sizes="100vw">`
+      : ''}
+    <source type="image/avif" srcset="${set(m, 'avif')}" sizes="${sizes}">
     <img${attrs({
       src: `${base(m)}-poster-${pw[pw.length - 1]}.jpg?v=${v()}`,
-      srcset: set('jpg'),
+      srcset: set(m, 'jpg'),
       sizes,
       width: m.width,
       height: m.height,
@@ -81,8 +92,10 @@ function video(m, { sizes = '100vw', priority = false } = {}) {
     playsinline: true,
     preload: 'none',
     'data-video': '',
-    'data-src-desktop': `${base(m)}-desktop`,
-    'data-src-mobile': `${base(m)}-mobile`,
+    'data-src-desktop': base(m),
+    'data-src-mobile': base(mob || m),
+    'data-mobile-query': mob ? VIDEO_MOBILE_QUERY : null,
+    'data-v': v(),
     'aria-hidden': 'true',
   })}></video>`;
 }

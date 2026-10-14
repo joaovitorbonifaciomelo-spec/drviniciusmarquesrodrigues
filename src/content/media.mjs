@@ -28,49 +28,42 @@
  *     masters/editorial/  → pause (sessão Louvre/Paris)
  *     legacy/             → masters reais já substituídos (preservados)
  *     archive/             → candidatos avaliados e não usados (preservados)
+ *   assets-src/videos/    → heroVideo (hero-desktop, hero-mobile), bioVideo (bio)
  */
 
 export const media = {
-  /* ESTADO PROVISÓRIO (2026-10-01) — ainda sem arquivo de vídeo real
-     (`ready: false`): a cena mostra o tratamento atmosférico padrão
-     (Azul Profundo + luz/grão, já previsto por scene() em components/
-     media.mjs) em vez de qualquer fotografia — este slot é do VÍDEO,
-     não deve reaproveitar a foto de `listening` (Autoridade Próxima) nem
-     nenhuma outra. `hideBrief: true` suprime a legenda de briefing
-     ("Vídeo · plano contínuo...") na versão publicada, mesmo com
-     SHOW_NOTES ativo (ela continua útil durante o desenvolvimento via
-     HIDE_MEDIA_NOTES=1; isso só afeta este slot especificamente).
-     Quando o vídeo real chegar: `ready: true` + hero-desktop/mobile.
-     mp4|webm + pôster extraído do próprio vídeo (hero-poster-*.avif|jpg,
-     NUNCA de outra seção) — o cross-fade pôster→vídeo (só depois de
-     `canplay`, nunca tela vazia, autoplay bloqueado = mantém pôster,
-     respeita prefers-reduced-motion) já está implementado em
-     scripts/ui/video.js, sem mudança nenhuma. */
+  /* VÍDEOS REAIS (2026-10-14) — montagens editadas entregues pelo cliente
+     (masters em assets-src/videos/: hero-desktop.mp4, hero-mobile.mp4,
+     bio.mp4). Derivados em /public/media, sem áudio, 30 fps,
+     cor BT.709 marcada: <file>.webm (VP9, 2 passes, CRF 40) + <file>.mp4
+     (H.264 High, CRF 26, fallback do Safari).
+     Pôster = quadro 0 do próprio vídeo (a troca pôster→vídeo acontece
+     quando ele começa a tocar, do quadro 0 — qualquer outro quadro daria
+     um salto na troca). Vídeo com `mobile` = recorte diferente para tela
+     em pé (fonte e pôster próprios, mesma media query nos dois — ver
+     components/media.mjs); sem `mobile` = uma fonte só para tudo. */
   heroVideo: {
     kind: 'video',
-    ready: false,
-    hideBrief: true,
-    file: 'hero', // hero-desktop.mp4/.webm (16:9, ≤ 6 MB), hero-mobile.mp4/.webm (9:16, ≤ 3 MB) — e hero-poster-*.avif|jpg extraído do próprio vídeo
-    posterWidths: [720, 1080],
+    ready: true,
+    file: 'hero-desktop', // 1920×1080, 26,8 s
+    posterWidths: [960, 1920],
+    width: 1920,
+    height: 1080,
+    mobile: { file: 'hero-mobile', posterWidths: [720, 1080], width: 1080, height: 1920 }, // 1080×1920, 8,3 s
     variant: 'hero',
     alt: 'Dr. Vinicius em atendimento, em um ambiente de luz natural.',
-    brief:
-      'Vídeo · plano contínuo, 12–20 s em loop · Dr. Vinicius trabalhando (análise de exame, escrita, conversa) · luz natural lateral · câmera estável e lenta · médico no terço DIREITO do quadro (o recorte do scroll ancora à direita).',
   },
-  /* /bio/ — presença: fotografia viva num recorte vertical. Não sustenta
-     narrativa; a ação acontece ao lado. Precisa funcionar congelada no pôster. */
+  /* /bio/ — presença: o vídeo é o ambiente inteiro do cartão vertical (em
+     pé em qualquer tela, inclusive no desktop), então uma fonte só. */
   bioVideo: {
     kind: 'video',
-    ready: false,
-    hideBrief: true, // mesma correção do heroVideo — sem legenda de produção na versão publicada
-    file: 'bio', // bio-mobile|desktop.webm/.mp4 (1080×1920, 6–10 s, ≤ 2 MB) + bio-poster-720/1080.avif|jpg
+    ready: true,
+    file: 'bio', // 1080×1920, 18,5 s
     variant: 'bio',
     posterWidths: [720, 1080],
     width: 1080,
     height: 1920,
     alt: '',
-    brief:
-      '9:16 · 6–10 s em loop · sem áudio · Dr. Vinicius em situação real, sem olhar para a câmera · movimento mínimo · luz natural · figura ao centro-direita · elegante também como foto (pôster).',
   },
   /* ATUALIZADO (2026-10-01) — desacoplado de `careOrientation` (abaixo):
      até aqui os dois compartilhavam esta mesma referência, então
