@@ -27,6 +27,9 @@ const v = () => globalThis.__BUILD__?.version ?? '0';
    A mesma query decide o pôster (<source media>) e a fonte (video.js lê
    `data-mobile-query`), senão a troca pôster→vídeo mudaria de quadro. */
 const VIDEO_MOBILE_QUERY = '(max-aspect-ratio: 1/1)';
+/** "1920x1080@30" — video.js pergunta ao navegador se essa variante roda
+ * lisa neste aparelho antes de escolher entre a versão cheia e a leve. */
+const dims = (mm) => `${mm.width}x${mm.height}@${mm.fps || 30}`;
 
 /** Direção de arte: quando `m.mobile` existe, é um recorte diferente do
  * desktop (não o mesmo crop redimensionado) — troca por <source media>,
@@ -94,6 +97,8 @@ function video(m, { sizes = '100vw', priority = false } = {}) {
     'data-video': '',
     'data-src-desktop': base(m),
     'data-src-mobile': base(mob || m),
+    'data-dims-desktop': dims(m),
+    'data-dims-mobile': dims(mob || m),
     'data-mobile-query': mob ? VIDEO_MOBILE_QUERY : null,
     'data-v': v(),
     'aria-hidden': 'true',

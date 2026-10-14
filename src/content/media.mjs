@@ -40,6 +40,9 @@ export const media = {
      (o hero mobile é 60 fps), sem áudio, cor BT.709 marcada:
      <file>.webm (VP9, 2 passes, CRF 28) + <file>.mp4 (H.264 High@4.2,
      CRF 19, tune film — fallback do Safari).
+     + <file>-lite.mp4 (720p, 30 fps, H.264 High@3.1, CRF 22): versão leve
+     para PC antigo/rede lenta — scripts/ui/video.js decide qual usar.
+     `fps` (e width/height) alimentam essa decisão (Media Capabilities).
      Pôster = quadro 0 do próprio vídeo (a troca pôster→vídeo acontece
      quando ele começa a tocar, do quadro 0 — qualquer outro quadro daria
      um salto na troca). Vídeo com `mobile` = recorte diferente para tela
@@ -48,11 +51,12 @@ export const media = {
   heroVideo: {
     kind: 'video',
     ready: true,
-    file: 'hero-desktop', // 1920×1080, 26,8 s
+    file: 'hero-desktop', // 26,8 s
     posterWidths: [960, 1920],
     width: 1920,
     height: 1080,
-    mobile: { file: 'hero-mobile', posterWidths: [720, 1080], width: 1080, height: 1920 }, // 1080×1920, 8,3 s
+    fps: 30,
+    mobile: { file: 'hero-mobile', posterWidths: [720, 1080], width: 1080, height: 1920, fps: 60 }, // 8,3 s
     variant: 'hero',
     alt: 'Dr. Vinicius em atendimento, em um ambiente de luz natural.',
   },
@@ -61,11 +65,12 @@ export const media = {
   bioVideo: {
     kind: 'video',
     ready: true,
-    file: 'bio', // 1080×1920, 18,5 s
+    file: 'bio', // 18,5 s
     variant: 'bio',
     posterWidths: [720, 1080],
     width: 1080,
     height: 1920,
+    fps: 30,
     alt: '',
   },
   /* ATUALIZADO (2026-10-01) — desacoplado de `careOrientation` (abaixo):
