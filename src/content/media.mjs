@@ -34,9 +34,12 @@
 export const media = {
   /* VÍDEOS REAIS (2026-10-14) — montagens editadas entregues pelo cliente
      (masters em assets-src/videos/: hero-desktop.mp4, hero-mobile.mp4,
-     bio.mp4). Derivados em /public/media, sem áudio, 30 fps,
-     cor BT.709 marcada: <file>.webm (VP9, 2 passes, CRF 40) + <file>.mp4
-     (H.264 High, CRF 26, fallback do Safari).
+     bio.mp4). Derivados em /public/media com qualidade visualmente
+     idêntica ao master (pedido do cliente — a 1ª versão, CRF 40, alisava
+     pele e tecidos): mesma resolução e mesma taxa de quadros do original
+     (o hero mobile é 60 fps), sem áudio, cor BT.709 marcada:
+     <file>.webm (VP9, 2 passes, CRF 28) + <file>.mp4 (H.264 High@4.2,
+     CRF 19, tune film — fallback do Safari).
      Pôster = quadro 0 do próprio vídeo (a troca pôster→vídeo acontece
      quando ele começa a tocar, do quadro 0 — qualquer outro quadro daria
      um salto na troca). Vídeo com `mobile` = recorte diferente para tela

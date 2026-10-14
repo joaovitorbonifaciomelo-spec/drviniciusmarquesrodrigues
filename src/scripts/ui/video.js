@@ -40,7 +40,7 @@ export function canStream() {
    descarta a fonte na hora, sem baixar nada, e passa direto pro MP4. */
 const FORMATS = [
   ['webm', 'video/webm; codecs="vp9"'],
-  ['mp4', 'video/mp4; codecs="avc1.640029"'],
+  ['mp4', 'video/mp4; codecs="avc1.64002A"'], // H.264 High@4.2 (1080p a 60 fps)
 ];
 
 function load(video) {
