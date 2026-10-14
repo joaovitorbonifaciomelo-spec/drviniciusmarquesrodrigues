@@ -82,17 +82,21 @@
 .ft__legal a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 
 /* Crédito da agência — texto + selo, sem o sublinhado dos links legais
-   (a marca já carrega o próprio peso visual). */
-.ft__credit {
+   (a marca já carrega o próprio peso visual). Maior que o resto do
+   texto legal de propósito: é uma assinatura, não uma nota de rodapé.
+   `.ft__legal a` (acima) tem especificidade maior que uma classe só —
+   `.ft__legal .ft__credit` empata e vence por vir depois. */
+.ft__legal .ft__credit {
   display: inline-flex;
   align-items: center;
-  gap: 0.4375rem;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
   color: inherit;
   text-decoration: none;
   transition: opacity var(--dur-3) var(--ease-orient);
 }
 .ft__credit:hover { opacity: 0.68; }
-.ft__credit-mark { flex: none; width: auto; height: 0.8125rem; color: var(--c-azul); }
+.ft__credit-mark { flex: none; width: auto; height: 1.625rem; color: var(--c-azul); }
 
 @media (min-width: 1024px) {
   .ft {
